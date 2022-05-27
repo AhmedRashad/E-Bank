@@ -6,6 +6,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "npm run build && node ./build/index.js",
+    "server": "nodemon ./build/index.js",
     "watch": "tsc-watch --esModuleInterop src/index.ts --outDir ./build --onSuccess 'node ./build/index.js'",
     "jasmine": "jasmine",
     "test": "npm run build && jasmine"

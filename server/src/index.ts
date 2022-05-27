@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static("public"));
 app.listen(config.port, () => {
-  console.log(`Server on port ${config.port}`);
+  console.log(`Server on port test 1 ${config.port}`);
 });
 
 // this is just for test 
