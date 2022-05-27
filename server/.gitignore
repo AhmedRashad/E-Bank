@@ -4,3 +4,6 @@
 /.pnp
 .pnp.js
 .env
+
+# ts build folder
+/build

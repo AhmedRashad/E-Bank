@@ -6,7 +6,7 @@ import cors from "cors";
 import colors from "colors";
 import connectDB from "./config/db";
 
-const app = express();
+export const app = express();
 
 app.use(cors(
   {
@@ -24,7 +24,22 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static("public"));
 app.listen(config.port, () => {
-  console.log(`Server on port ${config.port}`.yellow.bold);
+  console.log(`Server on port ${config.port}`);
 });
 
-export default app;
+// this is just for test 
+app.get("/",(_req:express.Request,res:express.Response):void=>{
+  res.json({
+    status:"success",
+    messsage:"this just a test route."
+  });
+})
+
+
+// return 404 for unhandeled routes.
+app.use((_req:express.Request,res:express.Response)=>{
+  res.status(404).json({
+    status:"falid",
+    messsage:"we can't found that request."
+  });
+})
