@@ -44,14 +44,17 @@ const CreateAccount = () => {
 
   return (
     <>
-      <div className="p-4">
+      <div className="p-4 xl:px-52">
         <form onSubmit={handleSubmit}>
           <div className="py-4 sm:px-0">
             <h3 className="text-lg font-bold leading-6 text-gray-900">
               Personal Information
             </h3>
           </div>
-          <div className="shadow overflow-hidden sm:rounded-md">
+          <div
+            className="shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)]
+            overflow-hidden sm:rounded-md"
+          >
             <div className="px-4 py-5 bg-white sm:p-6">
               <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6">
@@ -253,7 +256,10 @@ const CreateAccount = () => {
               Account Information
             </h3>
           </div>
-          <div className="shadow overflow-hidden sm:rounded-md">
+          <div
+            className="shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)]
+              overflow-hidden sm:rounded-md"
+          >
             <div className="px-4 py-5 bg-white sm:p-6">
               <div className="grid grid-cols-6 gap-6">
                 <div className="col-span-6">
