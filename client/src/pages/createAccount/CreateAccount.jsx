@@ -2,44 +2,51 @@ import "./createAccount.css";
 import { useState } from "react";
 
 const CreateAccount = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [age, setAge] = useState("");
-  const [work, setWork] = useState("");
-  const [country, setCountry] = useState("");
-  const [personalId, setPersonalId] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
-  const [streetAddress, setStreetAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [stateProvince, setStateProvince] = useState("");
-  const [zipPostalCode, setZipPostalCode] = useState("");
+  const [formdata, setFormdata] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    age: "",
+    work: "",
+    country: "",
+    personalId: "",
+    dateOfBirth: "",
+    streetAddress: "",
+    city: "",
+    stateProvince: "",
+    zipPostalCode: "",
+    accountName: "",
+    accountNumber: "",
+    currentBalance: "",
+  });
+  const {
+    name,
+    email,
+    phone,
+    age,
+    work,
+    country,
+    personalId,
+    dateOfBirth,
+    streetAddress,
+    city,
+    stateProvince,
+    zipPostalCode,
+    accountName,
+    accountNumber,
+    currentBalance,
+  } = formdata;
 
-  const [accountName, setAccountName] = useState("");
-  const [accountNumber, setAccountNumber] = useState("");
-  const [currentBalance, setCurrentBalance] = useState("");
-
+  const onChange = (e) => {
+    setFormdata((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = {
-      name: e.target.name.value,
-      email: e.target.email.value,
-      phone: e.target.phone.value,
-      age: e.target.age.value,
-      work: e.target.work.value,
-      country: e.target.country.value,
-      personalId: e.target.personalId.value,
-      dateOfBirth: e.target.dateOfBirth.value,
-      streetAddress: e.target.streetAddress.value,
-      city: e.target.city.value,
-      stateProvince: e.target.stateProvince.value,
-      zipPostalCode: e.target.zipPostalCode.value,
-      accountName: e.target.accountName.value,
-      accountNumber: e.target.accountName.value,
-      currentBalance: e.target.currentBalance.value,
-    };
 
-    console.log(data);
+    console.log(formdata);
   };
 
   return (
@@ -67,8 +74,9 @@ const CreateAccount = () => {
                   <input
                     type="text"
                     id="name"
+                    name="name"
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={onChange}
                     className="input"
                   />
                 </div>
@@ -83,8 +91,9 @@ const CreateAccount = () => {
                   <input
                     type="email"
                     id="email"
+                    name="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={onChange}
                     className="input"
                   />
                 </div>
@@ -99,8 +108,9 @@ const CreateAccount = () => {
                   <input
                     type="text"
                     id="phone"
+                    name="phone"
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={onChange}
                     className="input"
                   />
                 </div>
@@ -115,8 +125,9 @@ const CreateAccount = () => {
                   <input
                     type="text"
                     id="age"
+                    name="age"
                     value={age}
-                    onChange={(e) => setAge(e.target.value)}
+                    onChange={onChange}
                     className="input"
                   />
                 </div>
@@ -131,8 +142,9 @@ const CreateAccount = () => {
                   <input
                     type="text"
                     id="personalId"
+                    name="personalId"
                     value={personalId}
-                    onChange={(e) => setPersonalId(e.target.value)}
+                    onChange={onChange}
                     className="input"
                   />
                 </div>
@@ -147,8 +159,9 @@ const CreateAccount = () => {
                   <input
                     type="text"
                     id="dateOfBirth"
+                    name="dateOfBirth"
                     value={dateOfBirth}
-                    onChange={(e) => setDateOfBirth(e.target.value)}
+                    onChange={onChange}
                     className="input"
                   />
                 </div>
@@ -163,8 +176,9 @@ const CreateAccount = () => {
                   <input
                     type="text"
                     id="work"
+                    name="work"
                     value={work}
-                    onChange={(e) => setWork(e.target.value)}
+                    onChange={onChange}
                     className="input"
                   />
                 </div>
@@ -179,8 +193,9 @@ const CreateAccount = () => {
                   <input
                     type="text"
                     id="country"
+                    name="country"
                     value={country}
-                    onChange={(e) => setCountry(e.target.value)}
+                    onChange={onChange}
                     className="input"
                   />
                 </div>
@@ -195,8 +210,9 @@ const CreateAccount = () => {
                   <input
                     type="text"
                     id="streetAddress"
+                    name="streetAddress"
                     value={streetAddress}
-                    onChange={(e) => setStreetAddress(e.target.value)}
+                    onChange={onChange}
                     className="input"
                   />
                 </div>
@@ -211,8 +227,9 @@ const CreateAccount = () => {
                   <input
                     type="text"
                     id="city"
+                    name="city"
                     value={city}
-                    onChange={(e) => setCity(e.target.value)}
+                    onChange={onChange}
                     className="input"
                   />
                 </div>
@@ -227,8 +244,9 @@ const CreateAccount = () => {
                   <input
                     type="text"
                     id="stateProvince"
+                    name="stateProvince"
                     value={stateProvince}
-                    onChange={(e) => setStateProvince(e.target.value)}
+                    onChange={onChange}
                     className="input"
                   />
                 </div>
@@ -243,8 +261,9 @@ const CreateAccount = () => {
                   <input
                     type="text"
                     id="zipPostalCode"
+                    name="zipPostalCode"
                     value={zipPostalCode}
-                    onChange={(e) => setZipPostalCode(e.target.value)}
+                    onChange={onChange}
                     className="input"
                   />
                 </div>
@@ -272,8 +291,9 @@ const CreateAccount = () => {
                   <input
                     type="text"
                     id="accountName"
+                    name="accountName"
                     value={accountName}
-                    onChange={(e) => setAccountName(e.target.value)}
+                    onChange={onChange}
                     className="input"
                   />
                 </div>
@@ -288,8 +308,9 @@ const CreateAccount = () => {
                   <input
                     type="text"
                     id="currentBalance"
+                    name="currentBalance"
                     value={currentBalance}
-                    onChange={(e) => setCurrentBalance(e.target.value)}
+                    onChange={onChange}
                     className="input"
                   />
                 </div>
@@ -304,8 +325,9 @@ const CreateAccount = () => {
                   <input
                     type="text"
                     id="accountNumber"
+                    name="accountNumber"
                     value={accountNumber}
-                    onChange={(e) => setAccountNumber(e.target.value)}
+                    onChange={onChange}
                     className="input"
                   />
                 </div>
