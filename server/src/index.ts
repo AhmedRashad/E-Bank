@@ -37,7 +37,7 @@ app.get("/",(_req:express.Request,res:express.Response):void=>{
 
 
 // return 404 for unhandeled routes.
-app.use((_req:express.Request,res:express.Response)=>{
+app.use((_req:express.Request,res:express.Response):void=>{
   res.status(404).json({
     status:"falid",
     messsage:"we can't found that request."
