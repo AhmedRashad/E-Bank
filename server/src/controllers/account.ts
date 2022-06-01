@@ -60,24 +60,6 @@ export const deleteAccount = expressAsyncHandler(
 // @desc   transfer money to another account
 // @route  PUT /api/accounts/:id/transfer
 // @access Private
-export const transferMoney = expressAsyncHandler(
-    async (req: express.Request, res: express.Response) => {
-        const account = await Account.findById(req.params.id);
-        const { amount } = req.body;
-        if (account.amount < amount) {
-            return res.status(400).json({
-                success: false,
-                message: "Insufficient funds",
-            });
-        }
-        account.amount -= amount;
-        await account.save();
-        res.status(200).json({
-            success: true,
-            message: "Money transfered successfully",
-        });
-    }
-);
 
 
 
