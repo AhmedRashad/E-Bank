@@ -1,17 +1,20 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import CreateAccount from "./pages/createAccount/CreateAccount";
-import Home from "./pages/home/Home";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// Pages
+import HomePage from "./pages/HomePage";
+import Signin from "./pages/Login";
+import Signup from "./pages/Register";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
+      <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/createAccount" element={<CreateAccount />} />
+          <Route exact path="/" element={<HomePage />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
-      </BrowserRouter>
+      </Router>
     </>
   );
 }
