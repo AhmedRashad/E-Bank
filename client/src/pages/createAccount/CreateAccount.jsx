@@ -1,11 +1,14 @@
 import "./createAccount.css";
+import { useDispatch } from "react-redux";
+import { addAccount } from "../../features/account/accountSlice";
 import { Form, Field, Formik, ErrorMessage } from "formik";
-import { ToastContainer, toast } from "react-toastify";
 
 import { CreateAccountSchema } from "../../validations/Validations";
 import { InitialValues } from "./InitialValues";
 
 const CreateAccount = () => {
+  const dispactch = useDispatch();
+
   return (
     <>
       <div className="containerCreatAccount">
@@ -13,15 +16,13 @@ const CreateAccount = () => {
           initialValues={InitialValues}
           validationSchema={CreateAccountSchema}
           onSubmit={(values, actions) => {
-            alert(JSON.stringify(values, null, 2));
-            toast("Data");
+            dispactch(addAccount(values));
             actions.resetForm({ values: InitialValues });
           }}
         >
           {({ values, handleChange, handleBlur }) => (
             <Form>
               <div className="py-4 sm:px-0">
-                <ToastContainer />
                 <h3 className="text-lg font-bold leading-6 text-gray-900">
                   Personal Information
                 </h3>
