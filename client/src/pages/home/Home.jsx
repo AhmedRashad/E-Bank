@@ -8,6 +8,9 @@ const Home = () => {
       <Link to="/createAccount">
         <button className="btn bg-indigo-600">Create Account</button>
       </Link>
+      <Link to="/signin">
+        <button className="btn bg-indigo-600">Login</button>
+      </Link>
     </div>
   );
 };
