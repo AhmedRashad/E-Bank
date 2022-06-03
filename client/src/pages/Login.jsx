@@ -6,8 +6,11 @@ export default function Login(props) {
   return (
     <>
       <main className="min-h-screen px-4 bg-[url('images/pattern.jpg')] bg-cover">
-        <div className="min-h-screen max-w-prose bg-white mx-auto flex items-center justify-center">
+        <div className="min-h-screen max-w-prose bg-white mx-auto flex items-center justify-center shadow-xl">
           <form className="w-4/5 space-y-8 py-4">
+            {/* LOGO */}
+            <div className="logo w-full text-center">E-Bank</div>
+            
             {/* Quick Login */}
             <a
               className="px-7 py-3 text-gray-700 border-[1px] border-gray-700 font-medium text-xs md:text-base leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center mb-3 "

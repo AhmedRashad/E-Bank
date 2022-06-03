@@ -1,13 +1,27 @@
 import React from "react";
+import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 
 export default function Signup() {
     return (<>
         <main className="min-h-screen px-4 bg-[url('images/pattern.jpg')] bg-cover">
-            <div className="min-h-screen max-w-prose bg-white mx-auto flex items-center justify-center">
+            <div className="min-h-screen max-w-prose bg-white mx-auto flex items-center justify-center shadow-xl">
                 <form className="w-4/5 space-y-8 py-4">
                     {/* LOGO */}
-                    <div className="logo w-full text-center">E-Bank</div>   
+                    <div className="logo w-full text-center">E-Bank</div>
+
+                    {/* Quick Login */}
+                    <a
+                    className="px-7 py-3 text-gray-700 border-[1px] border-gray-700 font-medium text-xs md:text-base leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center mb-3 "
+                    href="#!"
+                    >
+                    <FcGoogle className="w-3.5 h-3.5 mr-2" /> Continue with Google
+                    </a>
+
+                    {/* Divider */}
+                    <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
+                        <p className="text-center text-slate-500 font-semibold mx-4 mb-0">OR</p>
+                    </div>
 
                     {/* Fullname input  */}
                     <div className="relative">
@@ -43,6 +57,7 @@ export default function Signup() {
                     <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
                         <p className="text-center text-slate-500 font-semibold mx-4 mb-0">OR</p>
                     </div>
+                    {/* Login Link */}
                     <div className="w-full text-center">Already have account? <Link className="text-blue-500 underline" to={'/signin'}>Sign in</Link></div>
                 </form>
             </div>
