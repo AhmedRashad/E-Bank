@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 // schema bank account
 const accountSchema = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
     required: [true, "please enter name"],
   },
@@ -9,18 +9,9 @@ const accountSchema = new mongoose.Schema({
     type: String,
     required: [true, "please enter email"],
   },
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-  id_government: {
+  phone: {
     type: String,
-    required: [true, "please enter government id"],
-  },
-  user_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
+    required: [true, "please enter phone"],
   },
   birth_date: {
     type: Date,
@@ -30,13 +21,37 @@ const accountSchema = new mongoose.Schema({
     type: String,
     required: [true, "please enter work"],
   },
-  address: {
+  country: {
     type: String,
-    required: [true, "please enter address"],
+    required: [true, "please enter country"],
   },
-  phone: {
+  streetAddress: {
     type: String,
-    required: [true, "please enter phone"],
+    required: [true, "please enter street address"],
+  },
+  city: {
+    type: String,
+    required: [true, "please enter city"],
+  },
+  stateProvince: {
+    type: String,
+    required: [true, "please enter state province"],
+  },
+  zipPostalCode: {
+    type: String,
+    required: [true, "please enter zip postal code"],
+  },
+  id_government: {
+    type: String,
+    required: [true, "please enter government id"],
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
   account_name: {
     type: String,
@@ -46,7 +61,7 @@ const accountSchema = new mongoose.Schema({
     type: String,
     required: [true, "please enter account number"],
   },
-  amount: {
+  current_balance: {
     type: Number,
     default: 0,
     required: [true, "please enter amount"],
