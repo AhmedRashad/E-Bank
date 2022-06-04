@@ -21,12 +21,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
-<<<<<<< HEAD
-app.use(express.static("public"));
-=======
 app.use("/api/accounts", accountRouter);
 
->>>>>>> upstream/master
 app.listen(config.port, () => {
   console.log(`Server on port ${config.port}`);
 });
@@ -40,11 +36,7 @@ app.get("/", (_req: express.Request, res: express.Response): void => {
 });
 
 // return 404 for unhandeled routes.
-<<<<<<< HEAD
-app.use((_req:express.Request,res:express.Response):void=>{
-=======
 app.use((_req: express.Request, res: express.Response) => {
->>>>>>> upstream/master
   res.status(404).json({
     status: "falid",
     messsage: "we can't found that request.",
