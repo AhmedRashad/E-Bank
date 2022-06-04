@@ -21,7 +21,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
-
 app.use(express.static("public"));
 app.listen(config.port, () => {
   console.log(`Server on port test 1 ${config.port}`);
