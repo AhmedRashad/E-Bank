@@ -33,7 +33,7 @@ const CreateAccount = () => {
           validationSchema={CreateAccountSchema}
           onSubmit={(values, actions) => {
             dispactch(addAccount(values));
-            actions.resetForm({ values: InitialValues });
+            actions.resetForm();
 
             if (isSuccess) {
               toast.success("Data saved");
