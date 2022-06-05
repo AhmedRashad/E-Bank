@@ -1,7 +1,16 @@
+
 @tailwind components;
 
 @layer {
-  .item-container {
+  .sidbar-logo {
+    @apply
+    rounded-2xl
+    bg-black
+    py-px
+    mb-5
+  }
+
+  .sidbar-item-container {
     @apply
       flex
       items-center
@@ -15,7 +24,7 @@
       dark:hover:bg-gray-700
   }
 
-  .icon {
+  .sidbar-icon {
     @apply
     h-6
     w-6
@@ -27,7 +36,7 @@
     dark:group-hover:text-white
   }
 
-  .item {
+  .sidbar-item {
     @apply
     ml-3
     flex-1
@@ -38,4 +47,5 @@
     @apply
     bg-gray-200
   }
+
 }
