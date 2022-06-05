@@ -3,6 +3,8 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import connectDB from "./config/db";
+import UserRouter from "./routes/userRouts";
+
 
 const accountRouter = require("./routes/account");
 
@@ -34,6 +36,8 @@ app.get("/", (_req: express.Request, res: express.Response): void => {
     messsage: "this just a test route.",
   });
 });
+
+app.use("/user",UserRouter)
 
 // return 404 for unhandeled routes.
 app.use((_req: express.Request, res: express.Response) => {
