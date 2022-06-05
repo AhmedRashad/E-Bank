@@ -6,6 +6,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
+import "flowbite";
 
 const container = document.getElementById("root");
 const root = createRoot(container);

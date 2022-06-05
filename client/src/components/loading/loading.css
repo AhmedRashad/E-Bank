@@ -1,0 +1,27 @@
+@tailwind components;
+
+@layer components {
+  .loading {
+    @apply
+    flex
+    justify-center
+    items-center
+    w-screen
+    h-screen
+    top-0
+    left-0
+    fixed
+  }
+
+  .svg {
+    @apply
+    inline
+        w-12
+        h-12
+        text-gray-400
+        animate-spin
+        dark:text-gray-800
+        fill-gray-800
+        dark:fill-gray-400
+  }
+}

@@ -1,34 +1,58 @@
 import "./createAccount.css";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Field, Formik, ErrorMessage } from "formik";
+
 import { ToastContainer, toast } from "react-toastify";
 
+import { addAccount } from "../../features/account/accountSlice";
 import { CreateAccountSchema } from "../../validations/Validations";
 import { InitialValues } from "./InitialValues";
+import Loading from "../../components/loading/Loading";
 
 const CreateAccount = () => {
+  const dispactch = useDispatch();
+  const { isError, isSuccess, isLoading } = useSelector(
+    (state) => state.account
+  );
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Data saved");
+    } else if (isError) {
+      toast.error("Connection Failed");
+    }
+  }, [isError, isSuccess]);
+
   return (
     <>
       <div className="containerCreatAccount">
+        <ToastContainer />
         <Formik
           initialValues={InitialValues}
           validationSchema={CreateAccountSchema}
           onSubmit={(values, actions) => {
-            alert(JSON.stringify(values, null, 2));
-            toast("Data");
-            actions.resetForm({ values: InitialValues });
+            dispactch(addAccount(values));
+            actions.resetForm();
+
+            if (isSuccess) {
+              toast.success("Data saved");
+            } else if (isError) {
+              toast.error("Connection Failed");
+            }
           }}
         >
           {({ values, handleChange, handleBlur }) => (
             <Form>
+              {isLoading && <Loading />}
               <div className="py-4 sm:px-0">
-                <ToastContainer />
                 <h3 className="text-lg font-bold leading-6 text-gray-900">
                   Personal Information
                 </h3>
               </div>
               <div
                 className="shadow-[0_10px_25px_-15px_rgba(0,0,0,0.3)]
-            overflow-hidden sm:rounded-md"
+                    overflow-hidden sm:rounded-md"
               >
                 <div className="px-4 py-5 bg-white sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
