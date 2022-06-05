@@ -1,0 +1,51 @@
+
+@tailwind components;
+
+@layer {
+  .sidbar-logo {
+    @apply
+    rounded-2xl
+    bg-black
+    py-px
+    mb-5
+  }
+
+  .sidbar-item-container {
+    @apply
+      flex
+      items-center
+      rounded-lg
+      p-2
+      text-base
+      font-normal
+      text-gray-900
+      hover:bg-gray-200
+      dark:text-white
+      dark:hover:bg-gray-700
+  }
+
+  .sidbar-icon {
+    @apply
+    h-6
+    w-6
+    flex-shrink-0
+    text-gray-500
+    transition duration-75
+    group-hover:text-gray-900
+    dark:text-gray-400
+    dark:group-hover:text-white
+  }
+
+  .sidbar-item {
+    @apply
+    ml-3
+    flex-1
+    whitespace-nowrap
+  }
+
+  .active {
+    @apply
+    bg-gray-200
+  }
+
+}
