@@ -52,7 +52,7 @@ const CreateAccount = () => {
               </div>
               <div
                 className="shadow-[0_10px_25px_-15px_rgba(0,0,0,0.3)]
-            overflow-hidden sm:rounded-md"
+                    overflow-hidden sm:rounded-md"
               >
                 <div className="px-4 py-5 bg-white sm:p-6">
                   <div className="grid grid-cols-6 gap-6">
