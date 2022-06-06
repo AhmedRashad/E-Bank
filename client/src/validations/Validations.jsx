@@ -5,13 +5,17 @@ export const CreateAccountSchema = Yup.object().shape({
 
   email: Yup.string().email().required("Email is Required"),
 
-  phone: Yup.string().length(11).required("Phone is Required"),
+  phone: Yup.string()
+    .matches(/^[0-9]{11}$/, "Must be exactly 11 number")
+    .required("Phone is Required"),
 
   work: Yup.string().required("Work is Required"),
 
   country: Yup.string().required("Country is Required"),
 
-  id_government: Yup.string().length(14).required("ID Government is Required"),
+  id_government: Yup.string()
+    .matches(/^[0-9]{14}$/, "Must be exactly 14 number")
+    .required("Phone is Required"),
 
   streetAddress: Yup.string().required("Street Address is Required"),
 
@@ -19,10 +23,7 @@ export const CreateAccountSchema = Yup.object().shape({
 
   stateProvince: Yup.string().required("State / Province is Required"),
 
-  zipPostalCode: Yup.number()
-    .required("Zip / Postal Code is Required")
-    .positive()
-    .integer(),
+  zipPostalCode: Yup.string().matches(/^[0-9]{5}$/, "Must be exactly 5 digits"),
 
   birth_date: Yup.date().required("Birth Date is Required"),
 
