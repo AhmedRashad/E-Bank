@@ -1,7 +1,8 @@
 import "./dashboardNavBar.css";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { HiMenu, HiChevronDown, HiUser } from "react-icons/hi";
+import { HiMenu, HiChevronDown } from "react-icons/hi";
+import { Avatar } from "flowbite-react";
 
 const DashboardNavBar = (props) => {
   const { handleSideBar, adminAvatar, adminName } = props;
@@ -25,9 +26,8 @@ const DashboardNavBar = (props) => {
               onClick={() => setOpenAvatar(!openAvatar)}
               className="avatar-container"
             >
-              <div className="p-2 rounded-full bg-gray-100 text-gray-500">
-                {/* <img src={adminAvatar} alt="adminAvatar" /> */}
-                <HiUser />
+              <div className="">
+                <Avatar img={adminAvatar} rounded={true} />
               </div>
               <div className="flex items-center">
                 <span>Hi, {adminName}</span>

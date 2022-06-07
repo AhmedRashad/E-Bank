@@ -29,7 +29,11 @@ const Dashboard = () => {
       )}
       <div className="flex-auto main">
         <div className="hidden lg:block sticky top-0 left-0">
-          <DashboardNavBar adminName="Team#6" handleSideBar={handleSideBar} />
+          <DashboardNavBar
+            adminAvatar="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+            adminName="Team#6"
+            handleSideBar={handleSideBar}
+          />
         </div>
         <div className="py-4">
           <Routes>
