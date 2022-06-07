@@ -10,7 +10,7 @@ import Dashboard from "./pages/admin/dashboard/Dashboard";
 import NotFound from "./pages/notFound/NotFound";
 import ForgetPassword from "./pages/forgetPassword";
 import ResetPassword from "./pages/resetPassword";
-function App() {
+const App = () => {
   return (
     <>
       <BrowserRouter>
@@ -21,14 +21,16 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
-          <Route path="/reset-password/:id/:token" element={<ResetPassword/> }/>
-          <Route path="/admin/dashboard/*" element={<Dashboard />} />
+          <Route
+            path="/reset-password/:id/:token"
+            element={<ResetPassword />}
+          />
           <Route path="/admin/*" element={<Dashboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>
   );
-}
+};
 
 export default App;
