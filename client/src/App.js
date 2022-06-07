@@ -8,6 +8,8 @@ import Signup from "./pages/Register";
 import CreateAccount from "./pages/createAccount/CreateAccount";
 import Dashboard from "./pages/admin/dashboard/Dashboard";
 import NotFound from "./pages/notFound/NotFound";
+import ForgetPassword from "./pages/forgetPassword";
+import ResetPassword from "./pages/resetPassword";
 function App() {
   return (
     <>
@@ -18,6 +20,9 @@ function App() {
           <Route path="/createAccount" element={<CreateAccount />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/forget-password" element={<ForgetPassword />} />
+          <Route path="/reset-password/:id/:token" element={<ResetPassword/> }/>
+          <Route path="/admin/dashboard/*" element={<Dashboard />} />
           <Route path="/admin/*" element={<Dashboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

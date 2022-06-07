@@ -77,13 +77,13 @@ export default function Login(props) {
                   Remember me
                 </label>
               </div>
-              <a
-                href="#!"
+              <Link
+                to="/forget-password"
                 className="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 mx-auto sm:mx-0 mt-2 sm:mt-0 transition ease-in-out"
                 aria-disabled
               >
                 Forgot password?
-              </a>
+              </Link>
             </div>
 
             {/* <!-- Submit button --> */}

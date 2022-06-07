@@ -4,9 +4,8 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import connectDB from "./config/db";
 import UserRouter from "./routes/userRouts";
+import accountRouter from "./routes/account"
 
-
-const accountRouter = require("./routes/account");
 
 export const app = express();
 

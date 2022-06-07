@@ -1,16 +1,23 @@
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import asyncHandler from "express-async-handler";
 import User  from "../models/user";
 import mongoose from "mongoose";
 import { config } from "../config/config";
 import express from "express";
+import nodemailer from "nodemailer";
+import SMTPTransport from "nodemailer/lib/smtp-transport";
+import sendEmail from "../utility/mailer";
 
 // Generate jwt
-const generateToken = (id:mongoose.ObjectId):string => {
-  return jwt.sign({ id }, config.JWTSecret, {
-    expiresIn: "1d",
-  });
+const generateToken = async (id:mongoose.ObjectId,expireationTime:string,email?:string):Promise<string> => {
+  if (!email) {
+    return jwt.sign({ id }, config.JWTSecret, {expiresIn: expireationTime});
+  } else {
+    const user = await User.findOne({ _id: id });
+    const password = user.password;
+    return  jwt.sign({ id, email, password }, config.JWTSecret, { expiresIn: expireationTime })
+  }
 };
 
 // @desc Register new user
@@ -39,7 +46,7 @@ export const registerUser = asyncHandler(async (req:express.Request, res:express
     email,
     password: hashedPassword,
   });
-  const token = generateToken(user._id);
+  const token = generateToken(user._id,"1d");
 
   res.cookie("token", token, {
     maxAge: 1000 * 60 * 60 * 24,
@@ -60,7 +67,7 @@ export const loginUser = asyncHandler(async (req:express.Request, res:express.Re
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (user && (await bcrypt.compare(password + config.pepper, user.password))) {
-    res.cookie("token", generateToken(user._id), {
+    res.cookie("token", generateToken(user._id,"1d"), {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24,
     });
@@ -157,3 +164,69 @@ export const approveUser = asyncHandler( async (req:express.Request,res:express.
           }   
 });
 
+export const actviateEmail = asyncHandler(async(req:express.Request,res:express.Response): Promise<void> => {
+  
+});
+
+
+
+export const forgetPassword = asyncHandler(async (req: express.Request, res: express.Response): Promise<void> => {
+  const email = req.body.email;
+  const user = await User.findOne({ email });
+  if (user) {
+    const token = await generateToken(user._id, "1h", user.email);
+    const link = `http://${config.forntendHost}:${config.frontendPort}/reset-password/${user._id}/${token}`;
+    const subject = "reset your passaword at E-Bank"
+    const message = `Hello , ${user.name}\n
+    Someone has requested a link to change your password. You can do this through the link below.\n
+    ${link}\n
+    If you didn't request this, please ignore this email.Your password won't change until you access the link above and create a new one.
+    `;
+    sendEmail(user.email, subject, message).then((result) => {
+      res.json({
+      success: true,
+      message: "reset password link had send to your email",
+      info: result
+    });
+    }).catch((error) => {
+      res.status(500);
+      throw error;
+    })
+   
+
+  } else {
+    res.status(404).json({
+      success: false,
+      message: "there is no user registered with this email",
+    });
+  }
+}
+);
+
+export const resetPassword = asyncHandler(async (req: express.Request, res: express.Response): Promise<void> => {
+  const _id = req.params.id;
+  const token = req.params.token;
+  const user = await User.findOne({ _id });
+    if (!user) {
+        res.status(404);
+        throw new Error("User not found");
+    } else {
+        const JwtPayload = jwt.verify(token, config.JWTSecret) as JwtPayload;
+        if(JwtPayload.password == user.password){
+        const newPassword = req.body.newpassword;
+        user.password = newPassword;
+        await user.save();
+        res.json({
+          success: true,
+          message: "password changed for user " + user.name,
+          data:user
+        })
+        } else {
+          res.status(400).json({
+            success: false,
+            message :"this link is used before, please try again with diffrent link"
+        });
+        }
+      }
+      }
+);
