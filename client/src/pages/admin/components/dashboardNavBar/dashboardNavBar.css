@@ -1,0 +1,21 @@
+.toggle-side-bar {
+  @apply
+    p-0
+    text-gray-200
+    text-4xl
+    hover:text-gray-400
+    rounded-md
+    ease-in
+    duration-200
+}
+
+.avatar-container {
+  @apply
+    flex
+    gap-2
+    cursor-pointer
+    items-center
+    text-lg
+    text-gray-100
+    hover:text-gray-300
+}

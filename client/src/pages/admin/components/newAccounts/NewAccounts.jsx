@@ -1,9 +1,10 @@
 import "./newAccounts.css";
+import CreateAccount from "./../../../createAccount/CreateAccount";
 
 const NewAccounts = () => {
   return (
     <div>
-      <h1>NewAccounts</h1>
+      <CreateAccount />
     </div>
   );
 };

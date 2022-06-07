@@ -2,4 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply
+  bg-slate-100
+}
+
 

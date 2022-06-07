@@ -17,7 +17,7 @@ const AdminSidebar = () => {
     <div className="h-full">
       <Sidebar
         aria-label="Sidebar with logo branding example"
-        className="!bg-gray-50 dark:!bg-gray-900"
+        className="!bg-gray-50 shadow-lg dark:!bg-gray-900"
       >
         <NavLink to="/admin/dashboard">
           <div className="sidbar-logo">
@@ -44,18 +44,18 @@ const AdminSidebar = () => {
               <span className="sidbar-item">Verifying Users</span>
             </NavLink>
 
-            <NavLink className="sidbar-item-container" to="/admin/usersList">
+            <NavLink className="sidbar-item-container" to="/admin/users">
               <span>
                 <HiUsers className="sidbar-icon" />
               </span>
-              <span className="sidbar-item">Users List</span>
+              <span className="sidbar-item">Users</span>
             </NavLink>
 
-            <NavLink className="sidbar-item-container" to="/admin/newAccounts">
+            <NavLink className="sidbar-item-container" to="/admin/accounts">
               <span>
                 <HiUser className="sidbar-icon" />
               </span>
-              <span className="sidbar-item">New Accounts</span>
+              <span className="sidbar-item">Accounts</span>
             </NavLink>
 
             <NavLink className="sidbar-item-container" to="/admin/suspendUsers">

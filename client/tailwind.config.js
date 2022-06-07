@@ -1,5 +1,7 @@
 module.exports = {
-  content: [
+  mode: "jit",
+  content: [],
+  purge: [
     "./src/**/*.{js,jsx,ts,tsx}",
     "./node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
   ],
@@ -11,6 +13,10 @@ module.exports = {
         PGrey: "#141124",
         Gold: "#f7c74b",
         Midnight: "#5f758d",
+      },
+      container: {
+        center: true,
+        padding: "1rem",
       },
     },
   },

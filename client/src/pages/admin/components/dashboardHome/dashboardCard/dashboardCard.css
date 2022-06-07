@@ -1,0 +1,12 @@
+.card-icon {
+  @apply
+    h-full
+    w-20
+    flex
+    rounded-sm
+    justify-center
+    items-center
+    mr-3
+    text-3xl
+    text-white
+}

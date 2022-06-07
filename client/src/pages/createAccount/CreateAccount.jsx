@@ -26,7 +26,7 @@ const CreateAccount = () => {
 
   return (
     <>
-      <div className="containerCreatAccount">
+      <div className="container lg:px-14 xl:px-36 2xl:px-44">
         <ToastContainer />
         <Formik
           initialValues={InitialValues}
@@ -70,7 +70,7 @@ const CreateAccount = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.username}
-                        className="input"
+                        className="create-account-input"
                       />
                       <ErrorMessage
                         className="error"
@@ -93,7 +93,7 @@ const CreateAccount = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.email}
-                        className="input"
+                        className="create-account-input"
                       />
                       <ErrorMessage
                         className="error"
@@ -116,7 +116,7 @@ const CreateAccount = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.phone}
-                        className="input"
+                        className="create-account-input"
                       />
                       <ErrorMessage
                         className="error"
@@ -139,7 +139,7 @@ const CreateAccount = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.id_government}
-                        className="input"
+                        className="create-account-input"
                       />
                       <ErrorMessage
                         className="error"
@@ -162,7 +162,7 @@ const CreateAccount = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.birth_date}
-                        className="input birth_date"
+                        className="create-account-input create-account-birth_date"
                       />
                       <ErrorMessage
                         className="error"
@@ -185,7 +185,7 @@ const CreateAccount = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.work}
-                        className="input"
+                        className="create-account-input"
                       />
                       <ErrorMessage
                         className="error"
@@ -208,7 +208,7 @@ const CreateAccount = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.country}
-                        className="input"
+                        className="create-account-input"
                       />
                       <ErrorMessage
                         className="error"
@@ -231,7 +231,7 @@ const CreateAccount = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.streetAddress}
-                        className="input"
+                        className="create-account-input"
                       />
                       <ErrorMessage
                         className="error"
@@ -254,7 +254,7 @@ const CreateAccount = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.city}
-                        className="input"
+                        className="create-account-input"
                       />
                       <ErrorMessage
                         className="error"
@@ -277,7 +277,7 @@ const CreateAccount = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.stateProvince}
-                        className="input"
+                        className="create-account-input"
                       />
                       <ErrorMessage
                         className="error"
@@ -300,7 +300,7 @@ const CreateAccount = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.zipPostalCode}
-                        className="input"
+                        className="create-account-input"
                       />
                       <ErrorMessage
                         className="error"
@@ -336,7 +336,7 @@ const CreateAccount = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.account_name}
-                        className="input"
+                        className="create-account-input"
                       />
                       <ErrorMessage
                         className="error"
@@ -359,7 +359,7 @@ const CreateAccount = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.current_balance}
-                        className="input"
+                        className="create-account-input"
                       />
                       <ErrorMessage
                         className="error"
@@ -382,7 +382,7 @@ const CreateAccount = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.account_number}
-                        className="input"
+                        className="create-account-input"
                       />
                       <ErrorMessage
                         className="error"
@@ -393,7 +393,10 @@ const CreateAccount = () => {
                   </div>
                 </div>
                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                  <button type="submit" className="btn bg-indigo-600">
+                  <button
+                    type="submit"
+                    className="create-account-btn bg-indigo-600"
+                  >
                     Save
                   </button>
                 </div>
