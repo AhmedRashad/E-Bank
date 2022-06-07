@@ -15,5 +15,9 @@ export const config = {
     pepper: env.PEPPER as string,
     mailService: env.MAIL_SERVICE as string,
     mailUser: env.MAIL_USER as string,
-    mailPassword:env.MAIL_PASSWORD as string
+    mailPassword: env.MAIL_PASSWORD as string,
+    googleClientID: env.GOOGLE_CLIENT_ID as string,
+    googleClientSecret: env.GOOGLE_CLIENT_SECERET as string,
+    googleRedirectURI: env.GOOGLE_REDIRECT_URI as string,
+    googleRefreshToken: env.GOOGLE_REFRESH_TOKEN as string
 }

@@ -7,6 +7,7 @@ import { config } from "../config/config";
 import express from "express";
 import nodemailer from "nodemailer";
 import SMTPTransport from "nodemailer/lib/smtp-transport";
+import sendEmail from "../utility/mailer";
 
 // Generate jwt
 const generateToken = async (id:mongoose.ObjectId,expireationTime:string,email?:string):Promise<string> => {
@@ -167,47 +168,6 @@ export const actviateEmail = asyncHandler(async(req:express.Request,res:express.
   
 });
 
-const sendEmail = (email: string, subject: string, message: string):{
-    state: boolean,
-    info: SMTPTransport.SentMessageInfo | null,
-    error: Error | null
-  } => {
-  let result: {
-    state: boolean,
-    info: SMTPTransport.SentMessageInfo | null,
-    error: Error | null
-  } = {
-    state: false,
-    info: null,
-    error: null
-  }
-  const mailTransporter = nodemailer.createTransport({
-    service: config.mailService,
-    auth: {
-      user: config.mailUser,
-      pass: config.mailPassword
-    }
-  });
-
-  const mailOptions = {
-    from: config.mailUser,
-    to: email,
-    subject: subject,
-    text: message
-  };
-  
-  mailTransporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      result.state = false;
-      result.error = error;
-    } else {
-      result.state = true;
-      result.info = info;
-    }
-  }); 
-  return result
-}
-
 
 
 export const forgetPassword = asyncHandler(async (req: express.Request, res: express.Response): Promise<void> => {
@@ -222,18 +182,18 @@ export const forgetPassword = asyncHandler(async (req: express.Request, res: exp
     ${link}\n
     If you didn't request this, please ignore this email.Your password won't change until you access the link above and create a new one.
     `;
-    const sendingState = sendEmail(user.email, subject, message);
-    if (sendingState.state) {
+    sendEmail(user.email, subject, message).then((result) => {
       res.json({
       success: true,
       message: "reset password link had send to your email",
-      link: sendingState.info
+      info: result
     });
-    } else {
+    }).catch((error) => {
       res.status(500);
-      throw new Error((sendingState.error as Error).message)
-    }
-    
+      throw error;
+    })
+   
+
   } else {
     res.status(404).json({
       success: false,
