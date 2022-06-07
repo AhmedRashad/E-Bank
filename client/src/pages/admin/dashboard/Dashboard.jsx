@@ -20,12 +20,11 @@ const Dashboard = () => {
       <div className="flex-auto main">
         <div className="w-[80%] m-auto py-10">
           <Routes>
-            <Route path="/" element={<DashboardHome />} />
-            <Route path="/dashboardHome" element={<DashboardHome />} />
-            <Route path="/verifyingUsers" element={<VerifyingUsers />} />
-            <Route path="/usersList" element={<UsersList />} />
-            <Route path="/newAccounts" element={<NewAccounts />} />
-            <Route path="/suspendUsers" element={<SuspendUsers />} />
+            <Route path="dashboard" element={<DashboardHome />} />
+            <Route path="verifyingUsers" element={<VerifyingUsers />} />
+            <Route path="usersList" element={<UsersList />} />
+            <Route path="newAccounts" element={<NewAccounts />} />
+            <Route path="suspendUsers" element={<SuspendUsers />} />
           </Routes>
         </div>
       </div>

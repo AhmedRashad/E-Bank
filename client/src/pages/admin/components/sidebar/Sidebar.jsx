@@ -19,7 +19,7 @@ const AdminSidebar = () => {
         aria-label="Sidebar with logo branding example"
         className="!bg-gray-50 dark:!bg-gray-900"
       >
-        <NavLink to="/admin/dashboard/dashboardHome">
+        <NavLink to="/admin/dashboard">
           <div className="sidbar-logo">
             <img src={logo} alt="e-Bank" className="w-1/2 p-1 m-2" />
           </div>
@@ -27,10 +27,7 @@ const AdminSidebar = () => {
 
         <Sidebar.Items>
           <Sidebar.ItemGroup>
-            <NavLink
-              className="sidbar-item-container"
-              to="/admin/dashboard/dashboardHome"
-            >
+            <NavLink className="sidbar-item-container" to="/admin/dashboard">
               <span>
                 <HiChartPie className="sidbar-icon" />
               </span>
@@ -39,7 +36,7 @@ const AdminSidebar = () => {
 
             <NavLink
               className="sidbar-item-container"
-              to="/admin/dashboard/verifyingUsers"
+              to="/admin/verifyingUsers"
             >
               <span>
                 <HiUserAdd className="sidbar-icon" />
@@ -47,30 +44,21 @@ const AdminSidebar = () => {
               <span className="sidbar-item">Verifying Users</span>
             </NavLink>
 
-            <NavLink
-              className="sidbar-item-container"
-              to="/admin/dashboard/usersList"
-            >
+            <NavLink className="sidbar-item-container" to="/admin/usersList">
               <span>
                 <HiUsers className="sidbar-icon" />
               </span>
               <span className="sidbar-item">Users List</span>
             </NavLink>
 
-            <NavLink
-              className="sidbar-item-container"
-              to="/admin/dashboard/newAccounts"
-            >
+            <NavLink className="sidbar-item-container" to="/admin/newAccounts">
               <span>
                 <HiUser className="sidbar-icon" />
               </span>
               <span className="sidbar-item">New Accounts</span>
             </NavLink>
 
-            <NavLink
-              className="sidbar-item-container"
-              to="/admin/dashboard/suspendUsers"
-            >
+            <NavLink className="sidbar-item-container" to="/admin/suspendUsers">
               <span>
                 <HiUserRemove className="sidbar-icon" />
               </span>

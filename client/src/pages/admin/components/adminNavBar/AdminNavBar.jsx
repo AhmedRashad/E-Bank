@@ -20,7 +20,7 @@ const AdminNavBar = () => {
                   py-4"
         >
           <div className="w-30 lg:w-0 lg:flex-1">
-            <Link to="/admin/dashboard/dashboardHome">
+            <Link to="/admin/dashboard">
               <div className=" rounded-2xl bg-black py-px w-full">
                 <img src={logo} alt="e-Bank" className="w-2/2 p-1 m-2" />
               </div>
@@ -81,7 +81,7 @@ const AdminNavBar = () => {
             <div className="pt-5 pb-6 px-5">
               <div className="flex items-center justify-between">
                 <div className="w-30">
-                  <Link to="/admin/dashboard/dashboardHome">
+                  <Link to="/admin/dashboard">
                     <div className="rounded-2xl bg-black py-px w-full">
                       <img src={logo} alt="e-Bank" className="w-2/2 p-1 m-2" />
                     </div>
@@ -113,7 +113,7 @@ const AdminNavBar = () => {
             <div className="py-6 px-5 space-y-6">
               <div className="flex flex-col">
                 <NavLink
-                  to="/admin/dashboard/dashboardHome"
+                  to="/admin/dashboard"
                   className="
                         p-2
                         rounded-lg
@@ -125,7 +125,7 @@ const AdminNavBar = () => {
                   Dashboard
                 </NavLink>
                 <NavLink
-                  to="/admin/dashboard/verifyingUsers"
+                  to="/admin/verifyingUsers"
                   className="
                         p-2
                         rounded-lg
@@ -137,7 +137,7 @@ const AdminNavBar = () => {
                   Verifying Users
                 </NavLink>
                 <NavLink
-                  to="/admin/dashboard/usersList"
+                  to="/admin/usersList"
                   className="
                         p-2
                         rounded-lg
@@ -149,7 +149,7 @@ const AdminNavBar = () => {
                   Users List
                 </NavLink>
                 <NavLink
-                  to="/admin/dashboard/newAccounts"
+                  to="/admin/newAccounts"
                   className="
                         p-2
                         rounded-lg
@@ -161,7 +161,7 @@ const AdminNavBar = () => {
                   New Accounts
                 </NavLink>
                 <NavLink
-                  to="/admin/dashboard/suspendUsers"
+                  to="/admin/suspendUsers"
                   className="
                         p-2
                         rounded-lg
