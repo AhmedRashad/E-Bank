@@ -12,9 +12,23 @@ const DashboardHome = () => {
     <div className="container grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4">
       <DashboardCard
         bg="#5f758d"
-        title="Total User Accounts"
+        title="Total Users"
         total="0"
         icon={<HiOutlineUsers />}
+      />
+
+      <DashboardCard
+        bg="#5f758d"
+        title="Total Accounts"
+        total="0"
+        icon={<HiOutlineUsers />}
+      />
+
+      <DashboardCard
+        bg="#38b45e"
+        title="Total Balance"
+        total="$"
+        icon={<HiOutlineCurrencyDollar />}
       />
 
       <DashboardCard
@@ -43,13 +57,6 @@ const DashboardHome = () => {
         title="Inactive Users"
         total="0"
         icon={<HiOutlineUserRemove />}
-      />
-
-      <DashboardCard
-        bg="#38b45e"
-        title="Total Balance"
-        total="$"
-        icon={<HiOutlineCurrencyDollar />}
       />
     </div>
   );

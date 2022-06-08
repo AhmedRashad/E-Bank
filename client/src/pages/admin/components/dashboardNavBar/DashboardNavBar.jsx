@@ -16,7 +16,7 @@ const DashboardNavBar = (props) => {
 
   return (
     <>
-      <div className="bg-Midnight pb-12 pt-4">
+      <div className="bg-Midnight pb-4 pt-4">
         <div className="container flex justify-between items-center">
           <button onClick={handleSideBar} className="toggle-side-bar">
             <HiMenu />
@@ -26,9 +26,7 @@ const DashboardNavBar = (props) => {
               onClick={() => setOpenAvatar(!openAvatar)}
               className="avatar-container"
             >
-              <div className="">
-                <Avatar img={adminAvatar} rounded={true} />
-              </div>
+              <Avatar img={adminAvatar} rounded={true} />
               <div className="flex items-center">
                 <span>Hi, {adminName}</span>
                 <HiChevronDown />
@@ -75,14 +73,6 @@ const DashboardNavBar = (props) => {
               </div>
             )}
           </div>
-        </div>
-      </div>
-      <div className="container -mt-6">
-        <div
-          className="bg-gray-50
-            shadow-md font-bold p-4"
-        >
-          ADMIN PANEL
         </div>
       </div>
     </>

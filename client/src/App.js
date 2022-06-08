@@ -10,6 +10,7 @@ import Dashboard from "./pages/admin/dashboard/Dashboard";
 import NotFound from "./pages/notFound/NotFound";
 import ForgetPassword from "./pages/forgetPassword";
 import ResetPassword from "./pages/resetPassword";
+import UserData from "./pages/admin/components/usersList/userData/UserData";
 const App = () => {
   return (
     <>

@@ -23,7 +23,9 @@ export const CreateAccountSchema = Yup.object().shape({
 
   stateProvince: Yup.string().required("State / Province is Required"),
 
-  zipPostalCode: Yup.string().matches(/^[0-9]{5}$/, "Must be exactly 5 digits"),
+  zipPostalCode: Yup.string()
+    .matches(/^[0-9]{5}$/, "Must be exactly 5 digits")
+    .required("Zip / Postal Code is Required"),
 
   birth_date: Yup.date().required("Birth Date is Required"),
 

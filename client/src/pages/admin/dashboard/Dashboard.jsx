@@ -10,6 +10,7 @@ import UsersList from "./../components/usersList/UsersList";
 import SuspendUsers from "./../components/suspendUsers/SuspendUsers";
 import AdminNavBar from "./../components/adminNavBar/AdminNavBar";
 import DashboardNavBar from "../components/dashboardNavBar/DashboardNavBar";
+import UserData from "./../components/usersList/userData/UserData";
 
 const Dashboard = () => {
   const [openSideBar, setOpenSideBar] = useState(true);
@@ -19,7 +20,7 @@ const Dashboard = () => {
   };
   return (
     <div className="lg:flex justify-between">
-      <div className="block lg:hidden sticky top-0 left-0">
+      <div className="block z-10 lg:hidden sticky top-0 left-0">
         <AdminNavBar />
       </div>
       {openSideBar && (
@@ -28,7 +29,7 @@ const Dashboard = () => {
         </div>
       )}
       <div className="flex-auto main">
-        <div className="hidden lg:block sticky top-0 left-0">
+        <div className="hidden z-10 lg:block sticky top-0 left-0">
           <DashboardNavBar
             adminAvatar="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
             adminName="Team#6"
@@ -40,6 +41,7 @@ const Dashboard = () => {
             <Route path="dashboard" element={<DashboardHome />} />
             <Route path="verifyingUsers" element={<VerifyingUsers />} />
             <Route path="users" element={<UsersList />} />
+            <Route path="users/:id" element={<UserData />} />
             <Route path="accounts" element={<NewAccounts />} />
             <Route path="suspendUsers" element={<SuspendUsers />} />
           </Routes>
