@@ -80,7 +80,7 @@ const UsersList = () => {
     const allUsersData = [...usersData];
     // Edit
     allUsersData
-      .filter((user) => user.id == e.target.id)
+      .filter((user) => user._id == e.target.id)
       .map((user) => (user.status = e.target.value));
     // Set State
     setUsersData(allUsersData);
