@@ -24,7 +24,7 @@ const UserListTable = (props) => {
         <Table.Body className="divide-y">
           {usersData.map((user) => (
             <Table.Row
-              key={user.id}
+              key={user._id}
               className="bg-white dark:border-gray-700 dark:bg-gray-800"
             >
               <Table.Cell
@@ -35,12 +35,12 @@ const UserListTable = (props) => {
                 {user.username}
               </Table.Cell>
               <Table.Cell className="!px-2 text-center">
-                ${user.currentBalance}
+                ${user.current_balance}
               </Table.Cell>
               <Table.Cell className="!px-2 text-center">
                 <div className="relative">
                   <select
-                    id={user.id}
+                    id={user._id}
                     onChange={handleSelectChange}
                     defaultValue={user.status}
                     className={`text-lg focus:outline-none focus:border-0
@@ -64,7 +64,7 @@ const UserListTable = (props) => {
                 <div className="flex justify-center items-center">
                   <button
                     onClick={() =>
-                      navigate(`${user.id}`, { state: { usersData } })
+                      navigate(`${user._id}`, { state: { usersData } })
                     }
                     className="create-account-btn flex gap-1 items-center px-3 py-1 rounded-full"
                   >

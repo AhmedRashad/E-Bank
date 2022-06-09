@@ -173,23 +173,23 @@ const CreateAccount = () => {
 
                     <div className="col-span-6">
                       <label
-                        htmlFor="work"
+                        htmlFor="currentJob"
                         className="block text-sm font-medium text-gray-700"
                       >
-                        Work
+                        Current Job
                       </label>
                       <Field
                         type="text"
-                        id="work"
-                        name="work"
+                        id="currentJob"
+                        name="currentJob"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.work}
+                        value={values.currentJob}
                         className="create-account-input"
                       />
                       <ErrorMessage
                         className="error"
-                        name="work"
+                        name="currentJob"
                         component="div"
                       />
                     </div>

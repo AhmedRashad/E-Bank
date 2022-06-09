@@ -1,63 +1,74 @@
 import "./usersList.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Pagination } from "flowbite-react";
 
 import UserListTable from "./userListTable/UserListTable";
+import axios from "axios";
 
 const UsersList = () => {
+  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
+
+  // const [usersData2, setusersData2] = useState([]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:5000/api/accounts")
+  //     .then((res) => setusersData2(res.data));
+  // }, []);
 
   const [usersData, setUsersData] = useState([
     {
-      id: 1,
+      _id: 1,
       username: "Team#6",
-      currentBalance: 15000,
+      current_balance: 15000,
       status: "active",
       adminAvatar:
         "https://flowbite.com/docs/images/people/profile-picture-5.jpg",
     },
     {
-      id: 2,
+      _id: 2,
       username: "Mahmoud Easa",
-      currentBalance: 1000,
+      current_balance: 1000,
       status: "rejected",
       adminAvatar:
         "https://flowbite.com/docs/images/people/profile-picture-5.jpg",
     },
     {
-      id: 3,
+      _id: 3,
       username: "Ahmed Rabie",
-      currentBalance: 1100,
+      current_balance: 1100,
       status: "pending",
       adminAvatar:
         "https://flowbite.com/docs/images/people/profile-picture-5.jpg",
     },
     {
-      id: 4,
+      _id: 4,
       username: "Mostafa Alsadawy",
-      currentBalance: 1200,
+      current_balance: 1200,
       status: "active",
       adminAvatar:
         "https://flowbite.com/docs/images/people/profile-picture-5.jpg",
     },
     {
-      id: 5,
+      _id: 5,
       username: "Mohamed Khaled",
-      currentBalance: 1300,
+      current_balance: 1300,
       status: "pending",
       adminAvatar:
         "https://flowbite.com/docs/images/people/profile-picture-5.jpg",
     },
     {
-      id: 6,
+      _id: 6,
       username: "Yousef Hasan",
-      currentBalance: 1400,
+      current_balance: 1400,
       status: "rejected",
       adminAvatar:
         "https://flowbite.com/docs/images/people/profile-picture-5.jpg",
     },
   ]);
 
+  // Pagination
   const onPageChange = (e) => {
     setCurrentPage(e);
   };
