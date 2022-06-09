@@ -6,7 +6,9 @@ const UserData = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const id = useParams().id;
+
   const userData = location.state.usersData.filter((user) => user._id == id);
+
   return (
     <div className="container">
       {userData.map((user) => (
@@ -25,19 +27,42 @@ const UserData = () => {
               <span className="text-lg">{user.email}</span>
             </div>
 
-            <div>
+            <div className="flex gap-2">
               <span className="font-bold">Status: </span>
-              <span
-                className={`text-lg px-3 py-1 rounded-full cursor-pointer ${
-                  user.status == "active"
-                    ? "bg-green-300"
-                    : user.status == "pending"
-                    ? "bg-yellow-300"
-                    : "bg-red-200"
-                }`}
+
+              <div className="relative">
+                <select
+                  id={user._id}
+                  // onChange={handleSelectChange}
+                  defaultValue={user.status}
+                  className={`text-lg focus:outline-none focus:border-0
+                      pl-3 text-center py-1 rounded-full cursor-pointer ${
+                        user.status == "active"
+                          ? "bg-green-300"
+                          : user.status == "pending"
+                          ? "bg-yellow-300"
+                          : user.status == "rejected"
+                          ? "bg-red-200"
+                          : "bg-inherit"
+                      }`}
+                >
+                  <option value="active">Active</option>
+                  <option value="rejected">Rejected</option>
+                  <option value="pending">Pending</option>
+                </select>
+              </div>
+
+              {/* <span
+              className={`text-lg px-3 py-1 rounded-full cursor-pointer ${
+                user.status == "active"
+                  ? "bg-green-300"
+                  : user.status == "pending"
+                  ? "bg-yellow-300"
+                  : "bg-red-200"
+              }`}
               >
                 {user.status.charAt(0).toUpperCase() + user.status.slice(1)}
-              </span>
+              </span> */}
             </div>
 
             <div>

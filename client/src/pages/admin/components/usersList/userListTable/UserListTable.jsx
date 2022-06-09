@@ -10,7 +10,7 @@ const UserListTable = (props) => {
 
   return (
     <div>
-      <Table hoverable={true}>
+      <Table className="" hoverable={true}>
         <Table.Head className="bg-gray-200">
           <Table.HeadCell className="text-sm">Name</Table.HeadCell>
           <Table.HeadCell className="!px-2 text-center text-sm">
@@ -28,11 +28,13 @@ const UserListTable = (props) => {
               className="bg-white dark:border-gray-700 dark:bg-gray-800"
             >
               <Table.Cell
-                className="font-medium flex items-center !px-2 gap-2
+                className="font-medium whitespace-nowrap flex items-center !px-2 gap-2
                 text-gray-900 dark:text-white"
               >
-                <Avatar img={user.adminAvatar} rounded={true} />
-                {user.username}
+                <span className="hidden md:flex">
+                  <Avatar img={user.adminAvatar} rounded={true} />
+                </span>
+                <span className="ml-4 md:ml-0">{user.username}</span>
               </Table.Cell>
               <Table.Cell className="!px-2 text-center">
                 ${user.current_balance}
@@ -64,7 +66,9 @@ const UserListTable = (props) => {
                 <div className="flex justify-center items-center">
                   <button
                     onClick={() =>
-                      navigate(`${user._id}`, { state: { usersData } })
+                      navigate(`${user._id}`, {
+                        state: { usersData },
+                      })
                     }
                     className="create-account-btn flex gap-1 items-center px-3 py-1 rounded-full"
                   >

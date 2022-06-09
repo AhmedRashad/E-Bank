@@ -42,8 +42,3 @@
     flex-1
     whitespace-nowrap
   }
-
-  .active {
-    @apply
-    bg-gray-200
-  }

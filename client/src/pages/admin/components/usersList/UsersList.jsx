@@ -1,19 +1,15 @@
 import "./usersList.css";
 import { useState, useEffect } from "react";
-import { Pagination } from "flowbite-react";
-
-import UserListTable from "./userListTable/UserListTable";
 import axios from "axios";
 
-const UsersList = () => {
-  // Pagination
-  const [currentPage, setCurrentPage] = useState(1);
+import UserListTable from "./userListTable/UserListTable";
 
+const UsersList = () => {
   // const [usersData2, setusersData2] = useState([]);
 
   // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:5000/api/accounts")
+  // axios
+  //   .get(`http://localhost:5000/api/users`)
   //     .then((res) => setusersData2(res.data));
   // }, []);
 
@@ -68,11 +64,6 @@ const UsersList = () => {
     },
   ]);
 
-  // Pagination
-  const onPageChange = (e) => {
-    setCurrentPage(e);
-  };
-
   const handleSelectChange = (e) => {
     // Copy data if there is an error, set the state again to the initial data
     const copyData = [...usersData];
@@ -88,26 +79,10 @@ const UsersList = () => {
 
   return (
     <div className="container">
-      <div className="px-4 flex justify-center">
-        <Pagination
-          currentPage={currentPage}
-          onPageChange={onPageChange}
-          showIcons={true}
-          totalPages={100}
-        />
-      </div>
       <div className="pt-4 pb-2">
         <UserListTable
           usersData={usersData}
           handleSelectChange={handleSelectChange}
-        />
-      </div>
-      <div className="px-4 flex justify-center">
-        <Pagination
-          currentPage={currentPage}
-          onPageChange={onPageChange}
-          showIcons={true}
-          totalPages={100}
         />
       </div>
     </div>
