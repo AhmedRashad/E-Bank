@@ -51,9 +51,7 @@ export const updateAccount = expressAsyncHandler(
 export const deleteAccount = expressAsyncHandler(
     async (req: express.Request, res: express.Response) => {
         await Account.findByIdAndDelete(req.params.id);
-        res.status(204).json({
-            success: true,
-        });
+        res.status(204).json(req.params.id);
     }
 );
 

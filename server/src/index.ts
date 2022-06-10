@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/api/accounts", accountRouter);
+app.use("/accounts", accountRouter);
 
 app.listen(config.port, () => {
   console.log(`Server on port ${config.port}`);

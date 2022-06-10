@@ -33,6 +33,35 @@ export const addAccount = createAsyncThunk(
   }
 );
 
+
+// update account
+export const updateAccount = createAsyncThunk(
+  "account/updateAccount",
+  async (id, account, thunkAPI) => {
+    try {
+      return await accountService.updateAccount(id, account);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+// delete account
+export const deleteAccount = createAsyncThunk(
+  "account/deleteAccount",
+  async (id, thunkAPI) => {
+    try {
+      return await accountService.deleteAccount(id);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+
+
+
+
 export const accountSlice = createSlice({
   name: "account",
   initialState,
@@ -73,7 +102,43 @@ export const accountSlice = createSlice({
       state.isError = true;
       state.message = action.payload;
     });
+    builder.addCase(updateAccount.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(updateAccount.fulfilled, (state, action) => {
+      state.accounts = state.accounts.map((account) =>
+        account.id === action.payload.id ? action.payload : account
+      );
+      state.isLoading = false;
+      state.isSuccess = true;
+    });
+    builder.addCase(updateAccount.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+    });
+    builder.addCase(deleteAccount.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteAccount.fulfilled, (state, action) => {
+      state.accounts = state.accounts.filter(
+        (account) => account.id !== action.payload
+      );
+      state.isLoading = false;
+      state.isSuccess = true;
+    });
+    builder.addCase(deleteAccount.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+    });
   },
 });
+
+
+
+
+
+
 export const { resetAccounts } = accountSlice.actions;
 export default accountSlice.reducer;

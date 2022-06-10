@@ -12,7 +12,7 @@ router.get("/me", protect, getMe);
 router.get("/logout", protect, logoutUser);
 router.put("/:email/admin", protect, protectAdmin, makeAdmin);
 router.get("/all", protect, protectAdmin, getAllUsers);
-router.post("/approve", protect, protectAdmin, approveUser);
+router.put("/approve", protect, protectAdmin, approveUser);
 router.post("/forget-password",forgetPassword)
 router.post("/reset-password/:id/:token",resetPassword)
 

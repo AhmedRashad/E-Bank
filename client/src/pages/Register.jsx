@@ -1,13 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { register } from "../features/user/userSlice";
+import Loading from "../components/loading/Loading";
 
 export default function Signup() {
+  const { user, isError, isSuccess, isLoading } = useSelector(
+    (state) => state.user
+  );
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const { name, email, phone, password, confirmPassword } = form;
+  const onChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      alert("Password does not match");
+    } else {
+      dispatch(register({ name, email, phone, password }));
+      console.log({ name, email, phone, password });
+    }
+  };
+
+  useEffect(() => {
+    if (user.admin) {
+      navigate("/admin/dashboard");
+    }
+    if (user.admin === false) {
+      console.log(user.admin);
+      navigate("/dashboard");
+    }
+  }, [isLoading, user, navigate]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <>
       <main className="min-h-screen px-4 bg-[url('images/pattern.jpg')] bg-cover">
         <div className="min-h-screen max-w-prose bg-white mx-auto flex items-center justify-center shadow-xl">
-          <form className="w-4/5 space-y-8 py-4">
+          <form className="w-4/5 space-y-8 py-4" onSubmit={onSubmit}>
             {/* LOGO */}
             <div className="logo w-full text-center">E-Bank</div>
 
@@ -30,11 +73,14 @@ export default function Signup() {
             <div className="relative">
               <input
                 required
-                id="fullname"
+                id="name"
                 type="text"
                 className="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none peer placeholder-transparent"
                 placeholder="Full Name"
                 autoComplete="on"
+                name="name"
+                value={name}
+                onChange={onChange}
               />
               <label
                 htmlFor="fullname"
@@ -54,6 +100,9 @@ export default function Signup() {
                 className="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none peer placeholder-transparent"
                 placeholder="Email address"
                 autoComplete="on"
+                name="email"
+                value={email}
+                onChange={onChange}
               />
               <label
                 htmlFor="mail"
@@ -61,6 +110,27 @@ export default function Signup() {
                   peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-600"
               >
                 Email address
+              </label>
+            </div>
+            {/* Phone input  */}
+            <div className="relative">
+              <input
+                required
+                id="phone"
+                type="text"
+                className="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none peer placeholder-transparent"
+                placeholder="Email address"
+                autoComplete="on"
+                name="phone"
+                value={phone}
+                onChange={onChange}
+              />
+              <label
+                htmlFor="phone"
+                className="absolute left-3 -top-2.5 bg-white px-1 text-sm text-blue-600 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:text-xl peer-placeholder-shown:top-2 transition-all peer-placeholder-shown:pb-1
+                  peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-600"
+              >
+                Phone Number
               </label>
             </div>
 
@@ -72,6 +142,9 @@ export default function Signup() {
                 type="password"
                 className="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none peer placeholder-transparent"
                 placeholder="Password"
+                name="password"
+                value={password}
+                onChange={onChange}
               />
               <label
                 htmlFor="password"
@@ -79,6 +152,26 @@ export default function Signup() {
                   peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-600"
               >
                 password
+              </label>
+            </div>
+            {/* <!-- Confirm Password input --> */}
+            <div className="relative">
+              <input
+                required
+                id="confirmPassword"
+                type="password"
+                className="block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none peer placeholder-transparent"
+                placeholder="Confirm Password"
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={onChange}
+              />
+              <label
+                htmlFor="confirmPassword"
+                className="absolute left-3 -top-2.5 bg-white px-1 text-sm text-blue-600 peer-placeholder-shown:text-gray-500 peer-placeholder-shown:text-xl peer-placeholder-shown:top-2 transition-all peer-placeholder-shown:pb-1
+                  peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-600"
+              >
+                Confirm Password
               </label>
             </div>
 

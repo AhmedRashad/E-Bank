@@ -1,4 +1,6 @@
 import express from "express";
+import protect from "../middlewares/authmiddleware";
+import protectAdmin from "../middlewares/adminMiddleware";
 
 const router = express.Router();
 
@@ -10,10 +12,10 @@ import {
   deleteAccount,
 } from "../controllers/account";
 
-router.get("/", getAccounts);
-router.post("/", addAccount);
-router.get("/:id", getAccount);
-router.put("/:id", updateAccount);
-router.delete("/:id", deleteAccount);
+router.get("/", protect, protectAdmin, getAccounts);
+router.post("/", protect, addAccount);
+router.get("/:id", protect, getAccount);
+router.put("/:id", protect, protectAdmin, updateAccount);
+router.delete("/:id", protect, protectAdmin, deleteAccount);
 
 export default router;

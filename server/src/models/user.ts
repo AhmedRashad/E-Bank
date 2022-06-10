@@ -2,13 +2,14 @@ import valdiator from "validator";
 import mongoose from "mongoose";
 
 export type UserObject = {
-    _id:string,
-    name:string,
-    email:string,
-    password:string,
-    admin:boolean,
-    approved:boolean,
-}
+  _id: string;
+  name: string;
+  email: string;
+  phone: string;
+  password: string;
+  admin: boolean;
+  status: string;
+};
 
 const userSchema = new mongoose.Schema(
   {
@@ -22,6 +23,10 @@ const userSchema = new mongoose.Schema(
       unique: true,
       validate: [valdiator.isEmail, "Please add a valid email"],
     },
+    phone: {
+      type: String,
+      required: [true, "Pleace add a phone"],
+    },
     password: {
       type: String,
       required: [true, "Pleace add a password"],
@@ -31,9 +36,10 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    approved: {
-        type: Boolean,
-        default: false,
+    status: {
+      type: String,
+      default: "pending",
+      enum: ["pending", "active", "rejected"],
     },
   },
   {

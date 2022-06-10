@@ -1,16 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login } from "../features/user/userSlice";
+import Loading from "../components/loading/Loading";
 
 export default function Login(props) {
+  const { user, isError, isSuccess, isLoading } = useSelector(
+    (state) => state.user
+  );
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+  const { email, password } = form;
+  const onChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(login(form));
+  };
+  useEffect(() => {
+    if (user.admin) {
+      navigate("/admin/dashboard");
+    }
+    if (user.admin === false) {
+      console.log(user.admin);
+      navigate("/dashboard");
+    }
+  }, [isLoading, user, navigate]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <>
       <main className="min-h-screen px-4 bg-[url('images/pattern.jpg')] bg-cover">
         <div className="min-h-screen max-w-prose bg-white mx-auto flex items-center justify-center shadow-xl">
-          <form className="w-4/5 space-y-8 py-4">
+          <form onSubmit={onSubmit} className="w-4/5 space-y-8 py-4">
             {/* LOGO */}
             <div className="logo w-full text-center">E-Bank</div>
-            
+
             {/* Quick Login */}
             <a
               className="px-7 py-3 text-gray-700 border-[1px] border-gray-700 font-medium text-xs md:text-base leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center mb-3 "
@@ -34,6 +68,9 @@ export default function Login(props) {
                 className="peer block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:bg-white focus:border-blue-600 focus:outline-none placeholder-transparent"
                 placeholder="Email address"
                 autoComplete="on"
+                name="email"
+                value={email}
+                onChange={onChange}
               />
               <label
                 htmlFor="mail"
@@ -52,6 +89,9 @@ export default function Login(props) {
                 id="password"
                 className="peer block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none placeholder-transparent"
                 placeholder="Password"
+                name="password"
+                value={password}
+                onChange={onChange}
               />
               <label
                 htmlFor="password"
@@ -102,7 +142,12 @@ export default function Login(props) {
             </div>
 
             {/* Quick Login */}
-            <div className="w-full text-center">You don't have account? <Link className="text-blue-500 underline" to={'/signup'}>Sign up</Link></div>
+            <div className="w-full text-center">
+              You don't have account?{" "}
+              <Link className="text-blue-500 underline" to={"/signup"}>
+                Sign up
+              </Link>
+            </div>
           </form>
         </div>
       </main>
