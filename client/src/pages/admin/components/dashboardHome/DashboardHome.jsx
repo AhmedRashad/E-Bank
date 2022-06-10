@@ -9,6 +9,7 @@ import {
 } from "react-icons/hi";
 
 import DashboardCard from "./dashboardCard/DashboardCard";
+import { URL } from "../../../../config";
 
 const DashboardHome = () => {
   const [totalAccounts, setTotalAccounts] = useState(0);
@@ -20,7 +21,7 @@ const DashboardHome = () => {
   const [inactiveUsers, setInactiveUsers] = useState(0);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/accounts").then((res) => {
+    axios.get(`${URL}/accounts`).then((res) => {
       setTotalAccounts(res.data.length);
       setActiveAccounts(res.data.filter((d) => d.status === "active").length);
       setInactiveAccounts(res.data.filter((d) => d.status !== "active").length);

@@ -15,8 +15,9 @@ const UsersList = () => {
   const [usersData, setUsersData] = useState([]);
 
   useEffect(() => {
-    //
     dispatch(getAccounts());
+
+    axios.get(`${URL}/accounts`).then((res) => setUsersData(res.data));
   }, []);
 
   const handleSelectChange = (e, user) => {
@@ -32,7 +33,7 @@ const UsersList = () => {
     setUsersData(allUsersData);
 
     axios
-      .put(`http://localhost:5000/api/users/${user._id}`, {
+      .put(`${URL}/users/${user._id}`, {
         status: e.target.value,
       })
       .catch(() => {

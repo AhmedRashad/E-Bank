@@ -5,14 +5,25 @@ import { HiEye } from "react-icons/hi";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { URL } from "../../../../config";
+
+// import { getAccounts } from "./../../../../features/account/accountSlice";
+// import { useDispatch, useSelector } from "react-redux";
 
 const AccountsList = () => {
   const [accountsData, setAccountsData] = useState([]);
 
+  // const dispatch = useDispatch();
+
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/accounts`).then((res) => {
-      setAccountsData(res.data);
-    });
+    // dispatch(getAccounts());
+    axios
+      .get(`${URL}/accounts`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setAccountsData(res.data);
+      });
   }, []);
 
   const handleSelectChange = (e, account) => {
@@ -29,7 +40,7 @@ const AccountsList = () => {
     setAccountsData(allAccountsData);
 
     axios
-      .put(`http://localhost:5000/api/accounts/${account._id}`, {
+      .put(`${URL}/accounts/${account._id}`, {
         status: e.target.value,
       })
       .catch(() => {

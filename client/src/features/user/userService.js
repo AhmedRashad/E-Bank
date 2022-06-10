@@ -1,7 +1,7 @@
 import axios from "axios";
 import { URL } from "../../config";
 
-const API_URL = URL + "/user";
+const API_URL = URL + "/users";
 
 // get all users
 const getAllUsers = async () => {
