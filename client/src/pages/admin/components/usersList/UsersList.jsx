@@ -5,16 +5,18 @@ import { Table, Avatar } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import { HiEye } from "react-icons/hi";
 import { ToastContainer, toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { getAccounts } from "../../../../features/account/accountSlice";
 
 const UsersList = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [usersData, setUsersData] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/accounts`)
-      .then((res) => setUsersData(res.data));
+    //
+    dispatch(getAccounts());
   }, []);
 
   const handleSelectChange = (e, user) => {

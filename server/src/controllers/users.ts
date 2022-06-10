@@ -10,14 +10,13 @@ import SMTPTransport from "nodemailer/lib/smtp-transport";
 import sendEmail from "../utility/mailer";
 
 // Generate jwt
-const generateToken = async (id:mongoose.ObjectId,expireationTime:string,email?:string):Promise<string> => {
-  if (!email) {
-    return jwt.sign({ id }, config.JWTSecret, {expiresIn: expireationTime});
-  } else {
-    const user = await User.findOne({ _id: id });
-    const password = user.password;
-    return  jwt.sign({ id, email, password }, config.JWTSecret, { expiresIn: expireationTime })
-  }
+const generateToken = async (
+  id: string,
+  expireationTime: string
+): Promise<string> => {
+  return jwt.sign({ id }, config.JWTSecret, {
+    expiresIn: expireationTime,
+  });
 };
 
 // @desc Register new user
@@ -26,9 +25,6 @@ const generateToken = async (id:mongoose.ObjectId,expireationTime:string,email?:
 export const registerUser = asyncHandler(
   async (req: express.Request, res: express.Response): Promise<void> => {
     const { name, email, password, phone } = req.body;
-    console.log(req.body);
-    console.log(name, email, password, phone);
-
     if (!name || !email || !password || !phone) {
       res.status(400);
       throw new Error("Please add fields");
@@ -47,8 +43,8 @@ export const registerUser = asyncHandler(
     const user = await User.create({
       name,
       email,
-      password: hashedPassword,
       phone,
+      password: hashedPassword,
     });
     const token = generateToken(user._id, "1d");
 
@@ -100,8 +96,8 @@ export const loginUser = asyncHandler(
 // @access private
 export const getMe = asyncHandler(
   async (req: express.Request, res: express.Response): Promise<void> => {
-    const { name, email, phone, admin } = req.body.user;
-    res.status(200).json({ name, email, phone, admin });
+    const { name, email, admin } = req.body.user;
+    res.status(200).json({ name, email, admin });
   }
 );
 
@@ -171,43 +167,42 @@ export const approveUser = asyncHandler(
   }
 );
 
-export const actviateEmail = asyncHandler(async(req:express.Request,res:express.Response): Promise<void> => {
-  
-});
+export const actviateEmail = asyncHandler(
+  async (req: express.Request, res: express.Response): Promise<void> => {}
+);
 
-
-
-export const forgetPassword = asyncHandler(async (req: express.Request, res: express.Response): Promise<void> => {
-  const email = req.body.email;
-  const user = await User.findOne({ email });
-  if (user) {
-    const token = await generateToken(user._id, "1h", user.email);
-    const link = `http://${config.forntendHost}:${config.frontendPort}/reset-password/${user._id}/${token}`;
-    const subject = "reset your passaword at E-Bank"
-    const message = `Hello , ${user.name}\n
+export const forgetPassword = asyncHandler(
+  async (req: express.Request, res: express.Response): Promise<void> => {
+    const email = req.body.email;
+    const user = await User.findOne({ email });
+    if (user) {
+      const token = await generateToken(user._id, "1h");
+      const link = `http://${config.forntendHost}:${config.frontendPort}/reset-password/${user._id}/${token}`;
+      const subject = "reset your passaword at E-Bank";
+      const message = `Hello , ${user.name}\n
     Someone has requested a link to change your password. You can do this through the link below.\n
     ${link}\n
     If you didn't request this, please ignore this email.Your password won't change until you access the link above and create a new one.
     `;
-    sendEmail(user.email, subject, message).then((result) => {
-      res.json({
-      success: true,
-      message: "reset password link had send to your email",
-      info: result
-    });
-    }).catch((error) => {
-      res.status(500);
-      throw error;
-    })
-   
-
-  } else {
-    res.status(404).json({
-      success: false,
-      message: "there is no user registered with this email",
-    });
+      sendEmail(user.email, subject, message)
+        .then((result) => {
+          res.json({
+            success: true,
+            message: "reset password link had send to your email",
+            info: result,
+          });
+        })
+        .catch((error) => {
+          res.status(500);
+          throw error;
+        });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "there is no user registered with this email",
+      });
+    }
   }
-}
 );
 
 export const resetPassword = asyncHandler(async (req: express.Request, res: express.Response): Promise<void> => {

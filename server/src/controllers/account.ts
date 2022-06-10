@@ -7,6 +7,8 @@ const Account = require("../models/account");
 // @access  Private
 export const getAccounts = expressAsyncHandler(
   async (_req: express.Request, res: express.Response) => {
+    console.log(_req.body.user);
+    
     const accounts = await Account.find();
     res.status(200).json(accounts);
   }

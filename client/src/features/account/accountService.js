@@ -5,9 +5,11 @@ const API_URL = URL + "/accounts";
 
 // Get all accounts
 const getAccounts = async () => {
+  console.log("in get accounts");
   const response = await axios.get(API_URL, {
     withCredentials: true,
   });
+  console.log(response.data);
   return response.data;
 };
 
