@@ -6,15 +6,12 @@ import { config } from "../config/config"
 
 const protect = asyncHandler(async (req:express.Request, res:express.Response, next:NextFunction):Promise<void> => {
   const token = req.cookies.token;
-  console.log(token);
-
   if (token) {
     try {
       // verify token
       const decoded = jwt.verify(token, config.JWTSecret) as JwtPayload;
       // get user from the token
       req.body.user = await User.findById(decoded.id).select("-password");
-      console.log(req.body.user);
 
       next();
     } catch (error) {

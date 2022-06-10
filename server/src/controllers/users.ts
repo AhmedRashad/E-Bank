@@ -10,12 +10,9 @@ import SMTPTransport from "nodemailer/lib/smtp-transport";
 import sendEmail from "../utility/mailer";
 
 // Generate jwt
-const generateToken = async (
-  id: string,
-  expireationTime: string
-): Promise<string> => {
+const generateToken = (id: any) => {
   return jwt.sign({ id }, config.JWTSecret, {
-    expiresIn: expireationTime,
+    expiresIn: "30d",
   });
 };
 
@@ -46,7 +43,7 @@ export const registerUser = asyncHandler(
       phone,
       password: hashedPassword,
     });
-    const token = generateToken(user._id, "1d");
+    const token = generateToken(user._id);
 
     res.cookie("token", token, {
       maxAge: 1000 * 60 * 60 * 24,
@@ -73,7 +70,7 @@ export const loginUser = asyncHandler(
       user &&
       (await bcrypt.compare(password + config.pepper, user.password))
     ) {
-      res.cookie("token", generateToken(user._id, "1d"), {
+      res.cookie("token", generateToken(user._id), {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24,
       });
@@ -176,7 +173,7 @@ export const forgetPassword = asyncHandler(
     const email = req.body.email;
     const user = await User.findOne({ email });
     if (user) {
-      const token = await generateToken(user._id, "1h");
+      const token = await generateToken(user._id);
       const link = `http://${config.forntendHost}:${config.frontendPort}/reset-password/${user._id}/${token}`;
       const subject = "reset your passaword at E-Bank";
       const message = `Hello , ${user.name}\n
