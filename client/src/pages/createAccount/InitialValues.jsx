@@ -2,7 +2,7 @@ export const InitialValues = {
   username: "",
   email: "",
   phone: "",
-  currentJob: "",
+  work: "",
   country: "",
   id_government: "",
   birth_date: "",

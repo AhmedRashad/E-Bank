@@ -1,28 +1,16 @@
 import "./createAccount.css";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { Form, Field, Formik, ErrorMessage } from "formik";
+import axios from "axios";
 
 import { ToastContainer, toast } from "react-toastify";
 
-import { addAccount } from "../../features/account/accountSlice";
 import { CreateAccountSchema } from "../../validations/Validations";
 import { InitialValues } from "./InitialValues";
 import Loading from "../../components/loading/Loading";
 
 const CreateAccount = () => {
-  const dispactch = useDispatch();
-  const { isError, isSuccess, isLoading } = useSelector(
-    (state) => state.account
-  );
-
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success("Data saved");
-    } else if (isError) {
-      toast.error("Connection Failed");
-    }
-  }, [isError, isSuccess]);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <>
@@ -32,14 +20,19 @@ const CreateAccount = () => {
           initialValues={InitialValues}
           validationSchema={CreateAccountSchema}
           onSubmit={(values, actions) => {
-            dispactch(addAccount(values));
-            actions.resetForm();
+            setIsLoading(true);
 
-            if (isSuccess) {
-              toast.success("Data saved");
-            } else if (isError) {
-              toast.error("Connection Failed");
-            }
+            axios
+              .post("http://localhost:5000/api/accounts", values)
+              .then(() => {
+                actions.resetForm();
+                setIsLoading(false);
+                toast.success("Data saved");
+              })
+              .catch(() => {
+                setIsLoading(false);
+                toast.error("Connection Failed");
+              });
           }}
         >
           {({ values, handleChange, handleBlur }) => (
@@ -173,23 +166,23 @@ const CreateAccount = () => {
 
                     <div className="col-span-6">
                       <label
-                        htmlFor="currentJob"
+                        htmlFor="work"
                         className="block text-sm font-medium text-gray-700"
                       >
                         Current Job
                       </label>
                       <Field
                         type="text"
-                        id="currentJob"
-                        name="currentJob"
+                        id="work"
+                        name="work"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.currentJob}
+                        value={values.work}
                         className="create-account-input"
                       />
                       <ErrorMessage
                         className="error"
-                        name="currentJob"
+                        name="work"
                         component="div"
                       />
                     </div>

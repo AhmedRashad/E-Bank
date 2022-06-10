@@ -9,7 +9,7 @@ export const CreateAccountSchema = Yup.object().shape({
     .matches(/^[0-9]{11}$/, "Must be exactly 11 number")
     .required("Phone is Required"),
 
-  currentJob: Yup.string().required("Current Job is Required"),
+  work: Yup.string().required("Current Job is Required"),
 
   country: Yup.string().required("Country is Required"),
 
