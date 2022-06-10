@@ -2,12 +2,12 @@ import "./createAccount.css";
 import { useState } from "react";
 import { Form, Field, Formik, ErrorMessage } from "formik";
 import axios from "axios";
-
 import { ToastContainer, toast } from "react-toastify";
 
 import { CreateAccountSchema } from "../../validations/Validations";
 import { InitialValues } from "./InitialValues";
 import Loading from "../../components/loading/Loading";
+import { URL } from "../../config";
 
 const CreateAccount = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +23,7 @@ const CreateAccount = () => {
             setIsLoading(true);
 
             axios
-              .post("http://localhost:5000/accounts", values)
+              .post(`${URL}/accounts`, values)
               .then(() => {
                 actions.resetForm();
                 setIsLoading(false);

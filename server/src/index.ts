@@ -22,7 +22,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/accounts", accountRouter);
 
 app.listen(config.port, () => {
   console.log(`Server on port ${config.port}`);
@@ -36,7 +35,8 @@ app.get("/", (_req: express.Request, res: express.Response): void => {
   });
 });
 
-app.use("/user",UserRouter)
+app.use("/users",UserRouter)
+app.use("/accounts", accountRouter);
 
 // return 404 for unhandeled routes.
 app.use((_req: express.Request, res: express.Response) => {

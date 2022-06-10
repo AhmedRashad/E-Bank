@@ -5,6 +5,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
 
+import { URL } from "../../../../../config";
+
 const UserData = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,7 +30,7 @@ const UserData = () => {
     setUsersData(allUsersData);
 
     axios
-      .put(`http://localhost:5000/api/users/${user._id}`, {
+      .put(`${URL}/users/${user._id}`, {
         status: e.target.value,
       })
       .catch(() => {
@@ -39,7 +41,7 @@ const UserData = () => {
 
   const handleRemoveUser = (user) => {
     axios
-      .delete(`http://localhost:5000/api/users/${user._id}`)
+      .delete(`${URL}/users/${user._id}`)
       .then(() => {
         navigate("/admin/users", { replace: true });
       })

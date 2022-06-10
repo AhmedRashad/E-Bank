@@ -5,6 +5,7 @@ import { Table, Avatar } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import { HiEye } from "react-icons/hi";
 import { ToastContainer, toast } from "react-toastify";
+import { URL } from "../../../../config";
 
 const UsersList = () => {
   const navigate = useNavigate();
@@ -12,9 +13,7 @@ const UsersList = () => {
   const [usersData, setUsersData] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/accounts`)
-      .then((res) => setUsersData(res.data));
+    axios.get(`${URL}/accounts`).then((res) => setUsersData(res.data));
   }, []);
 
   const handleSelectChange = (e, user) => {
@@ -30,7 +29,7 @@ const UsersList = () => {
     setUsersData(allUsersData);
 
     axios
-      .put(`http://localhost:5000/api/users/${user._id}`, {
+      .put(`${URL}/users/${user._id}`, {
         status: e.target.value,
       })
       .catch(() => {

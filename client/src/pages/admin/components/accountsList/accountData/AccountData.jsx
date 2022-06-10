@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { URL } from "../../../../../config";
 
 const AccountData = () => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const AccountData = () => {
     setAccountsData(allAccountsData);
 
     axios
-      .put(`http://localhost:5000/accounts/${account._id}`, {
+      .put(`${URL}/accounts/${account._id}`, {
         status: e.target.value,
       })
       .catch(() => {
@@ -41,7 +42,7 @@ const AccountData = () => {
 
   const handleRemoveAccount = (account) => {
     axios
-      .delete(`http://localhost:5000/accounts/${account._id}`)
+      .delete(`${URL}/accounts/${account._id}`)
       .then(() => {
         navigate("/admin/accounts", { replace: true });
       })
