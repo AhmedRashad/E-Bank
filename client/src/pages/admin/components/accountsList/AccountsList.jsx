@@ -1,55 +1,59 @@
-import "./usersList.css";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { Table, Avatar } from "flowbite-react";
+import "./accountsList.css";
+import { Table } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import { HiEye } from "react-icons/hi";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 
-const UsersList = () => {
-  const navigate = useNavigate();
-
-  const [usersData, setUsersData] = useState([]);
+const AccountsList = () => {
+  const [accountsData, setAccountsData] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/accounts`)
-      .then((res) => setUsersData(res.data));
+    axios.get(`http://localhost:5000/api/accounts`).then((res) => {
+      setAccountsData(res.data);
+    });
   }, []);
 
-  const handleSelectChange = (e, user) => {
+  const handleSelectChange = (e, account) => {
     // Copy data if there is an error, set the state again to the initial data
-    const copyData = [...usersData];
+    const copyData = [...accountsData];
     // Clone
-    let allUsersData = [...usersData];
+    let allAccountsData = [...accountsData];
     // Edit
-    let index = allUsersData.indexOf(user);
-    allUsersData[index] = { ...allUsersData[index] };
-    allUsersData[index].status = e.target.value;
+    let index = allAccountsData.indexOf(account);
+    allAccountsData[index] = { ...allAccountsData[index] };
+    allAccountsData[index].status = e.target.value;
+
     // Set State
-    setUsersData(allUsersData);
+    setAccountsData(allAccountsData);
 
     axios
-      .patch(`http://localhost:5000/api/users/${user._id}`, {
+      .patch(`http://localhost:5000/api/accounts/${account._id}`, {
         status: e.target.value,
       })
       .catch(() => {
         toast.error("Try Again");
-        setUsersData(copyData);
+        setAccountsData(copyData);
       });
   };
 
+  const navigate = useNavigate();
+
   return (
-    <div className="container">
-      <ToastContainer />
+    <div className="container ">
       <div className="pt-4 pb-2">
+        <ToastContainer />
         <Table hoverable={true}>
           <Table.Head className="bg-gray-200">
             <Table.HeadCell className="text-sm">Name</Table.HeadCell>
-            <Table.HeadCell className="!px-2 text-center text-sm">
-              Total Balance
+            <Table.HeadCell className="text-sm text-center">
+              Account Name
             </Table.HeadCell>
-            <Table.HeadCell className="!px-2 text-center text-sm">
+            <Table.HeadCell className="text-center text-sm">
+              Balance
+            </Table.HeadCell>
+            <Table.HeadCell className="text-center text-sm">
               Status
             </Table.HeadCell>
             <Table.HeadCell className="text-center text-sm">
@@ -57,39 +61,38 @@ const UsersList = () => {
             </Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
-            {usersData.map((user) => (
+            {accountsData.map((account) => (
               <Table.Row
-                key={user._id}
+                key={account._id}
                 className="bg-white dark:border-gray-700 dark:bg-gray-800"
               >
                 <Table.Cell
-                  className="font-medium whitespace-nowrap flex items-center !px-2 gap-2
+                  className="font-medium whitespace-nowrap !px-2
                 text-gray-900 dark:text-white"
                 >
-                  <span className="hidden md:flex">
-                    <Avatar
-                      img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                      rounded={true}
-                    />
-                  </span>
-                  <span className="ml-4 md:ml-0">{user.username}</span>
+                  <span className="ml-4">{account.username}</span>
                 </Table.Cell>
+
                 <Table.Cell className="!px-2 text-center">
-                  ${user.current_balance}
+                  {account.account_name}
+                </Table.Cell>
+
+                <Table.Cell className="!px-2 text-center">
+                  ${account.current_balance}
                 </Table.Cell>
                 <Table.Cell className="!px-2 text-center">
                   <div className="relative">
                     <select
-                      id={user._id}
-                      onChange={(e) => handleSelectChange(e, user)}
-                      value={user.status}
+                      id={account._id}
+                      onChange={(e) => handleSelectChange(e, account)}
+                      value={account.status}
                       className={`text-lg focus:outline-none focus:border-0
                       pl-3 text-center py-1 rounded-full cursor-pointer ${
-                        user.status == "active"
+                        account.status == "active"
                           ? "bg-green-300"
-                          : user.status == "pending"
+                          : account.status == "pending"
                           ? "bg-yellow-300"
-                          : user.status == "rejected"
+                          : account.status == "rejected"
                           ? "bg-red-200"
                           : "bg-inherit"
                       }`}
@@ -104,8 +107,8 @@ const UsersList = () => {
                   <div className="flex justify-center items-center">
                     <button
                       onClick={() =>
-                        navigate(`${user._id}`, {
-                          state: { usersData },
+                        navigate(`${account._id}`, {
+                          state: { accountsData },
                         })
                       }
                       className="create-account-btn flex gap-1 items-center px-3 py-1 rounded-full"
@@ -124,4 +127,4 @@ const UsersList = () => {
   );
 };
 
-export default UsersList;
+export default AccountsList;

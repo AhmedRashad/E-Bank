@@ -1,18 +1,47 @@
 import "./userData.css";
+import { useState } from "react";
+import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
 
 const UserData = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const id = useParams().id;
 
-  const userData = location.state.usersData.filter((user) => user._id == id);
+  const data = location.state.usersData.filter((user) => user._id == id);
+
+  const [usersData, setUsersData] = useState(data);
+
+  const handleSelectChange = (e, user) => {
+    // Copy data if there is an error, set the state again to the initial data
+    const copyData = [...usersData];
+    // Clone
+    let allUsersData = [...usersData];
+    // Edit
+    let index = allUsersData.indexOf(user);
+    allUsersData[index] = { ...allUsersData[index] };
+    allUsersData[index].status = e.target.value;
+
+    // Set State
+    setUsersData(allUsersData);
+
+    axios
+      .patch(`http://localhost:5000/api/users/${user._id}`, {
+        status: e.target.value,
+      })
+      .catch(() => {
+        toast.error("Try Again");
+        setUsersData(copyData);
+      });
+  };
 
   return (
     <div className="container">
-      {userData.map((user) => (
+      {usersData.map((user) => (
         <div key={user._id}>
+          <ToastContainer />
           <h3 className="text-lg pl-4 pt-2 font-bold leading-6 text-gray-900">
             Personal Information
           </h3>
@@ -33,8 +62,8 @@ const UserData = () => {
               <div className="relative">
                 <select
                   id={user._id}
-                  // onChange={handleSelectChange}
-                  defaultValue={user.status}
+                  onChange={(e) => handleSelectChange(e, user)}
+                  value={user.status}
                   className={`text-lg focus:outline-none focus:border-0
                       pl-3 text-center py-1 rounded-full cursor-pointer ${
                         user.status == "active"
@@ -51,18 +80,6 @@ const UserData = () => {
                   <option value="pending">Pending</option>
                 </select>
               </div>
-
-              {/* <span
-              className={`text-lg px-3 py-1 rounded-full cursor-pointer ${
-                user.status == "active"
-                  ? "bg-green-300"
-                  : user.status == "pending"
-                  ? "bg-yellow-300"
-                  : "bg-red-200"
-              }`}
-              >
-                {user.status.charAt(0).toUpperCase() + user.status.slice(1)}
-              </span> */}
             </div>
 
             <div>
@@ -82,7 +99,7 @@ const UserData = () => {
 
             <div>
               <span className="font-bold">Current Job: </span>
-              <span className="text-lg">{user.work}</span>
+              <span className="text-lg">{user.currentJob}</span>
             </div>
 
             <div>
@@ -117,27 +134,27 @@ const UserData = () => {
           <div className="flex bg-white p-8 m-4 flex-col gap-4">
             <div>
               <span className="font-bold">Total Accounts: </span>
-              <span className="text-lg">{userData.length}</span>
+              <span className="text-lg">{usersData.length}</span>
             </div>
 
             <div>
               <span className="font-bold">Active Accounts: </span>
               <span className="text-lg">
-                {userData.filter((user) => user.status == "active").length}
+                {usersData.filter((user) => user.status == "active").length}
               </span>
             </div>
 
             <div>
-              <span className="font-bold">Inactive Accounts: </span>
+              <span className="font-bold">Pending Accounts: </span>
               <span className="text-lg">
-                {userData.filter((user) => user.status == "pending").length}
+                {usersData.filter((user) => user.status == "pending").length}
               </span>
             </div>
 
             <div>
               <span className="font-bold">Rejected Accounts: </span>
               <span className="text-lg">
-                {userData.filter((user) => user.status == "rejected").length}
+                {usersData.filter((user) => user.status == "rejected").length}
               </span>
             </div>
 

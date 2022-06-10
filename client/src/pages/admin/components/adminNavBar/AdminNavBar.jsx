@@ -61,17 +61,13 @@ const AdminNavBar = () => {
                 <NavLink to="/admin/dashboard" className="admin-nav-item">
                   Dashboard
                 </NavLink>
-                <NavLink to="/admin/verifyingUsers" className="admin-nav-item">
-                  Verifying Users
-                </NavLink>
+
                 <NavLink to="/admin/users" className="admin-nav-item">
                   Users
                 </NavLink>
+
                 <NavLink to="/admin/accounts" className="admin-nav-item">
                   Accounts
-                </NavLink>
-                <NavLink to="/admin/suspendUsers" className="admin-nav-item">
-                  Suspend Users
                 </NavLink>
               </div>
               <div>

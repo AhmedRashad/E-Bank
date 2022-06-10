@@ -1,13 +1,6 @@
 import "./sidebar.css";
 import { Sidebar } from "flowbite-react";
-import {
-  HiChartPie,
-  HiUsers,
-  HiUser,
-  HiLogout,
-  HiUserAdd,
-  HiUserRemove,
-} from "react-icons/hi";
+import { HiChartPie, HiUsers, HiUser, HiLogout } from "react-icons/hi";
 import { NavLink } from "react-router-dom";
 
 import logo from "../../../../logo.png";
@@ -34,16 +27,6 @@ const AdminSidebar = () => {
               <span className="sidbar-item">Dashboard</span>
             </NavLink>
 
-            <NavLink
-              className="sidbar-item-container"
-              to="/admin/verifyingUsers"
-            >
-              <span>
-                <HiUserAdd className="sidbar-icon" />
-              </span>
-              <span className="sidbar-item">Verifying Users</span>
-            </NavLink>
-
             <NavLink className="sidbar-item-container" to="/admin/users">
               <span>
                 <HiUsers className="sidbar-icon" />
@@ -56,13 +39,6 @@ const AdminSidebar = () => {
                 <HiUser className="sidbar-icon" />
               </span>
               <span className="sidbar-item">Accounts</span>
-            </NavLink>
-
-            <NavLink className="sidbar-item-container" to="/admin/suspendUsers">
-              <span>
-                <HiUserRemove className="sidbar-icon" />
-              </span>
-              <span className="sidbar-item">Suspend Users</span>
             </NavLink>
 
             <NavLink className="sidbar-item-container" to="/">

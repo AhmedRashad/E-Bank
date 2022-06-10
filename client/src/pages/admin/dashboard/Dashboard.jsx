@@ -4,13 +4,12 @@ import { useState } from "react";
 
 import AdminSidebar from "../components/sidebar/Sidebar";
 import DashboardHome from "./../components/dashboardHome/DashboardHome";
-import NewAccounts from "./../components/newAccounts/NewAccounts";
-import VerifyingUsers from "../components/verifyingUsers/VerifyingUsers";
 import UsersList from "./../components/usersList/UsersList";
-import SuspendUsers from "./../components/suspendUsers/SuspendUsers";
 import AdminNavBar from "./../components/adminNavBar/AdminNavBar";
 import DashboardNavBar from "../components/dashboardNavBar/DashboardNavBar";
 import UserData from "./../components/usersList/userData/UserData";
+import AccountsList from "./../components/accountsList/AccountsList";
+import AccountData from "./../components/accountsList/accountData/AccountData";
 
 const Dashboard = () => {
   const [openSideBar, setOpenSideBar] = useState(true);
@@ -39,11 +38,10 @@ const Dashboard = () => {
         <div className="py-4">
           <Routes>
             <Route path="dashboard" element={<DashboardHome />} />
-            <Route path="verifyingUsers" element={<VerifyingUsers />} />
             <Route path="users" element={<UsersList />} />
             <Route path="users/:id" element={<UserData />} />
-            <Route path="accounts" element={<NewAccounts />} />
-            <Route path="suspendUsers" element={<SuspendUsers />} />
+            <Route path="accounts" element={<AccountsList />} />
+            <Route path="accounts/:id" element={<AccountData />} />
           </Routes>
         </div>
       </div>
