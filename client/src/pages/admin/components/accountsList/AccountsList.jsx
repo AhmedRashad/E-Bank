@@ -10,7 +10,7 @@ const AccountsList = () => {
   const [accountsData, setAccountsData] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/accounts`).then((res) => {
+    axios.get(`http://localhost:5000/accounts`).then((res) => {
       setAccountsData(res.data);
     });
   }, []);
@@ -29,7 +29,7 @@ const AccountsList = () => {
     setAccountsData(allAccountsData);
 
     axios
-      .put(`http://localhost:5000/api/accounts/${account._id}`, {
+      .put(`http://localhost:5000/accounts/${account._id}`, {
         status: e.target.value,
       })
       .catch(() => {

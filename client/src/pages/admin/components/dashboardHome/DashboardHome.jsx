@@ -20,7 +20,7 @@ const DashboardHome = () => {
   const [inactiveUsers, setInactiveUsers] = useState(0);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/accounts").then((res) => {
+    axios.get("http://localhost:5000/accounts").then((res) => {
       setTotalAccounts(res.data.length);
       setActiveAccounts(res.data.filter((d) => d.status === "active").length);
       setInactiveAccounts(res.data.filter((d) => d.status !== "active").length);

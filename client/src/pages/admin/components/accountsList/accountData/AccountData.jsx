@@ -30,7 +30,7 @@ const AccountData = () => {
     setAccountsData(allAccountsData);
 
     axios
-      .put(`http://localhost:5000/api/accounts/${account._id}`, {
+      .put(`http://localhost:5000/accounts/${account._id}`, {
         status: e.target.value,
       })
       .catch(() => {
@@ -41,7 +41,7 @@ const AccountData = () => {
 
   const handleRemoveAccount = (account) => {
     axios
-      .delete(`http://localhost:5000/api/accounts/${account._id}`)
+      .delete(`http://localhost:5000/accounts/${account._id}`)
       .then(() => {
         navigate("/admin/accounts", { replace: true });
       })

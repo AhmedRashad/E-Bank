@@ -23,7 +23,7 @@ const CreateAccount = () => {
             setIsLoading(true);
 
             axios
-              .post("http://localhost:5000/api/accounts", values)
+              .post("http://localhost:5000/accounts", values)
               .then(() => {
                 actions.resetForm();
                 setIsLoading(false);

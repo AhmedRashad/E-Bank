@@ -13,7 +13,7 @@ const UsersList = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/accounts`)
+      .get(`http://localhost:5000/accounts`)
       .then((res) => setUsersData(res.data));
   }, []);
 
