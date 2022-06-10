@@ -30,7 +30,7 @@ const UsersList = () => {
     setUsersData(allUsersData);
 
     axios
-      .patch(`http://localhost:5000/api/users/${user._id}`, {
+      .put(`http://localhost:5000/api/users/${user._id}`, {
         status: e.target.value,
       })
       .catch(() => {

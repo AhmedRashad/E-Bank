@@ -30,13 +30,22 @@ const AccountData = () => {
     setAccountsData(allAccountsData);
 
     axios
-      .patch(`http://localhost:5000/api/accounts/${account._id}`, {
+      .put(`http://localhost:5000/api/accounts/${account._id}`, {
         status: e.target.value,
       })
       .catch(() => {
         toast.error("Try Again");
         setAccountsData(copyData);
       });
+  };
+
+  const handleRemoveAccount = (account) => {
+    axios
+      .delete(`http://localhost:5000/api/accounts/${account._id}`)
+      .then(() => {
+        navigate("/admin/accounts", { replace: true });
+      })
+      .catch(() => toast.error("Can't Delete Try Again"));
   };
 
   return (
@@ -148,6 +157,13 @@ const AccountData = () => {
                 </select>
               </div>
             </div>
+
+            <button
+              onClick={() => handleRemoveAccount(account)}
+              className="create-account-btn text-2xl bg-red-400 hover:bg-red-500"
+            >
+              Remove Account
+            </button>
 
             <button
               onClick={() => navigate("/admin/accounts")}

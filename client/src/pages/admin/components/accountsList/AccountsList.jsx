@@ -29,7 +29,7 @@ const AccountsList = () => {
     setAccountsData(allAccountsData);
 
     axios
-      .patch(`http://localhost:5000/api/accounts/${account._id}`, {
+      .put(`http://localhost:5000/api/accounts/${account._id}`, {
         status: e.target.value,
       })
       .catch(() => {

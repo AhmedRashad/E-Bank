@@ -23,9 +23,7 @@ const DashboardHome = () => {
     axios.get("http://localhost:5000/api/accounts").then((res) => {
       setTotalAccounts(res.data.length);
       setActiveAccounts(res.data.filter((d) => d.status === "active").length);
-      setInactiveAccounts(
-        res.data.filter((d) => d.status === "pending").length
-      );
+      setInactiveAccounts(res.data.filter((d) => d.status !== "active").length);
       let num = 0;
       for (let i of res.data) {
         num += i.current_balance;

@@ -28,13 +28,22 @@ const UserData = () => {
     setUsersData(allUsersData);
 
     axios
-      .patch(`http://localhost:5000/api/users/${user._id}`, {
+      .put(`http://localhost:5000/api/users/${user._id}`, {
         status: e.target.value,
       })
       .catch(() => {
         toast.error("Try Again");
         setUsersData(copyData);
       });
+  };
+
+  const handleRemoveUser = (user) => {
+    axios
+      .delete(`http://localhost:5000/api/users/${user._id}`)
+      .then(() => {
+        navigate("/admin/users", { replace: true });
+      })
+      .catch(() => toast.error("Can't Delete Try Again"));
   };
 
   return (
@@ -157,6 +166,13 @@ const UserData = () => {
                 {usersData.filter((user) => user.status == "rejected").length}
               </span>
             </div>
+
+            <button
+              onClick={() => handleRemoveUser(user)}
+              className="create-account-btn text-2xl bg-red-400 hover:bg-red-500"
+            >
+              Remove User
+            </button>
 
             <button
               onClick={() => navigate("/admin/users")}
