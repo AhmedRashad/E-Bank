@@ -1,11 +1,12 @@
 import "./sidebar.css";
 import { Sidebar } from "flowbite-react";
 import { HiChartPie, HiUsers, HiUser, HiLogout } from "react-icons/hi";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import logo from "../../../../logo.png";
 
 const AdminSidebar = () => {
+  const navigate = useNavigate();
   return (
     <div className="h-full">
       <Sidebar
@@ -41,12 +42,15 @@ const AdminSidebar = () => {
               <span className="sidbar-item">Accounts</span>
             </NavLink>
 
-            <NavLink className="sidbar-item-container" to="/">
+            <button
+              onClick={() => navigate("/", { replace: true })}
+              className="sidbar-item-container w-full"
+            >
               <span>
                 <HiLogout className="sidbar-icon" />
               </span>
-              <span className="sidbar-item">Log out</span>
-            </NavLink>
+              <span className="sidbar-item text-left">Log out</span>
+            </button>
           </Sidebar.ItemGroup>
         </Sidebar.Items>
       </Sidebar>

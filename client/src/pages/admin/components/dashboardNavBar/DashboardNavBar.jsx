@@ -1,12 +1,14 @@
 import "./dashboardNavBar.css";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { HiMenu, HiChevronDown } from "react-icons/hi";
 import { Avatar } from "flowbite-react";
 
 const DashboardNavBar = (props) => {
   const { handleSideBar, adminAvatar, adminName } = props;
   const [openAvatar, setOpenAvatar] = useState(false);
+
+  const navigate = useNavigate();
 
   window.addEventListener("keyup", (e) => {
     if (e.key === "Escape") {
@@ -65,9 +67,12 @@ const DashboardNavBar = (props) => {
                   </div>
 
                   <div>
-                    <NavLink to="/" className="admin-nav-logout-btn">
+                    <button
+                      onClick={() => navigate("/", { replace: true })}
+                      className="admin-nav-logout-btn"
+                    >
                       Log out
-                    </NavLink>
+                    </button>
                   </div>
                 </div>
               </div>

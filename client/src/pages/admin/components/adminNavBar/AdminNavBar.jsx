@@ -1,11 +1,12 @@
 import "./adminNavBar.css";
 import { Popover } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 
 import logo from "../../../../logo.png";
 
 const AdminNavBar = () => {
+  const navigate = useNavigate();
   return (
     <Popover className="relative shadow-lg bg-white">
       <div className="max-w-7xl mx-auto px-8">
@@ -64,9 +65,12 @@ const AdminNavBar = () => {
             </div>
 
             <div>
-              <NavLink to="/" className="admin-nav-logout-btn">
+              <button
+                onClick={() => navigate("/", { replace: true })}
+                className="admin-nav-logout-btn"
+              >
                 Log out
-              </NavLink>
+              </button>
             </div>
           </div>
         </div>
