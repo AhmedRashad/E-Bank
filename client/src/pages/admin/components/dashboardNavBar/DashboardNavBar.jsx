@@ -3,6 +3,7 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { HiMenu, HiChevronDown } from "react-icons/hi";
 import { Avatar } from "flowbite-react";
+import RemoveCookie from "../../../../cookie/RemoveCookie";
 
 const DashboardNavBar = (props) => {
   const { handleSideBar, adminAvatar, adminName } = props;
@@ -68,7 +69,10 @@ const DashboardNavBar = (props) => {
 
                   <div>
                     <button
-                      onClick={() => navigate("/", { replace: true })}
+                      onClick={() => {
+                        RemoveCookie("token");
+                        navigate("/", { replace: true });
+                      }}
                       className="admin-nav-logout-btn"
                     >
                       Log out

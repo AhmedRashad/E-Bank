@@ -39,6 +39,18 @@ const DashboardHome = () => {
       });
   }, []);
 
+  useEffect(() => {
+    axios
+      .get(`${URL}/users`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setTotalUsers(res.data.length);
+        setActiveUsers(res.data.filter((d) => d.status === "active").length);
+        setInactiveUsers(res.data.filter((d) => d.status !== "active").length);
+      });
+  }, []);
+
   return (
     <div className="container grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4">
       <DashboardCard

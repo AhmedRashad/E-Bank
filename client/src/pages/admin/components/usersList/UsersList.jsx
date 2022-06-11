@@ -14,7 +14,7 @@ const UsersList = () => {
 
   useEffect(() => {
     axios
-      .get(`${URL}/users/all`, {
+      .get(`${URL}/users`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -36,7 +36,7 @@ const UsersList = () => {
     console.log(user._id);
     axios
       .put(
-        `${URL}/users/approve/${user._id}`,
+        `${URL}/users/${user._id}`,
         {
           status: e.target.value,
         },
@@ -48,6 +48,13 @@ const UsersList = () => {
         toast.error("Try Again");
         setUsersData(copyData);
       });
+  };
+
+  const handleTotalBalance = (user) => {
+    let totalBalance = 0;
+    user.accounts.map((t) => (totalBalance += t.current_balance));
+
+    return totalBalance;
   };
 
   return (
@@ -86,7 +93,7 @@ const UsersList = () => {
                   <span className="ml-4 md:ml-0">{user.name}</span>
                 </Table.Cell>
                 <Table.Cell className="!px-2 text-center">
-                  ${`1010101`}
+                  ${handleTotalBalance(user)}
                 </Table.Cell>
                 <Table.Cell className="!px-2 text-center">
                   <div className="relative">

@@ -4,6 +4,8 @@ import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
+import { Table } from "flowbite-react";
+import { HiEye } from "react-icons/hi";
 
 import { URL } from "../../../../../config";
 
@@ -31,7 +33,7 @@ const UserData = () => {
 
     axios
       .put(
-        `${URL}/users/all/${user._id}`,
+        `${URL}/users/${user._id}`,
         {
           status: e.target.value,
         },
@@ -47,7 +49,7 @@ const UserData = () => {
 
   const handleRemoveUser = (user) => {
     axios
-      .delete(`${URL}/users/all/${user._id}`, {
+      .delete(`${URL}/users/${user._id}`, {
         withCredentials: true,
       })
       .then(() => {
@@ -110,31 +112,66 @@ const UserData = () => {
           <h3 className="text-lg pl-4 pt-2 font-bold leading-6 text-gray-900">
             Accounts Information
           </h3>
+
           <div className="flex bg-white p-8 m-4 flex-col gap-4">
-            <div>
-              <span className="font-bold">Total Accounts: </span>
-              <span className="text-lg">{usersData.length}</span>
-            </div>
+            <div className="pt-4 pb-2">
+              <ToastContainer />
+              <Table hoverable={true}>
+                <Table.Head className="bg-gray-200">
+                  <Table.HeadCell className="text-sm">Name</Table.HeadCell>
+                  <Table.HeadCell className="text-sm text-center">
+                    Account Name
+                  </Table.HeadCell>
+                  <Table.HeadCell className="text-center text-sm">
+                    Balance
+                  </Table.HeadCell>
+                  <Table.HeadCell className="text-center text-sm">
+                    Action
+                  </Table.HeadCell>
+                </Table.Head>
+                <Table.Body className="divide-y">
+                  {user.accounts.map((account) => (
+                    <Table.Row
+                      key={account._id}
+                      className="bg-white dark:border-gray-700 dark:bg-gray-800"
+                    >
+                      <Table.Cell
+                        className="font-medium whitespace-nowrap !px-2
+                      text-gray-900 dark:text-white"
+                      >
+                        <span className="ml-4">{account.username}</span>
+                      </Table.Cell>
 
-            <div>
-              <span className="font-bold">Active Accounts: </span>
-              <span className="text-lg">
-                {usersData.filter((user) => user.status == "active").length}
-              </span>
-            </div>
+                      <Table.Cell className="!px-2 text-center">
+                        {account.account_name}
+                      </Table.Cell>
 
-            <div>
-              <span className="font-bold">Pending Accounts: </span>
-              <span className="text-lg">
-                {usersData.filter((user) => user.status == "pending").length}
-              </span>
-            </div>
+                      <Table.Cell className="!px-2 text-center">
+                        ${account.current_balance}
+                      </Table.Cell>
 
-            <div>
-              <span className="font-bold">Rejected Accounts: </span>
-              <span className="text-lg">
-                {usersData.filter((user) => user.status == "rejected").length}
-              </span>
+                      <Table.Cell className="!px-2">
+                        <div className="flex justify-center items-center">
+                          <button
+                            onClick={() =>
+                              navigate(`${account._id}`, {
+                                state: {
+                                  accountsData: user.accounts,
+                                  id: user._id,
+                                },
+                              })
+                            }
+                            className="create-account-btn flex gap-1 items-center px-3 py-1 rounded-full"
+                          >
+                            <HiEye className="text-lg" />
+                            <span>View</span>
+                          </button>
+                        </div>
+                      </Table.Cell>
+                    </Table.Row>
+                  ))}
+                </Table.Body>
+              </Table>
             </div>
 
             <button

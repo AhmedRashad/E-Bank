@@ -4,6 +4,7 @@ import { HiChartPie, HiUsers, HiUser, HiLogout } from "react-icons/hi";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import logo from "../../../../logo.png";
+import RemoveCookie from "./../../../../cookie/RemoveCookie";
 
 const AdminSidebar = () => {
   const navigate = useNavigate();
@@ -43,7 +44,10 @@ const AdminSidebar = () => {
             </NavLink>
 
             <button
-              onClick={() => navigate("/", { replace: true })}
+              onClick={() => {
+                RemoveCookie("token");
+                navigate("/", { replace: true });
+              }}
               className="sidbar-item-container w-full"
             >
               <span>

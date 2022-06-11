@@ -7,16 +7,10 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { URL } from "../../../../config";
 
-// import { getAccounts } from "./../../../../features/account/accountSlice";
-// import { useDispatch, useSelector } from "react-redux";
-
 const AccountsList = () => {
   const [accountsData, setAccountsData] = useState([]);
 
-  // const dispatch = useDispatch();
-
   useEffect(() => {
-    // dispatch(getAccounts());
     axios
       .get(`${URL}/accounts`, {
         withCredentials: true,
