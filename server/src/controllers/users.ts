@@ -135,7 +135,7 @@ export const makeAdmin = asyncHandler(
 // @access private for admin only
 export const getAllUsers = asyncHandler(
   async (req: express.Request, res: express.Response): Promise<void> => {
-    const users = await User.find({});
+    const users = await User.find({}).populate("accounts").select("-password");
     res.status(200).json(users);
   }
 );
