@@ -45,9 +45,15 @@ const DashboardHome = () => {
         withCredentials: true,
       })
       .then((res) => {
-        setTotalUsers(res.data.length);
-        setActiveUsers(res.data.filter((d) => d.status === "active").length);
-        setInactiveUsers(res.data.filter((d) => d.status !== "active").length);
+        setTotalUsers(res.data.filter((user) => user.admin == false).length);
+        setActiveUsers(
+          res.data.filter((d) => d.admin == false && d.status === "active")
+            .length
+        );
+        setInactiveUsers(
+          res.data.filter((d) => d.admin == false && d.status !== "active")
+            .length
+        );
       });
   }, []);
 
