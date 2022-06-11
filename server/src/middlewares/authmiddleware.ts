@@ -11,7 +11,7 @@ const protect = asyncHandler(async (req:express.Request, res:express.Response, n
       // verify token
       const decoded = jwt.verify(token, config.JWTSecret) as JwtPayload;
       // get user from the token
-      req.body.user = await User.findById(decoded.id).select("-password");
+      req.body.user = await User.findById(decoded.id).populate("accounts").select("-password");
 
       next();
     } catch (error) {

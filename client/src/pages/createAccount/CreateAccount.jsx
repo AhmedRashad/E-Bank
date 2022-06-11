@@ -23,7 +23,9 @@ const CreateAccount = () => {
             setIsLoading(true);
 
             axios
-              .post(`${URL}/accounts`, values)
+              .post(`${URL}/accounts`, values, {
+                withCredentials: true,
+              })
               .then(() => {
                 actions.resetForm();
                 setIsLoading(false);

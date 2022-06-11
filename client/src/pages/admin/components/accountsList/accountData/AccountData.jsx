@@ -31,9 +31,15 @@ const AccountData = () => {
     setAccountsData(allAccountsData);
 
     axios
-      .put(`${URL}/accounts/${account._id}`, {
-        status: e.target.value,
-      })
+      .put(
+        `${URL}/accounts/${account._id}`,
+        {
+          status: e.target.value,
+        },
+        {
+          withCredentials: true,
+        }
+      )
       .catch(() => {
         toast.error("Try Again");
         setAccountsData(copyData);
@@ -42,7 +48,9 @@ const AccountData = () => {
 
   const handleRemoveAccount = (account) => {
     axios
-      .delete(`${URL}/accounts/${account._id}`)
+      .delete(`${URL}/accounts/${account._id}`, {
+        withCredentials: true,
+      })
       .then(() => {
         navigate("/admin/accounts", { replace: true });
       })

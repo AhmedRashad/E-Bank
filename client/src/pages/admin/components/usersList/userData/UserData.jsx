@@ -30,9 +30,15 @@ const UserData = () => {
     setUsersData(allUsersData);
 
     axios
-      .put(`${URL}/users/${user._id}`, {
-        status: e.target.value,
-      })
+      .put(
+        `${URL}/users/all/${user._id}`,
+        {
+          status: e.target.value,
+        },
+        {
+          withCredentials: true,
+        }
+      )
       .catch(() => {
         toast.error("Try Again");
         setUsersData(copyData);
@@ -41,7 +47,9 @@ const UserData = () => {
 
   const handleRemoveUser = (user) => {
     axios
-      .delete(`${URL}/users/${user._id}`)
+      .delete(`${URL}/users/all/${user._id}`, {
+        withCredentials: true,
+      })
       .then(() => {
         navigate("/admin/users", { replace: true });
       })
@@ -59,7 +67,7 @@ const UserData = () => {
           <div className="flex bg-white p-8 m-4 flex-col gap-4">
             <div>
               <span className="font-bold">Name: </span>
-              <span className="text-lg">{user.username}</span>
+              <span className="text-lg">{user.name}</span>
             </div>
 
             <div>
@@ -96,46 +104,6 @@ const UserData = () => {
             <div>
               <span className="font-bold">Phone: </span>
               <span className="text-lg">{user.phone}</span>
-            </div>
-
-            <div>
-              <span className="font-bold">ID Government: </span>
-              <span className="text-lg">{user.id_government}</span>
-            </div>
-
-            <div>
-              <span className="font-bold">Birth Date: </span>
-              <span className="text-lg">{user.birth_date}</span>
-            </div>
-
-            <div>
-              <span className="font-bold">Current Job: </span>
-              <span className="text-lg">{user.currentJob}</span>
-            </div>
-
-            <div>
-              <span className="font-bold">Country: </span>
-              <span className="text-lg">{user.country}</span>
-            </div>
-
-            <div>
-              <span className="font-bold">Street address: </span>
-              <span className="text-lg">{user.streetAddress}</span>
-            </div>
-
-            <div>
-              <span className="font-bold">City: </span>
-              <span className="text-lg">{user.city}</span>
-            </div>
-
-            <div>
-              <span className="font-bold">State / Province: </span>
-              <span className="text-lg">{user.stateProvince}</span>
-            </div>
-
-            <div>
-              <span className="font-bold">ZIP / Postal code: </span>
-              <span className="text-lg">{user.zipPostalCode}</span>
             </div>
           </div>
 

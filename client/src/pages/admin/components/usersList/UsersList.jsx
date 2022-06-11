@@ -5,19 +5,21 @@ import { Table, Avatar } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import { HiEye } from "react-icons/hi";
 import { ToastContainer, toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import { getAccounts } from "../../../../features/account/accountSlice";
+import { URL } from "../../../../config";
 
 const UsersList = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [usersData, setUsersData] = useState([]);
 
   useEffect(() => {
-    dispatch(getAccounts());
-
-    axios.get(`${URL}/accounts`).then((res) => setUsersData(res.data));
+    axios
+      .get(`${URL}/users/all`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setUsersData(res.data);
+      });
   }, []);
 
   const handleSelectChange = (e, user) => {
@@ -31,11 +33,17 @@ const UsersList = () => {
     allUsersData[index].status = e.target.value;
     // Set State
     setUsersData(allUsersData);
-
+    console.log(user._id);
     axios
-      .put(`${URL}/users/${user._id}`, {
-        status: e.target.value,
-      })
+      .put(
+        `${URL}/users/approve/${user._id}`,
+        {
+          status: e.target.value,
+        },
+        {
+          withCredentials: true,
+        }
+      )
       .catch(() => {
         toast.error("Try Again");
         setUsersData(copyData);
@@ -75,10 +83,10 @@ const UsersList = () => {
                       rounded={true}
                     />
                   </span>
-                  <span className="ml-4 md:ml-0">{user.username}</span>
+                  <span className="ml-4 md:ml-0">{user.name}</span>
                 </Table.Cell>
                 <Table.Cell className="!px-2 text-center">
-                  ${user.current_balance}
+                  ${`1010101`}
                 </Table.Cell>
                 <Table.Cell className="!px-2 text-center">
                   <div className="relative">

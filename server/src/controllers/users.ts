@@ -93,8 +93,8 @@ export const loginUser = asyncHandler(
 // @access private
 export const getMe = asyncHandler(
   async (req: express.Request, res: express.Response): Promise<void> => {
-    const { name, email, admin } = req.body.user;
-    res.status(200).json({ name, email, admin });
+    const { name, email, admin, phone, accounts } = req.body.user;
+    res.status(200).json({ name, email, admin, phone, accounts });
   }
 );
 
@@ -148,7 +148,9 @@ export const getAllUsers = asyncHandler(
 export const approveUser = asyncHandler(
   async (req: express.Request, res: express.Response): Promise<void> => {
     const _id = req.params.id;
+    console.log(_id);
     const status = req.body.status;
+    console.log(status);
     const user = await User.findOne({ _id });
     if (!user) {
       res.status(404);

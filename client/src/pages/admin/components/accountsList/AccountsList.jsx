@@ -40,9 +40,15 @@ const AccountsList = () => {
     setAccountsData(allAccountsData);
 
     axios
-      .put(`${URL}/accounts/${account._id}`, {
-        status: e.target.value,
-      })
+      .put(
+        `${URL}/accounts/${account._id}`,
+        {
+          status: e.target.value,
+        },
+        {
+          withCredentials: true,
+        }
+      )
       .catch(() => {
         toast.error("Try Again");
         setAccountsData(copyData);
