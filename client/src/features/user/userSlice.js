@@ -61,9 +61,9 @@ export const logout = createAsyncThunk("user/logout", async (thunkAPI) => {
 // update user  status
 export const updateUser = createAsyncThunk(
   "user/updateUser",
-  async (user, thunkAPI) => {
+  async (id, status, thunkAPI) => {
     try {
-      return await userService.updateUser(user);
+      return await userService.updateUser(id, status);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
