@@ -1,7 +1,7 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import asyncHandler from "express-async-handler";
-import User  from "../models/user";
+import User from "../models/user";
 import mongoose from "mongoose";
 import { config } from "../config/config";
 import express from "express";
@@ -130,17 +130,13 @@ export const makeAdmin = asyncHandler(
   }
 );
 
-// @desc get all users
+// @desc get all users with accounts for each user
 // @route GET /api/users
 // @access private for admin only
 export const getAllUsers = asyncHandler(
   async (req: express.Request, res: express.Response): Promise<void> => {
     const users = await User.find({});
-    res.status(200).json({
-      status: "success",
-      massage: "all users",
-      data: users,
-    });
+    res.status(200).json(users);
   }
 );
 

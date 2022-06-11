@@ -41,6 +41,13 @@ const userSchema = new mongoose.Schema(
       default: "pending",
       enum: ["pending", "active", "rejected"],
     },
+    accounts: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Account",
+        unique: true,
+      },
+    ],
   },
   {
     timestamps: true,

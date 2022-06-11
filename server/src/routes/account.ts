@@ -10,6 +10,7 @@ import {
   getAccount,
   updateAccount,
   deleteAccount,
+  getAccountsByUserId,
 } from "../controllers/account";
 
 router.get("/", protect, protectAdmin, getAccounts);
@@ -17,5 +18,6 @@ router.post("/", protect, addAccount);
 router.get("/:id", protect, getAccount);
 router.put("/:id", protect, protectAdmin, updateAccount);
 router.delete("/:id", protect, protectAdmin, deleteAccount);
+router.get("/user/:id", protect, getAccountsByUserId);
 
 export default router;
