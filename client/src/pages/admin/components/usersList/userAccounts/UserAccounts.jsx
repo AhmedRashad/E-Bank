@@ -1,4 +1,4 @@
-import "./accountData.css";
+import "./userAccounts.css";
 
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { URL } from "../../../../../config";
 
-const AccountData = () => {
+const UserAccounts = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const id = useParams().id;
@@ -52,7 +52,7 @@ const AccountData = () => {
         withCredentials: true,
       })
       .then(() => {
-        navigate("/admin/accounts", { replace: true });
+        navigate(`/admin/users`, { replace: true });
       })
       .catch(() => toast.error("Can't Delete Try Again"));
   };
@@ -175,7 +175,7 @@ const AccountData = () => {
             </button>
 
             <button
-              onClick={() => navigate("/admin/accounts")}
+              onClick={() => navigate(-1)}
               className="create-account-btn text-2xl"
             >
               Back
@@ -187,4 +187,4 @@ const AccountData = () => {
   );
 };
 
-export default AccountData;
+export default UserAccounts;

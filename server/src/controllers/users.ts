@@ -93,8 +93,8 @@ export const loginUser = asyncHandler(
 // @access private
 export const getMe = asyncHandler(
   async (req: express.Request, res: express.Response): Promise<void> => {
-    const { name, email, admin } = req.body.user;
-    res.status(200).json({ name, email, admin });
+    const { name, email, admin, phone, accounts } = req.body.user;
+    res.status(200).json({ name, email, admin, phone, accounts });
   }
 );
 
@@ -161,6 +161,16 @@ export const approveUser = asyncHandler(
     user.status = status;
     await user.save();
     res.status(200).json(user);
+  }
+);
+
+// @desc   Delete user
+// @route  DELETE /api/users/:id
+// @access Private
+export const deleteUser = asyncHandler(
+  async (req: express.Request, res: express.Response) => {
+    await User.findByIdAndDelete(req.params.id);
+    res.status(204).json(req.params.id);
   }
 );
 

@@ -2,6 +2,7 @@ import "./adminNavBar.css";
 import { Popover } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { NavLink, Link, useNavigate } from "react-router-dom";
+import RemoveCookie from "../../../../cookie/RemoveCookie";
 
 import logo from "../../../../logo.png";
 
@@ -66,7 +67,10 @@ const AdminNavBar = () => {
 
             <div>
               <button
-                onClick={() => navigate("/", { replace: true })}
+                onClick={() => {
+                  RemoveCookie("token");
+                  navigate("/", { replace: true });
+                }}
                 className="admin-nav-logout-btn"
               >
                 Log out

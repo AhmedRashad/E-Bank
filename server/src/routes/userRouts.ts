@@ -1,7 +1,18 @@
 import express from "express";
 import protect from "../middlewares/authmiddleware";
 import protectAdmin from "../middlewares/adminMiddleware";
-import { getMe, loginUser, registerUser,logoutUser, makeAdmin, getAllUsers, approveUser, forgetPassword, resetPassword } from "../controllers/users";
+import {
+  getMe,
+  loginUser,
+  registerUser,
+  logoutUser,
+  makeAdmin,
+  getAllUsers,
+  approveUser,
+  forgetPassword,
+  resetPassword,
+  deleteUser
+ } from "../controllers/users";
 
 const router = express.Router();
 
@@ -11,8 +22,9 @@ router.post("/login", loginUser);
 router.get("/me", protect, getMe);
 router.get("/logout", protect, logoutUser);
 router.put("/:email/admin", protect, protectAdmin, makeAdmin);
-router.get("/all", protect, protectAdmin, getAllUsers);
-router.put("/approve", protect, protectAdmin, approveUser);
+router.get("/", protect, protectAdmin, getAllUsers);
+router.put("/:id", protect, protectAdmin, approveUser);
+router.delete("/:id", protect, protectAdmin, deleteUser);
 router.post("/forget-password",forgetPassword)
 router.post("/reset-password/:id/:token",resetPassword)
 

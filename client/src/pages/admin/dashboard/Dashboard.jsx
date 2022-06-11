@@ -1,6 +1,6 @@
 import "./dashboard.css";
 import { Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import AdminSidebar from "../components/sidebar/Sidebar";
 import DashboardHome from "./../components/dashboardHome/DashboardHome";
@@ -10,7 +10,7 @@ import DashboardNavBar from "../components/dashboardNavBar/DashboardNavBar";
 import UserData from "./../components/usersList/userData/UserData";
 import AccountsList from "./../components/accountsList/AccountsList";
 import AccountData from "./../components/accountsList/accountData/AccountData";
-
+import UserAccounts from "../components/usersList/userAccounts/UserAccounts";
 
 const Dashboard = () => {
   const [openSideBar, setOpenSideBar] = useState(true);
@@ -43,6 +43,7 @@ const Dashboard = () => {
             <Route path="users/:id" element={<UserData />} />
             <Route path="accounts" element={<AccountsList />} />
             <Route path="accounts/:id" element={<AccountData />} />
+            <Route path="users/:id/:id" element={<UserAccounts />} />
           </Routes>
         </div>
       </div>

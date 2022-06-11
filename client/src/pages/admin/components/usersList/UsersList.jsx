@@ -5,19 +5,21 @@ import { Table, Avatar } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import { HiEye } from "react-icons/hi";
 import { ToastContainer, toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import { getAccounts } from "../../../../features/account/accountSlice";
+import { URL } from "../../../../config";
 
 const UsersList = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [usersData, setUsersData] = useState([]);
 
   useEffect(() => {
-    dispatch(getAccounts());
-
-    axios.get(`${URL}/accounts`).then((res) => setUsersData(res.data));
+    axios
+      .get(`${URL}/users`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setUsersData(res.data);
+      });
   }, []);
 
   const handleSelectChange = (e, user) => {
@@ -31,15 +33,28 @@ const UsersList = () => {
     allUsersData[index].status = e.target.value;
     // Set State
     setUsersData(allUsersData);
-
+    console.log(user._id);
     axios
-      .put(`${URL}/users/${user._id}`, {
-        status: e.target.value,
-      })
+      .put(
+        `${URL}/users/${user._id}`,
+        {
+          status: e.target.value,
+        },
+        {
+          withCredentials: true,
+        }
+      )
       .catch(() => {
         toast.error("Try Again");
         setUsersData(copyData);
       });
+  };
+
+  const handleTotalBalance = (user) => {
+    let totalBalance = 0;
+    user.accounts.map((t) => (totalBalance += t.current_balance));
+
+    return totalBalance;
   };
 
   return (
@@ -60,33 +75,35 @@ const UsersList = () => {
             </Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
-            {usersData.map((user) => (
-              <Table.Row
-                key={user._id}
-                className="bg-white dark:border-gray-700 dark:bg-gray-800"
-              >
-                <Table.Cell
-                  className="font-medium whitespace-nowrap flex items-center !px-2 gap-2
-                text-gray-900 dark:text-white"
+            {usersData
+              .filter((user) => user.admin == false)
+              .map((user) => (
+                <Table.Row
+                  key={user._id}
+                  className="bg-white dark:border-gray-700 dark:bg-gray-800"
                 >
-                  <span className="hidden md:flex">
-                    <Avatar
-                      img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                      rounded={true}
-                    />
-                  </span>
-                  <span className="ml-4 md:ml-0">{user.username}</span>
-                </Table.Cell>
-                <Table.Cell className="!px-2 text-center">
-                  ${user.current_balance}
-                </Table.Cell>
-                <Table.Cell className="!px-2 text-center">
-                  <div className="relative">
-                    <select
-                      id={user._id}
-                      onChange={(e) => handleSelectChange(e, user)}
-                      value={user.status}
-                      className={`text-lg focus:outline-none focus:border-0
+                  <Table.Cell
+                    className="font-medium whitespace-nowrap flex items-center !px-2 gap-2
+                text-gray-900 dark:text-white"
+                  >
+                    <span className="hidden md:flex">
+                      <Avatar
+                        img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                        rounded={true}
+                      />
+                    </span>
+                    <span className="ml-4 md:ml-0">{user.name}</span>
+                  </Table.Cell>
+                  <Table.Cell className="!px-2 text-center">
+                    ${handleTotalBalance(user)}
+                  </Table.Cell>
+                  <Table.Cell className="!px-2 text-center">
+                    <div className="relative">
+                      <select
+                        id={user._id}
+                        onChange={(e) => handleSelectChange(e, user)}
+                        value={user.status}
+                        className={`text-lg focus:outline-none focus:border-0
                       pl-3 text-center py-1 rounded-full cursor-pointer ${
                         user.status == "active"
                           ? "bg-green-300"
@@ -96,30 +113,30 @@ const UsersList = () => {
                           ? "bg-red-200"
                           : "bg-inherit"
                       }`}
-                    >
-                      <option value="active">Active</option>
-                      <option value="rejected">Rejected</option>
-                      <option value="pending">Pending</option>
-                    </select>
-                  </div>
-                </Table.Cell>
-                <Table.Cell className="!px-2">
-                  <div className="flex justify-center items-center">
-                    <button
-                      onClick={() =>
-                        navigate(`${user._id}`, {
-                          state: { usersData },
-                        })
-                      }
-                      className="create-account-btn flex gap-1 items-center px-3 py-1 rounded-full"
-                    >
-                      <HiEye className="text-lg" />
-                      <span>View</span>
-                    </button>
-                  </div>
-                </Table.Cell>
-              </Table.Row>
-            ))}
+                      >
+                        <option value="active">Active</option>
+                        <option value="rejected">Rejected</option>
+                        <option value="pending">Pending</option>
+                      </select>
+                    </div>
+                  </Table.Cell>
+                  <Table.Cell className="!px-2">
+                    <div className="flex justify-center items-center">
+                      <button
+                        onClick={() =>
+                          navigate(`${user._id}`, {
+                            state: { usersData },
+                          })
+                        }
+                        className="create-account-btn flex gap-1 items-center px-3 py-1 rounded-full"
+                      >
+                        <HiEye className="text-lg" />
+                        <span>View</span>
+                      </button>
+                    </div>
+                  </Table.Cell>
+                </Table.Row>
+              ))}
           </Table.Body>
         </Table>
       </div>

@@ -21,16 +21,34 @@ const DashboardHome = () => {
   const [inactiveUsers, setInactiveUsers] = useState(0);
 
   useEffect(() => {
-    axios.get(`${URL}/accounts`).then((res) => {
-      setTotalAccounts(res.data.length);
-      setActiveAccounts(res.data.filter((d) => d.status === "active").length);
-      setInactiveAccounts(res.data.filter((d) => d.status !== "active").length);
-      let num = 0;
-      for (let i of res.data) {
-        num += i.current_balance;
-      }
-      setTotalBalance(num);
-    });
+    axios
+      .get(`${URL}/accounts`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setTotalAccounts(res.data.length);
+        setActiveAccounts(res.data.filter((d) => d.status === "active").length);
+        setInactiveAccounts(
+          res.data.filter((d) => d.status !== "active").length
+        );
+        let num = 0;
+        for (let i of res.data) {
+          num += i.current_balance;
+        }
+        setTotalBalance(num);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`${URL}/users`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setTotalUsers(res.data.length);
+        setActiveUsers(res.data.filter((d) => d.status === "active").length);
+        setInactiveUsers(res.data.filter((d) => d.status !== "active").length);
+      });
   }, []);
 
   return (

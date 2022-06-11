@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import HomePage from "./pages/HomePage";
 import Signin from "./pages/Login";
@@ -10,17 +10,14 @@ import Dashboard from "./pages/admin/dashboard/Dashboard";
 import NotFound from "./pages/notFound/NotFound";
 import ForgetPassword from "./pages/forgetPassword";
 import ResetPassword from "./pages/resetPassword";
-import { updateUser } from "./features/user/userSlice";
+import { getUser } from "./features/user/userSlice";
+
 const App = () => {
   const dispatch = useDispatch();
-  const id = "62a3e63efaa1b63e8285726e";
-  const status = {
-    status: "active",
-  };
-  useEffect(() => {
-    dispatch(updateUser(id, status));
-  }, []);
 
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
   return (
     <>
       <BrowserRouter>
