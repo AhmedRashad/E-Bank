@@ -8,7 +8,9 @@ import User from "../models/user";
 // @access  Private
 export const getAccounts = expressAsyncHandler(
   async (_req: express.Request, res: express.Response) => {
-    const accounts = await Account.find();
+    const accounts = await Account.find()
+      .populate("user_id")
+      .select("-password");
     res.status(200).json(accounts);
   }
 );
@@ -60,18 +62,59 @@ export const deleteAccount = expressAsyncHandler(
 );
 
 // @desc   transfer money to another account
-// @route  PUT /api/accounts/:id/transfer
-// @access Private
-
-// @desc   Get accounts by user id (for user dashboard)
-// @route  GET /api/accounts/user/:id
-// @access Private
-export const getAccountsByUserId = expressAsyncHandler(
+// @route  PUT /api/accounts/transfer/:id
+// @access Private to user
+export const transferMoney = expressAsyncHandler(
   async (req: express.Request, res: express.Response) => {
-    const accounts = await Account.find({ user: req.params.id });
-    res.status(200).json(accounts);
+    const account = await Account.findById(req.params.id);
+    const account2 = await Account.findOne({
+      account_number: req.body.account_number,
+    });
+    if (!account2) {
+      res.status(404);
+      throw new Error("Account not found");
+    }
+    if (account.current_balance < req.body.amount) {
+      res.status(400).json({ message: "Insufficient funds" });
+    } else {
+      account.current_balance -= req.body.amount;
+      account2.current_balance += req.body.amount;
+      await account.save();
+      await account2.save();
+      res.status(200).json(account);
+    }
   }
 );
+
+// @desc   Charge money from account
+// @route  PUT /api/accounts/charge/:id
+// @access Private to user
+export const chargeMoney = expressAsyncHandler(
+  async (req: express.Request, res: express.Response) => {
+    const account = await Account.findById(req.params.id);
+    if (account.current_balance < req.body.amount) {
+      res.status(400).json({ message: "Insufficient funds" });
+    } else {
+      account.current_balance -= req.body.amount;
+      await account.save();
+      res.status(200).json(account);
+    }
+  }
+);
+
+// @desc   Deposit money to account
+// @route  PUT /api/accounts/deposit/:id
+// @access Private to user
+export const depositMoney = expressAsyncHandler(
+  async (req: express.Request, res: express.Response) => {
+    const account = await Account.findById(req.params.id);
+    account.current_balance += req.body.amount;
+    await account.save();
+    res.status(200).json(account);
+  }
+);
+
+
 
 
 
