@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Form, Field, Formik, ErrorMessage } from "formik";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 import { CreateAccountSchema } from "../../validations/Validations";
 import { InitialValues } from "./InitialValues";
@@ -11,6 +12,8 @@ import { URL } from "../../config";
 
 const CreateAccount = () => {
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -29,7 +32,7 @@ const CreateAccount = () => {
               .then(() => {
                 actions.resetForm();
                 setIsLoading(false);
-                toast.success("Data saved");
+                navigate("/user/dashboard");
               })
               .catch(() => {
                 setIsLoading(false);

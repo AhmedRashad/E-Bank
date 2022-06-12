@@ -1,0 +1,12 @@
+.user-menu-container {
+    @apply
+      absolute
+      top-[4.5rem]
+      right-0
+      2xl:w-96
+      md:w-72
+      p-2
+      transition
+      transform
+      origin-top-right
+  }

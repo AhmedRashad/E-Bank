@@ -30,7 +30,7 @@ export default function Login(props) {
     }
     if (user.admin === false) {
       console.log(user.admin);
-      navigate("/dashboard");
+      navigate("/user/dashboard");
     }
   }, [isLoading, user, navigate]);
 

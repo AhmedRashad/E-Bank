@@ -93,8 +93,8 @@ export const loginUser = asyncHandler(
 // @access private
 export const getMe = asyncHandler(
   async (req: express.Request, res: express.Response): Promise<void> => {
-    const { name, email, admin, phone, accounts } = req.body.user;
-    res.status(200).json({ name, email, admin, phone, accounts });
+    const { name, email, admin, phone, status, accounts } = req.body.user;
+    res.status(200).json({ name, email, admin, phone, status, accounts });
   }
 );
 
