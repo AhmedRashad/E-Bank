@@ -6,6 +6,7 @@ import { useParams } from "react-router";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { URL } from "../../../../../config";
+import Loading from "../../../../../components/loading/Loading";
 
 const AccountData = () => {
   const navigate = useNavigate();
@@ -15,9 +16,13 @@ const AccountData = () => {
   const data = location.state.accountsData.filter(
     (account) => account._id == id
   );
+
   const [accountsData, setAccountsData] = useState(data);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSelectChange = (e, account) => {
+    setIsLoading(true);
     // Copy data if there is an error, set the state again to the initial data
     const copyData = [...accountsData];
     // Clone
@@ -40,26 +45,36 @@ const AccountData = () => {
           withCredentials: true,
         }
       )
+      .then(() => {
+        setIsLoading(false);
+      })
       .catch(() => {
+        setIsLoading(false);
         toast.error("Try Again");
         setAccountsData(copyData);
       });
   };
 
   const handleRemoveAccount = (account) => {
+    setIsLoading(true);
     axios
       .delete(`${URL}/accounts/${account._id}`, {
         withCredentials: true,
       })
       .then(() => {
+        setIsLoading(false);
         navigate("/admin/accounts", { replace: true });
       })
-      .catch(() => toast.error("Can't Delete Try Again"));
+      .catch(() => {
+        setIsLoading(false);
+        toast.error("Can't Delete Try Again");
+      });
   };
 
   return (
     <div className="container">
       <ToastContainer />
+      {isLoading && <Loading />}
       {accountsData.map((account) => (
         <div key={account._id}>
           <h3 className="text-lg pl-4 pt-2 font-bold leading-6 text-gray-900">

@@ -1,62 +1,53 @@
 import React, { useState, useEffect } from "react";
-import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../features/user/userSlice";
 import Loading from "../components/loading/Loading";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Login(props) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { user, isError, isSuccess, isLoading } = useSelector(
     (state) => state.user
   );
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
+
   const { email, password } = form;
+
   const onChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(login(form));
   };
+
   useEffect(() => {
-    if (user.admin) {
+    if (isSuccess && user.admin) {
       navigate("/admin/dashboard");
-    }
-    if (user.admin === false) {
-      console.log(user.admin);
+    } else if (isSuccess && user.admin === false) {
       navigate("/user/dashboard");
     }
   }, [isLoading, user, navigate]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
   return (
     <>
+      <ToastContainer />
+      {isLoading && <Loading />}
       <main className="min-h-screen px-4 bg-[url('images/pattern.jpg')] bg-cover">
         <div className="min-h-screen max-w-prose bg-white mx-auto flex items-center justify-center shadow-xl">
           <form onSubmit={onSubmit} className="w-4/5 space-y-8 py-4">
             {/* LOGO */}
-            <div className="logo w-full text-center">E-Bank</div>
-
-            {/* Quick Login */}
-            <a
-              className="px-7 py-3 text-gray-700 border-[1px] border-gray-700 font-medium text-xs md:text-base leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center mb-3 "
-              href="#!"
-            >
-              <FcGoogle className="w-3.5 h-3.5 mr-2" /> Continue with Google
-            </a>
-            {/* Divider */}
-            <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
-              <p className="text-center text-slate-500 font-semibold mx-4 mb-0">
-                OR
-              </p>
+            <div className="logo w-full text-center text-4xl font-bold">
+              E-Bank
             </div>
 
             {/* Email input  */}
@@ -144,7 +135,7 @@ export default function Login(props) {
             {/* Quick Login */}
             <div className="w-full text-center">
               You don't have account?{" "}
-              <Link className="text-blue-500 underline" to={"/signup"}>
+              <Link className="text-blue-500 underline" to="/signup">
                 Sign up
               </Link>
             </div>

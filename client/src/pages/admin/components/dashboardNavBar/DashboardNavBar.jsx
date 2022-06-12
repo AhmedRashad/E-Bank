@@ -20,10 +20,14 @@ const DashboardNavBar = (props) => {
   });
 
   const handleLogOut = () => {
-    axios.get(`${URL}/users/logout`, {
-      withCredentials: true,
-    });
-    navigate("/", { replace: true });
+    axios
+      .get(`${URL}/users/logout`, {
+        withCredentials: true,
+      })
+      .then(() => {
+        navigate("/", { replace: true });
+        window.location.reload();
+      });
   };
 
   return (

@@ -8,6 +8,7 @@ import { Table } from "flowbite-react";
 import { HiEye } from "react-icons/hi";
 
 import { URL } from "../../../../../config";
+import Loading from "../../../../../components/loading/Loading";
 
 const UserData = () => {
   const navigate = useNavigate();
@@ -17,8 +18,10 @@ const UserData = () => {
   const data = location.state.usersData.filter((user) => user._id == id);
 
   const [usersData, setUsersData] = useState(data);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSelectChange = (e, user) => {
+    setIsLoading(true);
     // Copy data if there is an error, set the state again to the initial data
     const copyData = [...usersData];
     // Clone
@@ -41,28 +44,38 @@ const UserData = () => {
           withCredentials: true,
         }
       )
+      .then(() => {
+        setIsLoading(false);
+      })
       .catch(() => {
+        setIsLoading(false);
         toast.error("Try Again");
         setUsersData(copyData);
       });
   };
 
   const handleRemoveUser = (user) => {
+    setIsLoading(true);
     axios
       .delete(`${URL}/users/${user._id}`, {
         withCredentials: true,
       })
       .then(() => {
+        setIsLoading(false);
         navigate("/admin/users", { replace: true });
       })
-      .catch(() => toast.error("Can't Delete Try Again"));
+      .catch(() => {
+        setIsLoading(false);
+        toast.error("Can't Delete Try Again");
+      });
   };
 
   return (
     <div className="container">
+      <ToastContainer />
+      {isLoading && <Loading />}
       {usersData.map((user) => (
         <div key={user._id}>
-          <ToastContainer />
           <h3 className="text-lg pl-4 pt-2 font-bold leading-6 text-gray-900">
             Personal Information
           </h3>

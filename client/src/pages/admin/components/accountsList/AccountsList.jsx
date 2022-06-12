@@ -6,21 +6,29 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { URL } from "../../../../config";
+import Loading from "../../../../components/loading/Loading";
 
 const AccountsList = () => {
   const [accountsData, setAccountsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     axios
       .get(`${URL}/accounts`, {
         withCredentials: true,
       })
       .then((res) => {
+        setIsLoading(false);
         setAccountsData(res.data);
+      })
+      .catch(() => {
+        setIsLoading(false);
       });
   }, []);
 
   const handleSelectChange = (e, account) => {
+    setIsLoading(true);
     // Copy data if there is an error, set the state again to the initial data
     const copyData = [...accountsData];
     // Clone
@@ -43,7 +51,11 @@ const AccountsList = () => {
           withCredentials: true,
         }
       )
+      .then(() => {
+        setIsLoading(false);
+      })
       .catch(() => {
+        setIsLoading(false);
         toast.error("Try Again");
         setAccountsData(copyData);
       });
@@ -53,8 +65,10 @@ const AccountsList = () => {
 
   return (
     <div className="container ">
+      <ToastContainer />
+      {isLoading && <Loading />}
+
       <div className="pt-4 pb-2">
-        <ToastContainer />
         <Table hoverable={true}>
           <Table.Head className="bg-gray-200">
             <Table.HeadCell className="text-sm">Name</Table.HeadCell>

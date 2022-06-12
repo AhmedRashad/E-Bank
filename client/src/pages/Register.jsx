@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { register } from "../features/user/userSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { useSelector } from "react-redux";
+
 import Loading from "../components/loading/Loading";
+import axios from "axios";
+import { URL } from "../config";
 
 export default function Signup() {
-  const { user, isError, isSuccess, isLoading } = useSelector(
-    (state) => state.user
-  );
-  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (user.admin) {
+      navigate("/admin/dashboard");
+    } else if (user.admin === false) {
+      navigate("/user/dashboard");
+    }
+  }, [user]);
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -19,54 +28,54 @@ export default function Signup() {
     password: "",
     confirmPassword: "",
   });
+
   const { name, email, phone, password, confirmPassword } = form;
+
   const onChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
+
     if (password !== confirmPassword) {
-      alert("Password does not match");
+      setIsLoading(false);
+      toast("Password does not match");
     } else {
-      dispatch(register({ name, email, phone, password }));
-      console.log({ name, email, phone, password });
+      console.log(form);
+      axios
+        .post(
+          `${URL}/users/register`,
+          { name, email, phone, password },
+          {
+            withCredentials: true,
+          }
+        )
+        .then(() => {
+          setIsLoading(false);
+          navigate("/login", { replace: true });
+          toast("Your request is under review");
+        })
+        .catch(() => {
+          setIsLoading(false);
+          toast.error("Can't Register Try Again");
+        });
+      // dispatch(register({ name, email, phone, password }));
+      // console.log({ name, email, phone, password });
     }
   };
 
-  useEffect(() => {
-    if (user.admin) {
-      navigate("/admin/dashboard");
-    }
-    if (user.admin === false) {
-      console.log(user.admin);
-      navigate("/dashboard");
-    }
-  }, [isLoading, user, navigate]);
-
-  if (isLoading) {
-    return <Loading />;
-  }
   return (
     <>
+      <ToastContainer />
+      {isLoading && <Loading />}
       <main className="min-h-screen px-4 bg-[url('images/pattern.jpg')] bg-cover">
         <div className="min-h-screen max-w-prose bg-white mx-auto flex items-center justify-center shadow-xl">
           <form className="w-4/5 space-y-8 py-4" onSubmit={onSubmit}>
             {/* LOGO */}
-            <div className="logo w-full text-center">E-Bank</div>
-
-            {/* Quick Login */}
-            <a
-              className="px-7 py-3 text-gray-700 border-[1px] border-gray-700 font-medium text-xs md:text-base leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center mb-3 "
-              href="#!"
-            >
-              <FcGoogle className="w-3.5 h-3.5 mr-2" /> Continue with Google
-            </a>
-
-            {/* Divider */}
-            <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
-              <p className="text-center text-slate-500 font-semibold mx-4 mb-0">
-                OR
-              </p>
+            <div className="logo w-full text-center text-4xl font-bold">
+              E-Bank
             </div>
 
             {/* Fullname input  */}
@@ -175,29 +184,6 @@ export default function Signup() {
               </label>
             </div>
 
-            {/* Check box */}
-            <div className="flex form-check">
-              <input
-                type="checkbox"
-                className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer checked:after:content-['✓'] relative after:absolute after:top-2/4 after:left-2/4 after:-translate-x-2/4 after:-translate-y-2/4 after:text-white"
-                id="rememberbox"
-              />
-              <label
-                className="form-check-label inline-block text-gray-800"
-                htmlFor="rememberbox"
-              >
-                Agree the{" "}
-                <Link className="text-blue-500 underline" to={"/signin"}>
-                  terms
-                </Link>{" "}
-                and{" "}
-                <Link className="text-blue-500 underline" to={"/signin"}>
-                  conditions
-                </Link>
-                .
-              </label>
-            </div>
-
             {/* <!-- Submit button --> */}
             <button
               type="submit"
@@ -215,7 +201,7 @@ export default function Signup() {
             {/* Login Link */}
             <div className="w-full text-center">
               Already have account?{" "}
-              <Link className="text-blue-500 underline" to={"/signin"}>
+              <Link to="/signin" className="text-blue-500 underline">
                 Sign in
               </Link>
             </div>

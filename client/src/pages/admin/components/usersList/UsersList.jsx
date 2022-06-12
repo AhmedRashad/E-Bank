@@ -6,23 +6,32 @@ import { useNavigate } from "react-router-dom";
 import { HiEye } from "react-icons/hi";
 import { ToastContainer, toast } from "react-toastify";
 import { URL } from "../../../../config";
+import Loading from "../../../../components/loading/Loading";
 
 const UsersList = () => {
   const navigate = useNavigate();
 
   const [usersData, setUsersData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     axios
       .get(`${URL}/users`, {
         withCredentials: true,
       })
       .then((res) => {
         setUsersData(res.data);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+        toast("Can't Get Data Try Again");
       });
   }, []);
 
   const handleSelectChange = (e, user) => {
+    setIsLoading(true);
     // Copy data if there is an error, set the state again to the initial data
     const copyData = [...usersData];
     // Clone
@@ -44,7 +53,11 @@ const UsersList = () => {
           withCredentials: true,
         }
       )
+      .then(() => {
+        setIsLoading(false);
+      })
       .catch(() => {
+        setIsLoading(false);
         toast.error("Try Again");
         setUsersData(copyData);
       });
@@ -60,6 +73,7 @@ const UsersList = () => {
   return (
     <div className="container">
       <ToastContainer />
+      {isLoading && <Loading />}
       <div className="pt-4 pb-2">
         <Table hoverable={true}>
           <Table.Head className="bg-gray-200">

@@ -1,8 +1,9 @@
 import "./userDashboard.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 import { URL } from "../../config";
 import UserNavBar from "../../components/userNavBar/UserNavBar";
@@ -16,6 +17,10 @@ const UserDashboard = () => {
   const [accountData, setAccountData] = useState({});
   const [accounts, setAccounts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
     axios
@@ -33,18 +38,33 @@ const UserDashboard = () => {
       });
   });
 
+  useEffect(() => {
+    if (user.admin) {
+      navigate("/admin/dashboard");
+    } else if (user.admin === false) {
+      navigate("/user/dashboard");
+    }
+  }, [user]);
+
   return (
     <>
-      <UserNavBar accountData={accountData} />
-      <ToastContainer />
-      {isLoading && <Loading />}
-      <Routes>
-        <Route path="/" element={<UserHome accounts={accounts} />} />
-        <Route path="/dashboard" element={<UserHome accounts={accounts} />} />
-        <Route path="/dashboard/:id" element={<UserAccount />} />
-        <Route path="/createAccount" element={<CreateAccount />} />
-        <Route path="/transactions" element={<UserTransactions />} />
-      </Routes>
+      {user.admin == false && (
+        <>
+          <UserNavBar accountData={accountData} />
+          <ToastContainer />
+          {isLoading && <Loading />}
+          <Routes>
+            <Route path="/" element={<UserHome accounts={accounts} />} />
+            <Route
+              path="/dashboard"
+              element={<UserHome accounts={accounts} />}
+            />
+            <Route path="/dashboard/:id" element={<UserAccount />} />
+            <Route path="/createAccount" element={<CreateAccount />} />
+            <Route path="/transactions" element={<UserTransactions />} />
+          </Routes>
+        </>
+      )}
     </>
   );
 };
