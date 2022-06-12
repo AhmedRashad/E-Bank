@@ -3,7 +3,9 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { HiMenu, HiChevronDown } from "react-icons/hi";
 import { Avatar } from "flowbite-react";
-import RemoveCookie from "../../../../cookie/RemoveCookie";
+import axios from "axios";
+
+import { URL } from "../../../../config";
 
 const DashboardNavBar = (props) => {
   const { handleSideBar, adminAvatar, adminName } = props;
@@ -16,6 +18,13 @@ const DashboardNavBar = (props) => {
       setOpenAvatar(false);
     }
   });
+
+  const handleLogOut = () => {
+    axios.get(`${URL}/users/logout`, {
+      withCredentials: true,
+    });
+    navigate("/", { replace: true });
+  };
 
   return (
     <>
@@ -69,10 +78,7 @@ const DashboardNavBar = (props) => {
 
                   <div>
                     <button
-                      onClick={() => {
-                        RemoveCookie("token");
-                        navigate("/", { replace: true });
-                      }}
+                      onClick={handleLogOut}
                       className="admin-nav-logout-btn"
                     >
                       Log out

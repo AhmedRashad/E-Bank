@@ -2,12 +2,21 @@ import "./sidebar.css";
 import { Sidebar } from "flowbite-react";
 import { HiChartPie, HiUsers, HiUser, HiLogout } from "react-icons/hi";
 import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import logo from "../../../../logo.png";
-import RemoveCookie from "./../../../../cookie/RemoveCookie";
+import { URL } from "../../../../config";
 
 const AdminSidebar = () => {
   const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    axios.get(`${URL}/users/logout`, {
+      withCredentials: true,
+    });
+    navigate("/", { replace: true });
+  };
+
   return (
     <div className="h-full">
       <Sidebar
@@ -44,10 +53,7 @@ const AdminSidebar = () => {
             </NavLink>
 
             <button
-              onClick={() => {
-                RemoveCookie("token");
-                navigate("/", { replace: true });
-              }}
+              onClick={handleLogOut}
               className="sidbar-item-container w-full"
             >
               <span>

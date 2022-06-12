@@ -1,12 +1,13 @@
 import "./userNavBar.css";
 import { Popover } from "@headlessui/react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import RemoveCookie from "../../cookie/RemoveCookie";
 import { useState } from "react";
 import { HiChevronDown } from "react-icons/hi";
 import { Avatar } from "flowbite-react";
+import axios from "axios";
 
 import logo from "../../logo.png";
+import { URL } from "../../config";
 
 const UserNavBar = ({ accountData }) => {
   const [openAvatar, setOpenAvatar] = useState(false);
@@ -18,6 +19,13 @@ const UserNavBar = ({ accountData }) => {
       setOpenAvatar(false);
     }
   });
+
+  const handleLogOut = () => {
+    axios.get(`${URL}/users/logout`, {
+      withCredentials: true,
+    });
+    navigate("/", { replace: true });
+  };
 
   return (
     <div className="sticky top-0 left-0">
@@ -80,10 +88,7 @@ const UserNavBar = ({ accountData }) => {
 
                     <div>
                       <button
-                        onClick={() => {
-                          RemoveCookie("token");
-                          navigate("/", { replace: true });
-                        }}
+                        onClick={handleLogOut}
                         className="admin-nav-logout-btn"
                       >
                         Log out

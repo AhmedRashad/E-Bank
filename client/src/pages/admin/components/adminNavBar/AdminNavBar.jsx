@@ -2,12 +2,21 @@ import "./adminNavBar.css";
 import { Popover } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import RemoveCookie from "../../../../cookie/RemoveCookie";
+import axios from "axios";
 
 import logo from "../../../../logo.png";
+import { URL } from "../../../../config";
 
 const AdminNavBar = () => {
   const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    axios.get(`${URL}/users/logout`, {
+      withCredentials: true,
+    });
+    navigate("/", { replace: true });
+  };
+
   return (
     <Popover className="relative shadow-lg bg-white">
       <div className="max-w-7xl mx-auto px-8">
@@ -66,13 +75,7 @@ const AdminNavBar = () => {
             </div>
 
             <div>
-              <button
-                onClick={() => {
-                  RemoveCookie("token");
-                  navigate("/", { replace: true });
-                }}
-                className="admin-nav-logout-btn"
-              >
+              <button onClick={handleLogOut} className="admin-nav-logout-btn">
                 Log out
               </button>
             </div>
