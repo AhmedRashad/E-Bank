@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import Loading from "../components/loading/Loading";
-import axios from "axios";
-import { URL } from "../config";
+import { register } from "../features/user/userSlice";
 
 export default function Signup() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.user);
 
@@ -43,26 +44,8 @@ export default function Signup() {
       setIsLoading(false);
       toast("Password does not match");
     } else {
-      console.log(form);
-      axios
-        .post(
-          `${URL}/users/register`,
-          { name, email, phone, password },
-          {
-            withCredentials: true,
-          }
-        )
-        .then(() => {
-          setIsLoading(false);
-          navigate("/login", { replace: true });
-          toast("Your request is under review");
-        })
-        .catch(() => {
-          setIsLoading(false);
-          toast.error("Can't Register Try Again");
-        });
-      // dispatch(register({ name, email, phone, password }));
-      // console.log({ name, email, phone, password });
+      setIsLoading(false);
+      dispatch(register(form));
     }
   };
 

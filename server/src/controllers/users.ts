@@ -54,6 +54,7 @@ export const registerUser = asyncHandler(
       email: user.email,
       phone: user.phone,
       admin: user.admin,
+      status: user.status,
     });
   }
 );
@@ -80,6 +81,7 @@ export const loginUser = asyncHandler(
         email: user.email,
         phone: user.phone,
         admin: user.admin,
+        status: user.status,
       });
     } else {
       res.status(400);
