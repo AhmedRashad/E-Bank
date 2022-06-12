@@ -176,7 +176,7 @@ const UserData = () => {
 
             <button
               onClick={() => handleRemoveUser(user)}
-              className="create-account-btn text-2xl bg-red-400 hover:bg-red-500"
+              className="create-account-btn text-2xl !bg-red-400 hover:!bg-red-500"
             >
               Remove User
             </button>

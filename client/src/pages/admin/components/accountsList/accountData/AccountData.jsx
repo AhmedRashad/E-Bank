@@ -169,7 +169,7 @@ const AccountData = () => {
 
             <button
               onClick={() => handleRemoveAccount(account)}
-              className="create-account-btn text-2xl bg-red-400 hover:bg-red-500"
+              className="create-account-btn text-2xl !bg-red-400 hover:!bg-red-500"
             >
               Remove Account
             </button>
