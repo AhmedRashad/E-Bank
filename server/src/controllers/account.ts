@@ -114,6 +114,20 @@ export const depositMoney = expressAsyncHandler(
   }
 );
 
+// @desc   Get all accounts by user id
+// @route  GET /accounts/user
+// @access Private to user
+export const getAccountsByUser = expressAsyncHandler(
+  async (req: express.Request, res: express.Response) => {
+    const { _id } = req.body.user;
+    const accounts = await Account.find({ user_id: _id });
+    res.status(200).json(accounts); 
+  }
+);
+
+
+
+
 
 
 
