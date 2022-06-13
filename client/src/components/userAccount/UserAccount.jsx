@@ -18,7 +18,7 @@ const UserAccount = () => {
 
   useEffect(() => {
     axios
-      .get(`${URL}/users/me`, {
+      .get(`${URL}/accounts/user`, {
         withCredentials: true,
       })
       .then((res) => {
