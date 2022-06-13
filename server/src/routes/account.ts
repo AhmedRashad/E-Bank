@@ -10,6 +10,7 @@ import {
   getAccount,
   updateAccount,
   deleteAccount,
+  getAccountsByUser,
   transferMoney,
   chargeMoney,
   depositMoney,
@@ -20,6 +21,8 @@ router.post("/", protect, addAccount);
 router.get("/:id", protect, getAccount);
 router.put("/:id", protect, protectAdmin, updateAccount);
 router.delete("/:id", protect, protectAdmin, deleteAccount);
+// get accounts by user
+router.get("/user", protect, getAccountsByUser);
 // transfer money to another account
 router.put("/transfer/:id", protect, transferMoney);
 // charge money from account
