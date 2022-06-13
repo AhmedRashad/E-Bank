@@ -95,8 +95,8 @@ export const loginUser = asyncHandler(
 // @access private
 export const getMe = asyncHandler(
   async (req: express.Request, res: express.Response): Promise<void> => {
-    const { name, email, admin, phone, status, accounts } = req.body.user;
-    res.status(200).json({ name, email, admin, phone, status, accounts });
+    const { name, email, admin, phone, status, accounts_id } = req.body.user;
+    res.status(200).json({ name, email, admin, phone, status, accounts_id });
   }
 );
 
@@ -137,7 +137,9 @@ export const makeAdmin = asyncHandler(
 // @access private for admin only
 export const getAllUsers = asyncHandler(
   async (req: express.Request, res: express.Response): Promise<void> => {
-    const users = await User.find({}).populate("accounts").select("-password");
+    const users = await User.find({})
+      .populate("accounts_id")
+      .select("-password");
     res.status(200).json(users);
   }
 );

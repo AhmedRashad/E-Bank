@@ -9,6 +9,7 @@ export type UserObject = {
   password: string;
   admin: boolean;
   status: string;
+  accounts_id: any;
 };
 
 const userSchema = new mongoose.Schema(
@@ -41,11 +42,12 @@ const userSchema = new mongoose.Schema(
       default: "pending",
       enum: ["pending", "active", "rejected"],
     },
-    accounts: [
+    accounts_id: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Account",
         unique: true,
+        default: [],
       },
     ],
   },
