@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../features/user/userSlice";
 import Loading from "../components/loading/Loading";
 import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 
 export default function Login(props) {
   const dispatch = useDispatch();
@@ -53,6 +54,14 @@ export default function Login(props) {
       setPending(true);
     }
   };
+
+  useEffect(() => {
+    if (isSuccess && user.admin) {
+      navigate("/admin/dashboard");
+    } else if (isSuccess && user.admin === false && user.status === "active") {
+      navigate("/user/dashboard");
+    }
+  }, [user, isSuccess]);
 
   return (
     <>
