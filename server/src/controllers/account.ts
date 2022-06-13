@@ -21,9 +21,9 @@ export const getAccounts = expressAsyncHandler(
 export const addAccount = expressAsyncHandler(
   async (req: express.Request, res: express.Response) => {
     const account = await Account.create(req.body);
-    const user = await User.findById(req.body.user);
-    user.accounts.push(account._id);
-    await user.save();
+    const user_id = req.body.user._id;
+    account.user_id = user_id;
+    await account.save();
     res.status(201).json(account);
   }
 );
