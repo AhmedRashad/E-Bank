@@ -18,7 +18,7 @@ import {
 router.get("/", protect, protectAdmin, getAccounts);
 router.post("/", protect, addAccount);
 router.get("/:id", protect, getAccount);
-router.put("/:id", protect, updateAccount);
+router.put("/:id", protect, protectAdmin, updateAccount);
 router.delete("/:id", protect, protectAdmin, deleteAccount);
 // transfer money to another account
 router.put("/transfer/:id", protect, transferMoney);

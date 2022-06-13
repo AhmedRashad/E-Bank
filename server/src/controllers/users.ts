@@ -95,8 +95,8 @@ export const loginUser = asyncHandler(
 // @access private
 export const getMe = asyncHandler(
   async (req: express.Request, res: express.Response): Promise<void> => {
-    const { name, email, admin, phone, status, accounts_id } = req.body.user;
-    res.status(200).json({ name, email, admin, phone, status, accounts_id });
+    const { name, email, admin, phone, status } = req.body.user;
+    res.status(200).json({ name, email, admin, phone, status });
   }
 );
 
@@ -137,9 +137,36 @@ export const makeAdmin = asyncHandler(
 // @access private for admin only
 export const getAllUsers = asyncHandler(
   async (req: express.Request, res: express.Response): Promise<void> => {
-    const users = await User.find({})
-      .populate("accounts_id")
-      .select("-password");
+    const users = await User.aggregate([
+      {
+        $lookup: {
+          from: "accounts",
+          localField: "_id",
+          foreignField: "user_id",
+          as: "accounts",
+        },
+      },
+      {
+        $match: {
+          admin: false,
+        },
+      },
+      {
+        $sort: {
+          status: -1,
+        },
+      },
+      {
+        $project: {
+          name: 1,
+          email: 1,
+          phone: 1,
+          admin: 1,
+          status: 1,
+          accounts: 1,
+        },
+      },
+    ]);
     res.status(200).json(users);
   }
 );
