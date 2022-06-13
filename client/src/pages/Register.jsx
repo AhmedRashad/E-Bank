@@ -285,7 +285,7 @@ export default function Signup() {
             <div className="flex flex-col gap-10">
               <p className="text-2xl">Your Account Is Under Review</p>
               <button onClick={handleGoHome} className="create-account-btn">
-                Go To Home
+                Go Back
               </button>
             </div>
           ) : (
@@ -293,7 +293,7 @@ export default function Signup() {
               <div className="flex flex-col gap-10">
                 <p className="text-2xl">Your Account Rejected</p>
                 <button onClick={handleGoHome} className="create-account-btn">
-                  Go To Home
+                  Go Back
                 </button>
               </div>
             )
