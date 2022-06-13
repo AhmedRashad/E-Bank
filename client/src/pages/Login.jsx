@@ -34,10 +34,10 @@ export default function Login(props) {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(login(form));
-  };
 
-  useEffect(() => {
-    if (isSuccess && user.admin) {
+    if (isError) {
+      toast.error("Can't Login Try Again");
+    } else if (isSuccess && user.admin) {
       navigate("/admin/dashboard");
     } else if (isSuccess && user.admin === false && user.status === "active") {
       navigate("/user/dashboard");
@@ -52,7 +52,7 @@ export default function Login(props) {
       setActive(false);
       setPending(true);
     }
-  }, [isLoading, user, navigate, active, rejected, pending]);
+  };
 
   return (
     <>
