@@ -18,13 +18,9 @@ const HomePage = () => {
 
   return (
     <>
-      {!user && (
-        <>
-          <NavBar />
-          <Home />
-          <Footer />
-        </>
-      )}
+      <NavBar />
+      <Home />
+      <Footer />
     </>
   );
 };

@@ -41,30 +41,21 @@ const UserDashboard = () => {
   useEffect(() => {
     if (user.admin) {
       navigate("/admin/dashboard");
-    } else if (user.admin === false) {
-      navigate("/user/dashboard");
     }
   }, [user]);
 
   return (
     <>
-      {user.admin == false && (
-        <>
-          <UserNavBar accountData={accountData} />
-          <ToastContainer />
-          {isLoading && <Loading />}
-          <Routes>
-            <Route path="/" element={<UserHome accounts={accounts} />} />
-            <Route
-              path="/dashboard"
-              element={<UserHome accounts={accounts} />}
-            />
-            <Route path="/dashboard/:id" element={<UserAccount />} />
-            <Route path="/createAccount" element={<CreateAccount />} />
-            <Route path="/transactions" element={<UserTransactions />} />
-          </Routes>
-        </>
-      )}
+      <UserNavBar accountData={accountData} />
+      <ToastContainer />
+      {isLoading && <Loading />}
+      <Routes>
+        <Route path="/" element={<UserHome accounts={accounts} />} />
+        <Route path="/dashboard" element={<UserHome accounts={accounts} />} />
+        <Route path="/dashboard/:id" element={<UserAccount />} />
+        <Route path="/createAccount" element={<CreateAccount />} />
+        <Route path="/transactions" element={<UserTransactions />} />
+      </Routes>
     </>
   );
 };

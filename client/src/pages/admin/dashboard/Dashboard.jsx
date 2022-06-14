@@ -13,6 +13,8 @@ import AccountsList from "./../components/accountsList/AccountsList";
 import AccountData from "./../components/accountsList/accountData/AccountData";
 import UserAccounts from "../components/usersList/userAccounts/UserAccounts";
 
+import TransferMoney from "../../../components/userAccount/transferMoney/TransferMoney";
+
 const Dashboard = () => {
   const [openSideBar, setOpenSideBar] = useState(true);
 
@@ -21,9 +23,7 @@ const Dashboard = () => {
   const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (user.admin) {
-      navigate("/admin/dashboard");
-    } else if (user.admin === false) {
+    if (user.admin === false) {
       navigate("/user/dashboard");
     }
   }, [user]);
@@ -52,6 +52,7 @@ const Dashboard = () => {
                 handleSideBar={handleSideBar}
               />
             </div>
+            <TransferMoney />
             <div className="py-4">
               <Routes>
                 <Route path="dashboard" element={<DashboardHome />} />
