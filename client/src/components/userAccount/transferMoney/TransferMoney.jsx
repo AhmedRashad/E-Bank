@@ -1,6 +1,6 @@
 import "./transferMoney.css";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Form, Field, Formik, ErrorMessage } from "formik";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,65 +10,68 @@ import * as Yup from "yup";
 import Loading from "../../loading/Loading";
 import { URL } from "../../../config";
 
-const TransferMoney = () => {
+const TransferMoney = ({ accounts }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
+  const ref = useRef();
   const location = useLocation().state;
+
+  const [accountName, setAccountName] = useState(ref.current.value);
 
   const id = useParams().id;
 
   const onSubmited = (values, actions) => {
-    if (
-      Object.keys(values) == "withdraw" &&
-      transaction.balance[0] < +Object.values(values)
-    ) {
-      setIsLoading(false);
-      toast.error("Your Balance Is Insufficient");
-    } else if (Object.keys(values) == "withdraw") {
-      axios
-        .put(
-          `${URL}/accounts/${id}`,
-          {
-            current_balance: transaction.balance[0] - +Object.values(values),
-          },
-          {
-            withCredentials: true,
-          }
-        )
-        .then(() => {
-          actions.resetForm();
-          setIsLoading(false);
-          toast.success("Withdraw Saved");
-          navigate("/user/dashboard");
-        })
-        .catch(() => {
-          setIsLoading(false);
-          toast.error("Connection Failed");
-        });
-    } else {
-      axios
-        .put(
-          `${URL}/accounts/${id}`,
-          {
-            current_balance: transaction.balance[0] + +Object.values(values),
-          },
-          {
-            withCredentials: true,
-          }
-        )
-        .then(() => {
-          actions.resetForm();
-          setIsLoading(false);
-          toast.success("Recharging Saved");
-          navigate("/user/dashboard");
-        })
-        .catch(() => {
-          setIsLoading(false);
-          toast.error("Connection Failed");
-        });
-    }
+    // if (
+    //   Object.keys(values) == "withdraw" &&
+    //   transaction.balance[0] < +Object.values(values)
+    // ) {
+    //   setIsLoading(false);
+    //   toast.error("Your Balance Is Insufficient");
+    // } else if (Object.keys(values) == "withdraw") {
+    //   axios
+    //     .put(
+    //       `${URL}/accounts/${id}`,
+    //       {
+    //         current_balance: transaction.balance[0] - +Object.values(values),
+    //       },
+    //       {
+    //         withCredentials: true,
+    //       }
+    //     )
+    //     .then(() => {
+    //       actions.resetForm();
+    //       setIsLoading(false);
+    //       toast.success("Withdraw Saved");
+    //       navigate("/user/dashboard");
+    //     })
+    //     .catch(() => {
+    //       setIsLoading(false);
+    //       toast.error("Connection Failed");
+    //     });
+    // } else {
+    //   axios
+    //     .put(
+    //       `${URL}/accounts/${id}`,
+    //       {
+    //         current_balance: transaction.balance[0] + +Object.values(values),
+    //       },
+    //       {
+    //         withCredentials: true,
+    //       }
+    //     )
+    //     .then(() => {
+    //       actions.resetForm();
+    //       setIsLoading(false);
+    //       toast.success("Recharging Saved");
+    //       navigate("/user/dashboard");
+    //     })
+    //     .catch(() => {
+    //       setIsLoading(false);
+    //       toast.error("Connection Failed");
+    //     });
+    // }
   };
 
   return (
@@ -76,7 +79,7 @@ const TransferMoney = () => {
       <ToastContainer />
 
       <Formik
-        initialValues={{ amount: 0 }}
+        initialValues={{ amount: 0, accountName }}
         validationSchema={Yup.object().shape({
           amount: Yup.number().required().integer().positive().min(1000),
         })}
@@ -94,26 +97,48 @@ const TransferMoney = () => {
                   overflow-hidden sm:rounded-md"
             >
               <div className="px-4 py-5 bg-white sm:p-6">
-                <div className="grid grid-cols-6 gap-6">
-                  <div className="col-span-6">
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <div className="col flex items-center">
                     <label
-                      htmlFor={transaction.inputName}
-                      className="block text-sm font-medium text-gray-700"
+                      htmlFor="amount"
+                      className="block text-lg font-medium text-gray-700"
+                    >
+                      Transfer To
+                    </label>
+                    <Field
+                      className="w-full bg-gray-100 p-4 focus:outline-none text-lg"
+                      name="from"
+                      as="select"
+                      ref={ref}
+                      onChange={(e) => setAccountName(e.target.value)}
+                      value={accountName}
+                    >
+                      {accounts.map((account) => (
+                        <option value={account.account_name}>
+                          {account.account_name}
+                        </option>
+                      ))}
+                    </Field>
+                  </div>
+                  <div className="col">
+                    <label
+                      htmlFor="amount"
+                      className="block text-lg font-medium text-gray-700"
                     >
                       Amount
                     </label>
                     <Field
                       type="text"
-                      id={transaction.inputName}
-                      name={transaction.inputName}
+                      id="amount"
+                      name="amount"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.current_balance}
+                      value={values.amount}
                       className="create-account-input"
                     />
                     <ErrorMessage
                       className="error"
-                      name={transaction.inputName}
+                      name="amount"
                       component="div"
                     />
                   </div>

@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Loading from "../loading/Loading";
 import { URL } from "../../config";
 import Transaction from "./transaction/Transaction";
+import TransferMoney from "./transferMoney/TransferMoney";
 
 const UserAccount = () => {
   const [accounts, setAccounts] = useState([]);
@@ -18,7 +19,7 @@ const UserAccount = () => {
 
   useEffect(() => {
     axios
-      .get(`${URL}/accounts/user`, {
+      .get(`${URL}/users/me`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -54,6 +55,7 @@ const UserAccount = () => {
             <div className="flex bg-white p-8 m-4 flex-col gap-4">
               <Transaction transaction={withdraw} />
               <Transaction transaction={recharging} />
+              <TransferMoney accounts={accounts} />
             </div>
           )}
           <h3 className="text-lg pl-4 pt-2 font-bold leading-6 text-gray-900">

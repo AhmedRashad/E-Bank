@@ -24,13 +24,13 @@ const UserDashboard = () => {
 
   useEffect(() => {
     axios
-      .get(`${URL}/accounts/user`, {
+      .get(`${URL}/users/me`, {
         withCredentials: true,
       })
       .then((res) => {
         setIsLoading(false);
         setAccountData(res.data);
-        setAccounts(res.data.accounts);
+        // setAccounts(res.data.accounts);
       })
       .catch(() => {
         setIsLoading(false);

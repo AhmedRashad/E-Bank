@@ -223,7 +223,9 @@ const Login = () => {
             </form>
           ) : pending ? (
             <div className="flex flex-col gap-10">
-              <p className="text-2xl">Your Account Is Under Review</p>
+              <p className="text-2xl text-yellow-600 font-bold">
+                Your Account Is Under Review
+              </p>
               <button onClick={handleGoHome} className="create-account-btn">
                 Go Back
               </button>
@@ -231,7 +233,7 @@ const Login = () => {
           ) : (
             rejected && (
               <div className="flex flex-col gap-10">
-                <p className="text-2xl">Your Account Rejected</p>
+                <p className="text-2xl text-red-600">Your Account Rejected</p>
                 <button onClick={handleGoHome} className="create-account-btn">
                   Go Back
                 </button>

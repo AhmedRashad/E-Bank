@@ -13,8 +13,6 @@ import AccountsList from "./../components/accountsList/AccountsList";
 import AccountData from "./../components/accountsList/accountData/AccountData";
 import UserAccounts from "../components/usersList/userAccounts/UserAccounts";
 
-import TransferMoney from "../../../components/userAccount/transferMoney/TransferMoney";
-
 const Dashboard = () => {
   const [openSideBar, setOpenSideBar] = useState(true);
 
@@ -52,7 +50,6 @@ const Dashboard = () => {
                 handleSideBar={handleSideBar}
               />
             </div>
-            <TransferMoney />
             <div className="py-4">
               <Routes>
                 <Route path="dashboard" element={<DashboardHome />} />
