@@ -10,27 +10,28 @@ import { URL } from "../../config";
 import Transaction from "./transaction/Transaction";
 import TransferMoney from "./transferMoney/TransferMoney";
 
-const UserAccount = () => {
-  const [accounts, setAccounts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+const UserAccount = ({ accounts }) => {
+  // const [accounts, setAccounts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const id = useParams().id;
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios
-      .get(`${URL}/users/me`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setIsLoading(false);
-        setAccounts(res.data.accounts.filter((account) => account._id == id));
-      })
-      .catch(() => {
-        setIsLoading(false);
-        toast.error("Can't Get Data Try Again");
-      });
-  }, [accounts]);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${URL}/users/me`, {
+  //       withCredentials: true,
+  //     })
+  //     .then((res) => {
+  //       setIsLoading(false);
+  //       console.log(res);
+  //       setAccounts(res.data.accounts.filter((account) => account._id == id));
+  //     })
+  //     .catch(() => {
+  //       setIsLoading(false);
+  //       toast.error("Can't Get Data Try Again");
+  //     });
+  // }, [accounts]);
 
   const withdraw = {
     name: "Withdraw",
@@ -55,7 +56,7 @@ const UserAccount = () => {
             <div className="flex bg-white p-8 m-4 flex-col gap-4">
               <Transaction transaction={withdraw} />
               <Transaction transaction={recharging} />
-              <TransferMoney accounts={accounts} />
+              {/* <TransferMoney accounts={accounts} /> */}
             </div>
           )}
           <h3 className="text-lg pl-4 pt-2 font-bold leading-6 text-gray-900">

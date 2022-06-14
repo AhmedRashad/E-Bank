@@ -20,6 +20,8 @@ const UserData = () => {
   const [usersData, setUsersData] = useState(data);
   const [isLoading, setIsLoading] = useState(false);
 
+  console.log(usersData);
+
   const handleSelectChange = (e, user) => {
     setIsLoading(true);
     // Copy data if there is an error, set the state again to the initial data

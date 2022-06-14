@@ -86,7 +86,6 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route Get /api/users
 // @access private
 const getMe = asyncHandler(async (req, res) => {
-  console.log(req.user.id);
   const user = await User.aggregate([
     {
       $match: {
@@ -152,7 +151,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
       $lookup: {
         from: "accounts",
         localField: "_id",
-        foreignField: "user_id",
+        foreignField: "user",
         as: "accounts",
       },
     },
@@ -187,10 +186,8 @@ const getAllUsers = asyncHandler(async (req, res) => {
 
 const approveUser = asyncHandler(async (req, res) => {
   const _id = req.params.id;
-  console.log(_id);
 
   const status = req.body.status;
-  console.log(status);
 
   const user = await User.findOne({ _id });
   if (!user) {

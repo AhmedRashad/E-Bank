@@ -79,9 +79,10 @@ const TransferMoney = ({ accounts }) => {
       <ToastContainer />
 
       <Formik
-        initialValues={{ amount: 0, accountName }}
+        initialValues={{ amount: 0, account_number: "" }}
         validationSchema={Yup.object().shape({
           amount: Yup.number().required().integer().positive().min(1000),
+          account_number: Yup.string().required(),
         })}
         onSubmit={(values, actions) => {
           setIsLoading(true);

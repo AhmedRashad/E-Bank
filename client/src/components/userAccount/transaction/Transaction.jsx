@@ -25,9 +25,9 @@ const Transaction = ({ transaction }) => {
     } else if (Object.keys(values) == "withdraw") {
       axios
         .put(
-          `${URL}/accounts/${id}`,
+          `${URL}/accounts/charge/${id}`,
           {
-            current_balance: transaction.balance[0] - +Object.values(values),
+            amount: +Object.values(values),
           },
           {
             withCredentials: true,
@@ -46,9 +46,9 @@ const Transaction = ({ transaction }) => {
     } else {
       axios
         .put(
-          `${URL}/accounts/${id}`,
+          `${URL}/accounts/deposit/${id}`,
           {
-            current_balance: transaction.balance[0] + +Object.values(values),
+            amount: +Object.values(values),
           },
           {
             withCredentials: true,

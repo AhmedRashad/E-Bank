@@ -28,15 +28,16 @@ const UserDashboard = () => {
         withCredentials: true,
       })
       .then((res) => {
+        console.log(res.data[0].accounts);
         setIsLoading(false);
-        setAccountData(res.data);
-        // setAccounts(res.data.accounts);
+        setAccountData(res.data[0]);
+        setAccounts(res.data[0].accounts);
       })
       .catch(() => {
         setIsLoading(false);
         toast.error("Can't Get Data Try Again");
       });
-  });
+  }, []);
 
   useEffect(() => {
     if (user.admin) {
@@ -52,7 +53,10 @@ const UserDashboard = () => {
       <Routes>
         <Route path="/" element={<UserHome accounts={accounts} />} />
         <Route path="/dashboard" element={<UserHome accounts={accounts} />} />
-        <Route path="/dashboard/:id" element={<UserAccount />} />
+        <Route
+          path="/dashboard/:id"
+          element={<UserAccount accounts={accounts} />}
+        />
         <Route path="/createAccount" element={<CreateAccount />} />
         <Route path="/transactions" element={<UserTransactions />} />
       </Routes>
