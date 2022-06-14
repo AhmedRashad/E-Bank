@@ -97,15 +97,6 @@ const depositMoney = asyncHandler(async (req, res) => {
   res.status(200).json(account);
 });
 
-// @desc   Get all accounts for user
-// @route  GET /api/accounts/user
-// @access Private to user
-const getUserAccounts = asyncHandler(async (req, res) => {
-  const user = req.user;
-  console.log(user);
-  const accounts = Account.find({ user: user._id });
-  res.status(200).json(accounts);
-});
 
 module.exports = {
   getAccounts,
@@ -116,5 +107,4 @@ module.exports = {
   transferMoney,
   chargeMoney,
   depositMoney,
-  getUserAccounts,
 };

@@ -9,7 +9,6 @@ const {
   transferMoney,
   chargeMoney,
   depositMoney,
-  getUserAccounts,
 } = require("../controllers/account");
 const { protect } = require("../middlewares/authmiddleware");
 const { protectAdmin } = require("../middlewares/adminMiddleware");
@@ -19,8 +18,6 @@ router.post("/", protect, addAccount);
 router.get("/:id", protect, getAccount);
 router.put("/:id", protect, protectAdmin, updateAccount);
 router.delete("/:id", protect, protectAdmin, deleteAccount);
-// get accounts by user
-router.get("/user", protect, getUserAccounts);
 // transfer money to another account
 router.put("/transfer/:id", protect, transferMoney);
 // charge money from account

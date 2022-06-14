@@ -1,9 +1,12 @@
+const mongoose = require("mongoose");
+
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const asyncHandler = require("express-async-handler");
 const User = require("../models/user");
 
 //import sendEmail from "../utility/mailer";
+const ObjectId = mongoose.Types.ObjectId;
 
 // Generate jwt
 const generateToken = (id) => {
@@ -83,9 +86,33 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route Get /api/users
 // @access private
 const getMe = asyncHandler(async (req, res) => {
-  console.log(req.user);
-  const { name, email, admin, phone, status } = req.user;
-  res.status(200).json({ name, email, admin, phone, status });
+  console.log(req.user.id);
+  const user = await User.aggregate([
+    {
+      $match: {
+        _id: ObjectId(req.user.id),
+      },
+    },
+    {
+      $lookup: {
+        from: "accounts",
+        localField: "_id",
+        foreignField: "user",
+        as: "accounts",
+      },
+    },
+    {
+      $project: {
+        name: 1,
+        email: 1,
+        phone: 1,
+        admin: 1,
+        status: 1,
+        accounts: 1,
+      },
+    },
+  ]);
+  res.status(200).json(user);
 });
 
 // @desc Logout user
