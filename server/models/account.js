@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 // schema bank account
 const accountSchema = new mongoose.Schema(
   {
@@ -50,7 +50,7 @@ const accountSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-    user_id: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
@@ -78,4 +78,3 @@ const accountSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model("Account", accountSchema);
-

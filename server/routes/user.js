@@ -1,21 +1,17 @@
-import express from "express";
-import protect from "../middlewares/authmiddleware";
-import protectAdmin from "../middlewares/adminMiddleware";
-import {
-  getMe,
-  loginUser,
+const express = require("express");
+const router = express.Router();
+const {
   registerUser,
+  loginUser,
+  getMe,
   logoutUser,
   makeAdmin,
   getAllUsers,
   approveUser,
-  forgetPassword,
-  resetPassword,
-  deleteUser
- } from "../controllers/users";
-
-const router = express.Router();
-
+  deleteUser,
+} = require("../controllers/users");
+const { protect } = require("../middlewares/authmiddleware");
+const { protectAdmin } = require("../middlewares/adminMiddleware");
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
@@ -25,8 +21,7 @@ router.put("/:email/admin", protect, protectAdmin, makeAdmin);
 router.get("/", protect, protectAdmin, getAllUsers);
 router.put("/:id", protect, protectAdmin, approveUser);
 router.delete("/:id", protect, protectAdmin, deleteUser);
-router.post("/forget-password",forgetPassword)
-router.post("/reset-password/:id/:token",resetPassword)
+// router.post("/forget-password",forgetPassword)
+// router.post("/reset-password/:id/:token",resetPassword)
 
-
-export default router;
+module.exports = router;

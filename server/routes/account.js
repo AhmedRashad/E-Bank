@@ -1,20 +1,18 @@
-import express from "express";
-import protect from "../middlewares/authmiddleware";
-import protectAdmin from "../middlewares/adminMiddleware";
-
+const express = require("express");
 const router = express.Router();
-
-import {
+const {
   getAccounts,
   addAccount,
   getAccount,
   updateAccount,
   deleteAccount,
-  getAccountsByUser,
   transferMoney,
   chargeMoney,
   depositMoney,
-} from "../controllers/account";
+  getUserAccounts,
+} = require("../controllers/account");
+const { protect } = require("../middlewares/authmiddleware");
+const { protectAdmin } = require("../middlewares/adminMiddleware");
 
 router.get("/", protect, protectAdmin, getAccounts);
 router.post("/", protect, addAccount);
@@ -22,7 +20,7 @@ router.get("/:id", protect, getAccount);
 router.put("/:id", protect, protectAdmin, updateAccount);
 router.delete("/:id", protect, protectAdmin, deleteAccount);
 // get accounts by user
-router.get("/user", protect, getAccountsByUser);
+router.get("/user", protect, getUserAccounts);
 // transfer money to another account
 router.put("/transfer/:id", protect, transferMoney);
 // charge money from account
@@ -30,5 +28,4 @@ router.put("/charge/:id", protect, chargeMoney);
 // deposit money to account
 router.put("/deposit/:id", protect, depositMoney);
 
-
-export default router;
+module.exports = router;
