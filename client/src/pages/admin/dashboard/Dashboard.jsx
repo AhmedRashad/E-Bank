@@ -12,6 +12,7 @@ import UserData from "./../components/usersList/userData/UserData";
 import AccountsList from "./../components/accountsList/AccountsList";
 import AccountData from "./../components/accountsList/accountData/AccountData";
 import UserAccounts from "../components/usersList/userAccounts/UserAccounts";
+import NotFound from "./../../notFound/NotFound";
 
 const Dashboard = () => {
   const [openSideBar, setOpenSideBar] = useState(true);
@@ -34,7 +35,10 @@ const Dashboard = () => {
     <>
       <div className="lg:flex justify-between">
         <div className="block z-10 lg:hidden sticky top-0 left-0">
-          <AdminNavBar />
+          <AdminNavBar
+            adminAvatar="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+            adminName="Team#6"
+          />
         </div>
         {openSideBar && (
           <div className="hidden lg:flex flex-2 h-screen sticky top-0 left-0">
@@ -57,6 +61,7 @@ const Dashboard = () => {
               <Route path="accounts" element={<AccountsList />} />
               <Route path="accounts/:id" element={<AccountData />} />
               <Route path="users/:id/:id" element={<UserAccounts />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
         </div>

@@ -1,77 +1,52 @@
 import "./transferMoney.css";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Form, Field, Formik, ErrorMessage } from "formik";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as Yup from "yup";
 
 import Loading from "../../loading/Loading";
 import { URL } from "../../../config";
 
-const TransferMoney = ({ accounts }) => {
+const TransferMoney = ({ current_balance }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  const ref = useRef();
-  const location = useLocation().state;
-
-  const [accountName, setAccountName] = useState(ref.current.value);
-
   const id = useParams().id;
 
   const onSubmited = (values, actions) => {
-    // if (
-    //   Object.keys(values) == "withdraw" &&
-    //   transaction.balance[0] < +Object.values(values)
-    // ) {
-    //   setIsLoading(false);
-    //   toast.error("Your Balance Is Insufficient");
-    // } else if (Object.keys(values) == "withdraw") {
-    //   axios
-    //     .put(
-    //       `${URL}/accounts/${id}`,
-    //       {
-    //         current_balance: transaction.balance[0] - +Object.values(values),
-    //       },
-    //       {
-    //         withCredentials: true,
-    //       }
-    //     )
-    //     .then(() => {
-    //       actions.resetForm();
-    //       setIsLoading(false);
-    //       toast.success("Withdraw Saved");
-    //       navigate("/user/dashboard");
-    //     })
-    //     .catch(() => {
-    //       setIsLoading(false);
-    //       toast.error("Connection Failed");
-    //     });
-    // } else {
-    //   axios
-    //     .put(
-    //       `${URL}/accounts/${id}`,
-    //       {
-    //         current_balance: transaction.balance[0] + +Object.values(values),
-    //       },
-    //       {
-    //         withCredentials: true,
-    //       }
-    //     )
-    //     .then(() => {
-    //       actions.resetForm();
-    //       setIsLoading(false);
-    //       toast.success("Recharging Saved");
-    //       navigate("/user/dashboard");
-    //     })
-    //     .catch(() => {
-    //       setIsLoading(false);
-    //       toast.error("Connection Failed");
-    //     });
-    // }
+    console.log(+values.amount);
+    console.log(current_balance);
+
+    if (current_balance < +values.ammount) {
+      setIsLoading(false);
+      toast.error("Your Balance Is Insufficient");
+    } else {
+      axios
+        .put(
+          `${URL}/accounts/transfer/${id}`,
+          {
+            amount: +values.amount,
+            account_number: values.account_number,
+          },
+          {
+            withCredentials: true,
+          }
+        )
+        .then(() => {
+          actions.resetForm();
+          setIsLoading(false);
+          toast.success("Money Transferred");
+          navigate("/user/dashboard");
+        })
+        .catch(() => {
+          setIsLoading(false);
+          toast.error("We can't transfer money, try again");
+        });
+    }
   };
 
   return (
@@ -99,27 +74,27 @@ const TransferMoney = ({ accounts }) => {
             >
               <div className="px-4 py-5 bg-white sm:p-6">
                 <div className="grid sm:grid-cols-2 gap-6">
-                  <div className="col flex items-center">
+                  <div className="col">
                     <label
-                      htmlFor="amount"
+                      htmlFor="account_number"
                       className="block text-lg font-medium text-gray-700"
                     >
-                      Transfer To
+                      Account Number
                     </label>
                     <Field
-                      className="w-full bg-gray-100 p-4 focus:outline-none text-lg"
-                      name="from"
-                      as="select"
-                      ref={ref}
-                      onChange={(e) => setAccountName(e.target.value)}
-                      value={accountName}
-                    >
-                      {accounts.map((account) => (
-                        <option value={account.account_name}>
-                          {account.account_name}
-                        </option>
-                      ))}
-                    </Field>
+                      type="text"
+                      id="account_number"
+                      name="account_number"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.account_number}
+                      className="create-account-input"
+                    />
+                    <ErrorMessage
+                      className="error"
+                      name="account_number"
+                      component="div"
+                    />
                   </div>
                   <div className="col">
                     <label

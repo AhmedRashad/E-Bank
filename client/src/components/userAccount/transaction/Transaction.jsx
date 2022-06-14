@@ -13,12 +13,12 @@ const Transaction = ({ transaction }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  const id = transaction.id[0];
+  const id = transaction.id;
 
   const onSubmited = (values, actions) => {
     if (
       Object.keys(values) == "withdraw" &&
-      transaction.balance[0] < +Object.values(values)
+      transaction.balance < +Object.values(values)
     ) {
       setIsLoading(false);
       toast.error("Your Balance Is Insufficient");

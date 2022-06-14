@@ -12,6 +12,7 @@ import UserHome from "./../../components/userHome/UserHome";
 import UserTransactions from "./../../components/userTransactions/UserTransactions";
 import UserAccount from "./../../components/userAccount/UserAccount";
 import Loading from "../../components/loading/Loading";
+import NotFound from "./../notFound/NotFound";
 
 const UserDashboard = () => {
   const [accountData, setAccountData] = useState({});
@@ -28,7 +29,6 @@ const UserDashboard = () => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data[0].accounts);
         setIsLoading(false);
         setAccountData(res.data[0]);
         setAccounts(res.data[0].accounts);
@@ -37,7 +37,7 @@ const UserDashboard = () => {
         setIsLoading(false);
         toast.error("Can't Get Data Try Again");
       });
-  }, []);
+  }, [accountData, accounts]);
 
   useEffect(() => {
     if (user.admin) {
@@ -59,6 +59,7 @@ const UserDashboard = () => {
         />
         <Route path="/createAccount" element={<CreateAccount />} />
         <Route path="/transactions" element={<UserTransactions />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

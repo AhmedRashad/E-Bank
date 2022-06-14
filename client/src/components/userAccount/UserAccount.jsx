@@ -1,62 +1,58 @@
 import "./userAccount.css";
-import { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
 
-import Loading from "../loading/Loading";
-import { URL } from "../../config";
 import Transaction from "./transaction/Transaction";
 import TransferMoney from "./transferMoney/TransferMoney";
 
 const UserAccount = ({ accounts }) => {
-  // const [accounts, setAccounts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
   const id = useParams().id;
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${URL}/users/me`, {
-  //       withCredentials: true,
-  //     })
-  //     .then((res) => {
-  //       setIsLoading(false);
-  //       console.log(res);
-  //       setAccounts(res.data.accounts.filter((account) => account._id == id));
-  //     })
-  //     .catch(() => {
-  //       setIsLoading(false);
-  //       toast.error("Can't Get Data Try Again");
-  //     });
-  // }, [accounts]);
+  const account = accounts.filter((account) => account._id == id);
 
   const withdraw = {
     name: "Withdraw",
     inputName: "withdraw",
-    balance: accounts.map((account) => account.current_balance),
-    id: accounts.map((account) => account._id),
+    balance: account[0].current_balance,
+    id: account[0]._id,
   };
   const recharging = {
     name: "Recharging",
     inputName: "recharging",
-    balance: accounts.map((account) => account.current_balance),
-    id: accounts.map((account) => account._id),
+    balance: account[0].current_balance,
+    id: account[0]._id,
   };
+
+  const current_balance = account[0].current_balance;
 
   return (
     <div className="container">
-      <ToastContainer />
-      {isLoading && <Loading />}
-      {accounts.map((account) => (
+      {account.map((account) => (
         <div key={account._id}>
           {account.status == "active" && (
-            <div className="flex bg-white p-8 m-4 flex-col gap-4">
-              <Transaction transaction={withdraw} />
-              <Transaction transaction={recharging} />
-              {/* <TransferMoney accounts={accounts} /> */}
+            <div className="flex m-4 flex-col gap-4">
+              <div className="flex flex-col gap-4 md:gap-10 md:flex-row">
+                <div className="flex-1">
+                  <h3 className="text-lg py-2 font-bold leading-6 text-gray-900">
+                    Withdraw Money
+                  </h3>
+                  <Transaction transaction={withdraw} />
+                </div>
+
+                <div className="flex-1">
+                  <h3 className="text-lg py-2 font-bold leading-6 text-gray-900">
+                    Recharging Money
+                  </h3>
+                  <Transaction transaction={recharging} />
+                </div>
+              </div>
+              <div className="current-balance">
+                <h3 className="text-lg py-2 font-bold leading-6 text-gray-900">
+                  Transfer Money
+                </h3>
+                <TransferMoney current_balance={current_balance} />
+              </div>
             </div>
           )}
           <h3 className="text-lg pl-4 pt-2 font-bold leading-6 text-gray-900">
