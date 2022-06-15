@@ -49,9 +49,8 @@ function classNames(...classes) {
 
 export default function Navbar() {
   return (
-<<<<<<< Updated upstream
     <>
-      <Popover className="sticky top-0 z-50 bg-primary">
+      <Popover className="fixed top-0 left-0 w-full z-50 bg-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center py-2 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
@@ -60,17 +59,6 @@ export default function Navbar() {
                 <img className="h-8 w-auto sm:h-10" src={logo} alt="EBank" />
               </a>
             </div>
-=======
-    <Popover className="fixed top-0 left-0 w-full z-50 bg-primary">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex justify-between items-center py-2 md:justify-start md:space-x-10">
-          <div className="flex justify-start lg:w-0 lg:flex-1">
-            <a href="#">
-              <span className="sr-only">Workflow</span>
-              <img className="h-8 w-auto sm:h-10" src={logo} alt="EBank" />
-            </a>
-          </div>
->>>>>>> Stashed changes
 
             <a
               href="#"
@@ -110,7 +98,6 @@ export default function Navbar() {
                     />
                   </Popover.Button>
 
-<<<<<<< Updated upstream
                   <Transition
                     as={Fragment}
                     enter="transition ease-out duration-200"
@@ -130,7 +117,7 @@ export default function Navbar() {
                               className="-m-3 p-3 flex items-start rounded-lg text-Gold"
                             >
                               <item.icon
-                                className="flex-shrink-0 h-6 w-6 text-indigo-600"
+                                className="flex-shrink-0 h-6 w-6 text-Gold"
                                 aria-hidden="true"
                               />
                               <div className="ml-4">
@@ -154,73 +141,17 @@ export default function Navbar() {
             <div className="flex items-center gap-4 justify-end md:flex-1">
               <Link
                 to="/signin"
-                className="text-base font-medium py-1 px-3 text-primary
-                bg-Gold rounded-xl hover:opacity-80"
+                className="text-base font-medium p-3 text-PWhite hover:opacity-80"
               >
                 Login
               </Link>
               <Link
                 to="/signup"
-                className="text-base font-medium py-1 px-3 text-primary
-                bg-Gold rounded-xl hover:opacity-80"
+                className="ml-1 text-base font-medium p-3 text-primary bg-Gold rounded-xl hover:opacity-80"
               >
                 Register
               </Link>
             </div>
-=======
-                <Transition
-                  as={Fragment}
-                  enter="transition ease-out duration-200"
-                  enterFrom="opacity-0 translate-y-1"
-                  enterTo="opacity-100 translate-y-0"
-                  leave="transition ease-in duration-150"
-                  leaveFrom="opacity-100 translate-y-0"
-                  leaveTo="opacity-0 translate-y-1"
-                >
-                  <Popover.Panel className="absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-md sm:px-0">
-                    <div className="rounded-lg shadow-lg ring-1 ring-Gold ring-opacity-5 overflow-hidden">
-                      <div className="relative grid gap-6 bg-primary px-5 py-6 sm:gap-8 sm:p-8">
-                        {MoreMenu.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className="-m-3 p-3 flex items-start rounded-lg text-Gold"
-                          >
-                            <item.icon
-                              className="flex-shrink-0 h-6 w-6 text-Gold"
-                              aria-hidden="true"
-                            />
-                            <div className="ml-4">
-                              <p className="text-base font-medium text-PWhite">
-                                {item.name}
-                              </p>
-                              <p className="mt-1 text-sm text-PWhite">
-                                {item.description}
-                              </p>
-                            </div>
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  </Popover.Panel>
-                </Transition>
-              </>
-            )}
-          </Popover>
-          <div className="flex items-center justify-end md:flex-1">
-            <Link
-              to="/signin"
-              className="text-base font-medium p-3 text-PWhite hover:opacity-80"
-            >
-              Login
-            </Link>
-            <Link
-              to="/signup"
-              className="ml-1 text-base font-medium p-3 text-primary bg-Gold rounded-xl hover:opacity-80"
-            >
-              Register
-            </Link>
->>>>>>> Stashed changes
           </div>
         </div>
 
