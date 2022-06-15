@@ -4,16 +4,8 @@ import { Popover, Transition } from "@headlessui/react";
 import {
   BookmarkAltIcon,
   CalendarIcon,
-  ChartBarIcon,
-  CursorClickIcon,
-  MenuIcon,
-  PhoneIcon,
-  PlayIcon,
-  RefreshIcon,
   ShieldCheckIcon,
   SupportIcon,
-  ViewGridIcon,
-  XIcon,
 } from "@heroicons/react/outline";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import logo from "../logo.png";
@@ -58,7 +50,7 @@ function classNames(...classes) {
 export default function Navbar() {
   return (
     <>
-      <Popover className="sticky top-0 z-50 bg-primary">
+      <Popover className="fixed top-0 left-0 w-full z-50 bg-primary">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center py-2 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
@@ -125,7 +117,7 @@ export default function Navbar() {
                               className="-m-3 p-3 flex items-start rounded-lg text-Gold"
                             >
                               <item.icon
-                                className="flex-shrink-0 h-6 w-6 text-indigo-600"
+                                className="flex-shrink-0 h-6 w-6 text-Gold"
                                 aria-hidden="true"
                               />
                               <div className="ml-4">
@@ -149,15 +141,13 @@ export default function Navbar() {
             <div className="flex items-center gap-4 justify-end md:flex-1">
               <Link
                 to="/signin"
-                className="text-base font-medium py-1 px-3 text-primary
-                bg-Gold rounded-xl hover:opacity-80"
+                className="text-base font-medium p-3 text-PWhite hover:opacity-80"
               >
                 Login
               </Link>
               <Link
                 to="/signup"
-                className="text-base font-medium py-1 px-3 text-primary
-                bg-Gold rounded-xl hover:opacity-80"
+                className="ml-1 text-base font-medium p-3 text-primary bg-Gold rounded-xl hover:opacity-80"
               >
                 Register
               </Link>

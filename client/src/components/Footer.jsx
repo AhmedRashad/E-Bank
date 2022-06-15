@@ -1,5 +1,4 @@
 import logo from "../logo.png";
-
 /*
 Made by: Mohammed Khaled, T#6.
 */
