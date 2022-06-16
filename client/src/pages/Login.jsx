@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/loading/Loading";
@@ -35,9 +35,9 @@ const Login = () => {
       .then((res) => {
         setIsLoading(false);
         if (res.data.admin) {
-          navigate("/admin/dashboard");
+          navigate("/admin/dashboard", { replace: true });
         } else if (res.data.admin === false && res.data.status === "active") {
-          navigate("/user/dashboard");
+          navigate("/user/dashboard", { replace: true });
         } else if (res.data.admin === false && res.data.status === "pending") {
           setActive(false);
           setPending(true);
@@ -70,15 +70,6 @@ const Login = () => {
       })
       .catch(() => toast.error("Try Again"));
   };
-
-  // Logout On Reload
-  useEffect(() => {
-    if (window.location.reload) {
-      axios.get(`${URL}/users/logout`, {
-        withCredentials: true,
-      });
-    }
-  }, []);
 
   return (
     <>

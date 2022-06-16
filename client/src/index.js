@@ -7,15 +7,18 @@ import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 import "flowbite";
+import { BrowserRouter } from "react-router-dom";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

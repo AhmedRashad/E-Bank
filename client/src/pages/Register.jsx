@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -45,9 +45,9 @@ export default function Signup() {
         .then((res) => {
           setIsLoading(false);
           if (res.data.admin) {
-            navigate("/admin/dashboard");
+            navigate("/admin/dashboard", { replace: true });
           } else if (res.data.admin === false && res.data.status === "active") {
-            navigate("/user/dashboard");
+            navigate("/user/dashboard", { replace: true });
           } else if (
             res.data.admin === false &&
             res.data.status === "pending"
@@ -82,15 +82,6 @@ export default function Signup() {
       })
       .catch(() => toast.error("Try Again"));
   };
-
-  // Logout On Reload
-  useEffect(() => {
-    if (window.location.reload) {
-      axios.get(`${URL}/users/logout`, {
-        withCredentials: true,
-      });
-    }
-  }, []);
 
   return (
     <>

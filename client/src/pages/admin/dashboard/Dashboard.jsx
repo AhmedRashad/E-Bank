@@ -1,7 +1,6 @@
 import "./dashboard.css";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
 
 import AdminSidebar from "../components/sidebar/Sidebar";
 import DashboardHome from "./../components/dashboardHome/DashboardHome";
@@ -16,16 +15,6 @@ import NotFound from "./../../notFound/NotFound";
 
 const Dashboard = () => {
   const [openSideBar, setOpenSideBar] = useState(true);
-
-  const navigate = useNavigate();
-
-  const { user } = useSelector((state) => state.user);
-
-  useEffect(() => {
-    if (user.admin === false) {
-      navigate("/user/dashboard");
-    }
-  }, [user]);
 
   const handleSideBar = () => {
     setOpenSideBar(!openSideBar);
