@@ -9,7 +9,7 @@
 
 ## The Admi can:
 
-### View all data in the application on the dashboard
+### View all application data on the dashboard
 
 ### Control all statuses users:
 
