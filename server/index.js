@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 
 const app = express();
 
@@ -31,11 +32,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/users", user);
 app.use("/accounts", account);
 
-app.use(express.static("public"));
+// New
+app.use(express.static(path.join(__dirname + "/public")));
+
+app.get("*", (req, rse) => {
+  rse.sendFile(path.resolve(__dirname + "/public/index.html"));
+});
+// New
+
 app.listen(port, () => {
   console.log(`Server on port ${port}`.yellow.bold);
-});
-
-app.get("/", (req, res) => {
-  res.send("Hello World");
 });
