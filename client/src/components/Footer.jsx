@@ -17,16 +17,16 @@ export default function Footer() {
         </span>
         <ul className="flex flex-wrap items-center mb-6 text-sm text-PWhite sm:mb-0">
             <li>
-                <a href="#" className="mr-4 hover:underline md:mr-6 ">About</a>
+                <a href="/" className="mr-4 hover:underline md:mr-6 ">About us</a>
             </li>
             <li>
-                <a href="#" className="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+                <a href="/faq" className="mr-4 hover:underline md:mr-6">FAQ</a>
             </li>
             <li>
-                <a href="#" className="mr-4 hover:underline md:mr-6 ">Licensing</a>
+                <a href="/team" className="mr-4 hover:underline md:mr-6 ">Meet our team</a>
             </li>
             <li>
-                <a href="#" className="hover:underline">Contact</a>
+                <a href="/signup" className="hover:underline">Join us</a>
             </li>
         </ul>
     </div>

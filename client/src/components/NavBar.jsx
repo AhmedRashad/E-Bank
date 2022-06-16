@@ -3,8 +3,6 @@ import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import {
   BookmarkAltIcon,
-  CalendarIcon,
-  ShieldCheckIcon,
   SupportIcon,
 } from "@heroicons/react/outline";
 import { ChevronDownIcon } from "@heroicons/react/solid";
@@ -15,31 +13,18 @@ Made by: Mohammed Khaled, T#6.
 
 const MoreMenu = [
   {
-    name: "Help Center",
+    name: "FAQs",
     description:
-      "Get all of your questions answered in our forums or contact support.",
-    href: "#",
+      "Frequently Asked Questions",
+    href: "/faq",
     icon: SupportIcon,
   },
   {
-    name: "Guides",
+    name: "Team",
     description:
-      "Learn how to maximize our platform to get the most out of it.",
-    href: "#",
+      "Meet the team that worked on this project",
+    href: "/team",
     icon: BookmarkAltIcon,
-  },
-  {
-    name: "Events",
-    description:
-      "See what meet-ups and other events we might be planning near you.",
-    href: "#",
-    icon: CalendarIcon,
-  },
-  {
-    name: "Security",
-    description: "Understand how we take your privacy seriously.",
-    href: "#",
-    icon: ShieldCheckIcon,
   },
 ];
 
@@ -55,28 +40,27 @@ export default function Navbar() {
           <div className="flex justify-between items-center py-2 md:justify-start md:space-x-10">
             <div className="flex justify-start lg:w-0 lg:flex-1">
               <a href="#">
-                <span className="sr-only">Workflow</span>
                 <img className="h-8 w-auto sm:h-10" src={logo} alt="EBank" />
               </a>
             </div>
 
             <a
-              href="#"
+              href="/#About"
               className="text-base font-medium text-PWhite hover:text-Gold"
             >
-              Solutions
+              About
             </a>
             <a
-              href="#"
+              href="/#Features"
               className="text-base font-medium text-PWhite hover:text-Gold"
             >
-              Pricing
+              Features
             </a>
             <a
-              href="#"
+              href="/#App"
               className="text-base font-medium text-PWhite hover:text-Gold"
             >
-              Docs
+            App
             </a>
 
             <Popover className="relative">
@@ -154,23 +138,6 @@ export default function Navbar() {
             </div>
           </div>
         </div>
-
-        <Transition
-          as={Fragment}
-          enter="duration-200 ease-out"
-          enterFrom="opacity-0 scale-95"
-          enterTo="opacity-100 scale-100"
-          leave="duration-100 ease-in"
-          leaveFrom="opacity-100 scale-100"
-          leaveTo="opacity-0 scale-95"
-        >
-          <Popover.Panel
-            focus
-            className="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
-          >
-            <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-primary divide-y-2 divide-PWhite"></div>
-          </Popover.Panel>
-        </Transition>
       </Popover>
     </>
   );
