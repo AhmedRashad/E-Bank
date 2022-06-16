@@ -1,9 +1,27 @@
 import "./cardAccounts.css";
 import { Card } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { URL } from "../../../config";
 
-const CardAccounts = ({ accounts }) => {
+const CardAccounts = () => {
   const navigate = useNavigate();
+
+  const [accounts, setAccounts] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${URL}/users/me`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setAccounts(res.data[0].accounts);
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
+  }, [accounts]);
   return (
     <>
       <Card>

@@ -9,6 +9,7 @@ const accountSchema = new mongoose.Schema(
     email: {
       type: String,
       required: [true, "please enter email"],
+      unique: true,
     },
     phone: {
       type: String,
@@ -61,6 +62,7 @@ const accountSchema = new mongoose.Schema(
     account_number: {
       type: String,
       required: [true, "please enter account number"],
+      unique: true,
     },
     current_balance: {
       type: Number,

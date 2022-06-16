@@ -10,8 +10,10 @@ import * as Yup from "yup";
 import Loading from "../../loading/Loading";
 import { URL } from "../../../config";
 
-const TransferMoney = ({ current_balance }) => {
+const TransferMoney = ({ accounts }) => {
   const [isLoading, setIsLoading] = useState(false);
+
+  const current_balance = accounts[0].current_balance;
 
   const navigate = useNavigate();
 
@@ -42,9 +44,9 @@ const TransferMoney = ({ current_balance }) => {
           toast.success("Money Transferred");
           navigate("/user/dashboard");
         })
-        .catch(() => {
+        .catch((err) => {
           setIsLoading(false);
-          toast.error("We can't transfer money, try again");
+          toast.error(err.response.data.message);
         });
     }
   };

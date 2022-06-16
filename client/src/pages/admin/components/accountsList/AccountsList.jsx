@@ -24,6 +24,7 @@ const AccountsList = () => {
       })
       .catch(() => {
         setIsLoading(false);
+        toast("Can't Get Data Try Again");
       });
   }, []);
 

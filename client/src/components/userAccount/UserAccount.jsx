@@ -4,31 +4,33 @@ import { useNavigate } from "react-router-dom";
 
 import Transaction from "./transaction/Transaction";
 import TransferMoney from "./transferMoney/TransferMoney";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { URL } from "../../config";
 
-const UserAccount = ({ accounts }) => {
+const UserAccount = () => {
   const id = useParams().id;
   const navigate = useNavigate();
+  const [accounts, setAccounts] = useState([]);
 
-  const account = accounts.filter((account) => account._id == id);
-
-  const withdraw = {
-    name: "Withdraw",
-    inputName: "withdraw",
-    balance: account[0].current_balance,
-    id: account[0]._id,
-  };
-  const recharging = {
-    name: "Recharging",
-    inputName: "recharging",
-    balance: account[0].current_balance,
-    id: account[0]._id,
-  };
-
-  const current_balance = account[0].current_balance;
+  useEffect(() => {
+    axios
+      .get(`${URL}/users/me`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setAccounts(
+          res.data[0].accounts.filter((account) => account._id === id)
+        );
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
+  }, []);
 
   return (
     <div className="container">
-      {account.map((account) => (
+      {accounts.map((account) => (
         <div key={account._id}>
           {account.status == "active" && (
             <div className="flex m-4 flex-col gap-4">
@@ -37,21 +39,29 @@ const UserAccount = ({ accounts }) => {
                   <h3 className="text-lg py-2 font-bold leading-6 text-gray-900">
                     Withdraw Money
                   </h3>
-                  <Transaction transaction={withdraw} />
+                  <Transaction
+                    accounts={accounts}
+                    name="Withdraw"
+                    inputName="withdraw"
+                  />
                 </div>
 
                 <div className="flex-1">
                   <h3 className="text-lg py-2 font-bold leading-6 text-gray-900">
                     Recharging Money
                   </h3>
-                  <Transaction transaction={recharging} />
+                  <Transaction
+                    accounts={accounts}
+                    name="Recharging"
+                    inputName="recharging"
+                  />
                 </div>
               </div>
               <div className="current-balance">
                 <h3 className="text-lg py-2 font-bold leading-6 text-gray-900">
                   Transfer Money
                 </h3>
-                <TransferMoney current_balance={current_balance} />
+                <TransferMoney accounts={accounts} />
               </div>
             </div>
           )}

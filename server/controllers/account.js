@@ -16,6 +16,23 @@ const getAccounts = asyncHandler(async (req, res) => {
 // @access Private
 const addAccount = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id);
+
+  // check if email exists
+  const emailExists = await Account.findOne({ email: req.body.email });
+  if (emailExists) {
+    res.status(400).json({ message: "The email is used Try another email" });
+  }
+
+  // check if account_number exists
+  const accountNumberExists = await Account.findOne({
+    account_number: req.body.account_number,
+  });
+  if (accountNumberExists) {
+    res
+      .status(400)
+      .json({ message: "The account number is used Try another number" });
+  }
+
   const account = await Account.create({
     ...req.body,
     user: user._id,
@@ -58,10 +75,11 @@ const transferMoney = asyncHandler(async (req, res) => {
   const account2 = await Account.findOne({
     account_number: req.body.account_number,
   });
+
   if (!account2) {
-    res.status(404);
-    throw new Error("Account not found");
+    res.status(404).json({ message: "Account not found" });
   }
+
   if (account.current_balance < req.body.amount) {
     res.status(400).json({ message: "Insufficient funds" });
   } else {
@@ -96,7 +114,6 @@ const depositMoney = asyncHandler(async (req, res) => {
   await account.save();
   res.status(200).json(account);
 });
-
 
 module.exports = {
   getAccounts,

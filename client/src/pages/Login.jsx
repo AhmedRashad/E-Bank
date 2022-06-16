@@ -48,7 +48,7 @@ const Login = () => {
       })
       .catch((err) => {
         setIsLoading(false);
-        toast.error(err.message);
+        toast.error(err.response.data.message);
       });
   };
 
@@ -68,7 +68,7 @@ const Login = () => {
       .then(() => {
         window.location.reload();
       })
-      .catch(() => toast.error("Try Again"));
+      .catch((err) => toast.error(err.response.data.message));
   };
 
   return (

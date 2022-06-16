@@ -25,10 +25,9 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("Please add fields");
   }
   // check if user exists
-  const userExists = await User.findOne({ email });
+  const userExists = await User.findOne({ email: req.body.email });
   if (userExists) {
-    res.status(400);
-    throw new Error("user already exists");
+    res.status(400).json({ message: "User already exists" });
   }
   // hash password
   const salt = await bcrypt.genSalt(10);
@@ -77,8 +76,7 @@ const loginUser = asyncHandler(async (req, res) => {
       status: user.status,
     });
   } else {
-    res.status(400);
-    throw new Error("Invalid credentials");
+    res.status(400).json({ message: "Invalid credentials" });
   }
 });
 
@@ -134,8 +132,7 @@ const makeAdmin = asyncHandler(async (req, res) => {
   const email = req.params.email;
   const user = await User.findOne({ email });
   if (!user) {
-    res.status(404);
-    throw new Error("User not found");
+    res.status(404).json({ message: "User not found" });
   }
   user.admin = true;
   await user.save();
@@ -191,8 +188,7 @@ const approveUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ _id });
   if (!user) {
-    res.status(404);
-    throw new Error("User not found");
+    res.status(404).json({ message: "User not found" });
   }
   user.status = status;
   await user.save();

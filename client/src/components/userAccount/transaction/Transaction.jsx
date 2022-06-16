@@ -9,15 +9,18 @@ import * as Yup from "yup";
 import Loading from "../../loading/Loading";
 import { URL } from "./../../../config";
 
-const Transaction = ({ transaction }) => {
+const Transaction = (props) => {
   const [isLoading, setIsLoading] = useState(false);
+  const { accounts, name, inputName } = props;
 
   const navigate = useNavigate();
-  const id = transaction.id;
+  const transaction = accounts[0];
+  const id = transaction._id;
 
   const onSubmited = (values, actions) => {
+    console.log(values);
     if (
-      Object.keys(values) == "withdraw" &&
+      Object.keys(name) == "withdraw" &&
       transaction.balance < +Object.values(values)
     ) {
       setIsLoading(false);
@@ -39,9 +42,9 @@ const Transaction = ({ transaction }) => {
           toast.success("Withdraw Saved");
           navigate("/user/dashboard");
         })
-        .catch(() => {
+        .catch((err) => {
           setIsLoading(false);
-          toast.error("Connection Failed");
+          toast.error(err.response.data.message);
         });
     } else {
       axios
@@ -60,9 +63,9 @@ const Transaction = ({ transaction }) => {
           toast.success("Recharging Saved");
           navigate("/user/dashboard");
         })
-        .catch(() => {
+        .catch((err) => {
           setIsLoading(false);
-          toast.error("Connection Failed");
+          toast.error(err.response.data.message);
         });
     }
   };
@@ -72,13 +75,9 @@ const Transaction = ({ transaction }) => {
       <ToastContainer />
 
       <Formik
-        initialValues={{ [transaction.inputName]: 0 }}
+        initialValues={{ [inputName]: 0 }}
         validationSchema={Yup.object().shape({
-          [transaction.inputName]: Yup.number()
-            .required()
-            .integer()
-            .positive()
-            .min(1000),
+          [inputName]: Yup.number().required().integer().positive().min(1000),
         })}
         onSubmit={(values, actions) => {
           setIsLoading(true);
@@ -97,15 +96,15 @@ const Transaction = ({ transaction }) => {
                 <div className="grid grid-cols-6 gap-6">
                   <div className="col-span-6">
                     <label
-                      htmlFor={transaction.inputName}
+                      htmlFor={inputName}
                       className="block text-sm font-medium text-gray-700"
                     >
-                      {transaction.name}
+                      {name}
                     </label>
                     <Field
                       type="text"
-                      id={transaction.inputName}
-                      name={transaction.inputName}
+                      id={inputName}
+                      name={inputName}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.current_balance}
@@ -113,7 +112,7 @@ const Transaction = ({ transaction }) => {
                     />
                     <ErrorMessage
                       className="error"
-                      name={transaction.inputName}
+                      name={inputName}
                       component="div"
                     />
                   </div>
@@ -124,7 +123,7 @@ const Transaction = ({ transaction }) => {
                   type="submit"
                   className="create-account-btn bg-indigo-600"
                 >
-                  {transaction.name}
+                  {name}
                 </button>
               </div>
             </div>

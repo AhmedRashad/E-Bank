@@ -66,7 +66,7 @@ export default function Signup() {
         })
         .catch((err) => {
           setIsLoading(false);
-          toast.error(err.message);
+          toast.error(err.response.data.message);
         });
     }
   };
@@ -80,7 +80,7 @@ export default function Signup() {
       .then(() => {
         window.location.reload();
       })
-      .catch(() => toast.error("Try Again"));
+      .catch(() => toast.error("Try again"));
   };
 
   return (

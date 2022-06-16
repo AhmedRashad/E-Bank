@@ -34,9 +34,10 @@ const CreateAccount = () => {
                 setIsLoading(false);
                 navigate("/user/dashboard");
               })
-              .catch(() => {
+              .catch((err) => {
+                console.log(err.response.data.message);
                 setIsLoading(false);
-                toast.error("Connection Failed");
+                toast.error(err.response.data.message);
               });
           }}
         >

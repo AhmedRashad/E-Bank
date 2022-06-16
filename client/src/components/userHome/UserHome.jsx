@@ -2,7 +2,7 @@ import "./userHome.css";
 import { Link } from "react-router-dom";
 import CardAccounts from "./../../pages/userDashboard/cardAccounts/CardAccounts";
 
-const UserHome = ({ accounts }) => {
+const UserHome = () => {
   return (
     <div className="container flex flex-col items-center gap-8 py-10">
       <div className="createAccountOnUser">
@@ -11,7 +11,7 @@ const UserHome = ({ accounts }) => {
         </Link>
       </div>
       <div className="w-full md:px-4 lg:px-20 xl:px-40">
-        <CardAccounts accounts={accounts} />
+        <CardAccounts />
       </div>
     </div>
   );
