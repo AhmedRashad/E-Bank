@@ -55,12 +55,18 @@ export default function Signup() {
           ) {
             setActive(false);
             setPending(true);
+            axios.get(`${URL}/users/logout`, {
+              withCredentials: true,
+            });
           } else if (
             res.data.admin === false &&
             res.data.status === "rejected"
           ) {
             setActive(false);
             setRejected(true);
+            axios.get(`${URL}/users/logout`, {
+              withCredentials: true,
+            });
           } else {
             setActive(true);
           }

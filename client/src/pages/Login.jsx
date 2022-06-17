@@ -41,10 +41,16 @@ const Login = () => {
           navigate("/user/dashboard", { replace: true });
         } else if (res.data.admin === false && res.data.status === "pending") {
           setActive(false);
+          axios.get(`${URL}/users/logout`, {
+            withCredentials: true,
+          });
           setPending(true);
         } else if (res.data.admin === false && res.data.status === "rejected") {
           setActive(false);
           setRejected(true);
+          axios.get(`${URL}/users/logout`, {
+            withCredentials: true,
+          });
         }
       })
       .catch((err) => {
