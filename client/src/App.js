@@ -10,6 +10,8 @@ import NotFound from "./pages/notFound/NotFound";
 import ForgetPassword from "./pages/forgetPassword";
 import ResetPassword from "./pages/resetPassword";
 import UserDashboard from "./pages/userDashboard/UserDashboard";
+import Team from "./pages/Team";
+import FAQ from "./pages/FAQ";
 import { URL } from "./config";
 
 const App = () => {
@@ -45,6 +47,8 @@ const App = () => {
         <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
         <Route path="/admin/*" element={<Dashboard />} />
         <Route path="/user/*" element={<UserDashboard />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/team" element={<Team />} />
         <Route path="/user/home" element={<UserDashboard />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

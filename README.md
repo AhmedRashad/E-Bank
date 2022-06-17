@@ -7,7 +7,7 @@
     * Recharging Money
     * Transfer Money
 
-## The Admi can:
+## The Admin can:
 
 ### View all application data on the dashboard
 
