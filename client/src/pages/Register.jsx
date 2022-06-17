@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import Loading from "../components/loading/Loading";
 import { URL } from "../config";
+import logo from "../logo.png";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -96,8 +97,12 @@ export default function Signup() {
           {active ? (
             <form className="w-4/5 space-y-8 py-4" onSubmit={onSubmit}>
               {/* LOGO */}
-              <div className="logo w-full text-center text-4xl font-bold">
-                E-Bank
+              <div className="w-auto">
+                <Link to="/">
+                  <div className=" rounded-2xl mb-12 bg-black flex justify-center">
+                    <img src={logo} alt="e-Bank" className="p-1 m-2" />
+                  </div>
+                </Link>
               </div>
 
               {/* Fullname input  */}

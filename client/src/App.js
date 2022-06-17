@@ -21,7 +21,6 @@ const App = () => {
     axios
       .get(`${URL}/users/me`, { withCredentials: true })
       .then((res) => {
-        console.log(res.data[0]);
         if (res.data[0].admin) {
           navigate("/admin/dashboard", { replace: true });
           window.history.replaceState(null, null, "/admin/dashboard");

@@ -5,6 +5,12 @@
 body {
   @apply
   bg-slate-100
+  scroll-smooth
+}
+
+* {
+  @apply
+  scroll-smooth
 }
 
 

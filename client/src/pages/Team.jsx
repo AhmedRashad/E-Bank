@@ -23,12 +23,10 @@ const members = [
   },
   {
     name: "Mahmoud Easa",
-    title: "Front-end Developer",
-    info: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus nostrum ea natus architecto incidunt id corrupti quibusdam",
-    flink: "#",
-    tlink: "#",
-    glink: "#",
-    llink: "#",
+    title: "Front-End Developer",
+    info: "A Front-End web developer, who loves building amazing websites, a quick learner, who loves to learn new technologies, is very interested in computer engineering concepts",
+    glink: "https://github.com/MahmoudEasa",
+    llink: "https://www.linkedin.com/in/mahmoudeasa",
   },
   {
     name: "Youssef Husien",
@@ -53,9 +51,11 @@ const members = [
 const Team = () => {
   return (
     <>
-        <NavBar />
+      <NavBar />
       <div className="p-4 bg-primary">
-        <p className="text-center text-3xl font-bold text-PWhite mb-4">Our team</p>
+        <p className="text-center text-3xl font-bold text-PWhite mb-4">
+          Our team
+        </p>
         <p className="text-center mb-8 text-xl font-normal text-PWhite">
           Meet the team members who worked on this project
         </p>
@@ -83,12 +83,8 @@ const TeamCard = (props) => {
       </div>
       <div className="bg-primary rounded-lg shadow px-8 py-4 pt-8 grow">
         <div className="text-center">
-          <p className="text-2xl text-Gold">
-            {props.member.name}
-          </p>
-          <p className="text-xl text-PWhite font-light">
-            {props.member.title}
-          </p>
+          <p className="text-2xl text-Gold">{props.member.name}</p>
+          <p className="text-xl text-PWhite font-light">{props.member.title}</p>
           <p className="text-md text-PWhite w-60  mx-auto py-4 font-light">
             {props.member.info}
           </p>

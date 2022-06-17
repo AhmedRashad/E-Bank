@@ -5,6 +5,7 @@ import Loading from "../components/loading/Loading";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import { URL } from "../config";
+import logo from "../logo.png";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -84,8 +85,13 @@ const Login = () => {
           {active ? (
             <form onSubmit={onSubmit} className="w-4/5 space-y-8 py-4">
               {/* LOGO */}
-              <div className="logo w-full text-center text-4xl font-bold">
-                E-Bank
+
+              <div className="w-auto">
+                <Link to="/">
+                  <div className=" rounded-2xl mb-24 bg-black flex justify-center">
+                    <img src={logo} alt="e-Bank" className="p-1 m-2" />
+                  </div>
+                </Link>
               </div>
 
               {/* Email input  */}
