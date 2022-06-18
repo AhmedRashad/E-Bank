@@ -17,6 +17,15 @@ const UserDashboard = () => {
   const [accountData, setAccountData] = useState({});
   const [accounts, setAccounts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios.get(`${URL}/users/me`, { withCredentials: true }).then((res) => {
+      if (res.data[0].admin) {
+        navigate("/admin/dashboard", { replace: true });
+      }
+    });
+  }, []);
 
   useEffect(() => {
     axios

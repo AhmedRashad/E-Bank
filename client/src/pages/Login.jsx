@@ -37,8 +37,10 @@ const Login = () => {
         setIsLoading(false);
         if (res.data.admin) {
           navigate("/admin/dashboard", { replace: true });
+          window.location.reload();
         } else if (res.data.admin === false && res.data.status === "active") {
           navigate("/user/dashboard", { replace: true });
+          window.location.reload();
         } else if (res.data.admin === false && res.data.status === "pending") {
           setActive(false);
           axios.get(`${URL}/users/logout`, {
