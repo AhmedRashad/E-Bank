@@ -1,5 +1,5 @@
 import "./userDashboard.css";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,15 +17,6 @@ const UserDashboard = () => {
   const [accountData, setAccountData] = useState({});
   const [accounts, setAccounts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    axios.get(`${URL}/users/me`, { withCredentials: true }).then((res) => {
-      if (res.data[0].admin) {
-        navigate("/admin/dashboard", { replace: true });
-      }
-    });
-  }, []);
 
   useEffect(() => {
     axios

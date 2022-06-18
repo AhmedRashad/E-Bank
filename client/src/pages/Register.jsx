@@ -57,18 +57,22 @@ export default function Signup() {
           ) {
             setActive(false);
             setPending(true);
-            axios.get(`${URL}/users/logout`, {
-              withCredentials: true,
-            });
+            axios
+              .get(`${URL}/users/logout`, {
+                withCredentials: true,
+              })
+              .catch(() => toast.error("Try again"));
           } else if (
             res.data.admin === false &&
             res.data.status === "rejected"
           ) {
             setActive(false);
             setRejected(true);
-            axios.get(`${URL}/users/logout`, {
-              withCredentials: true,
-            });
+            axios
+              .get(`${URL}/users/logout`, {
+                withCredentials: true,
+              })
+              .catch(() => toast.error("Try again"));
           } else {
             setActive(true);
           }
@@ -82,14 +86,7 @@ export default function Signup() {
 
   // Go To Home
   const handleGoHome = () => {
-    axios
-      .get(`${URL}/users/logout`, {
-        withCredentials: true,
-      })
-      .then(() => {
-        window.location.reload();
-      })
-      .catch(() => toast.error("Try again"));
+    navigate("/", { replace: true });
   };
 
   return (

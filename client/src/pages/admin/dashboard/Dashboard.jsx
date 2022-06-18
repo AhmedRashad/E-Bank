@@ -1,7 +1,6 @@
 import "./dashboard.css";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
 
 import AdminSidebar from "../components/sidebar/Sidebar";
 import DashboardHome from "./../components/dashboardHome/DashboardHome";
@@ -13,23 +12,13 @@ import AccountsList from "./../components/accountsList/AccountsList";
 import AccountData from "./../components/accountsList/accountData/AccountData";
 import UserAccounts from "../components/usersList/userAccounts/UserAccounts";
 import NotFound from "./../../notFound/NotFound";
-import { URL } from "../../../config";
 
 const Dashboard = () => {
   const [openSideBar, setOpenSideBar] = useState(true);
-  const navigate = useNavigate();
 
   const handleSideBar = () => {
     setOpenSideBar(!openSideBar);
   };
-
-  useEffect(() => {
-    axios.get(`${URL}/users/me`, { withCredentials: true }).then((res) => {
-      if (res.data[0].admin === false) {
-        navigate("/user/dashboard", { replace: true });
-      }
-    });
-  }, []);
 
   return (
     <>

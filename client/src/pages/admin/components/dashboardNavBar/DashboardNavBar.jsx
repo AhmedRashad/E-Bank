@@ -3,6 +3,7 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { HiMenu, HiChevronDown } from "react-icons/hi";
 import { Avatar } from "flowbite-react";
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
 import { URL } from "../../../../config";
@@ -27,11 +28,13 @@ const DashboardNavBar = (props) => {
       .then(() => {
         navigate("/", { replace: true });
         window.location.reload();
-      });
+      })
+      .catch(() => toast.error("Try again"));
   };
 
   return (
     <>
+      <ToastContainer />
       <div className="bg-Midnight pb-4 pt-4">
         <div className="container flex justify-between items-center">
           <button onClick={handleSideBar} className="toggle-side-bar">
