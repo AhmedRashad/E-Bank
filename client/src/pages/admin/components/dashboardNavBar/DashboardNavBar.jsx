@@ -20,6 +20,12 @@ const DashboardNavBar = (props) => {
     }
   });
 
+  document.body.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("relative")) {
+      setOpenAvatar(false);
+    }
+  });
+
   const handleLogOut = () => {
     axios
       .get(`${URL}/users/logout`, {
@@ -40,7 +46,7 @@ const DashboardNavBar = (props) => {
           <button onClick={handleSideBar} className="toggle-side-bar">
             <HiMenu />
           </button>
-          <div className="relative">
+          <div onClick={(e) => e.stopPropagation()} className="relative">
             <div
               onClick={() => setOpenAvatar(!openAvatar)}
               className="avatar-container"

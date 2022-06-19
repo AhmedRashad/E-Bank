@@ -20,6 +20,12 @@ const UserNavBar = ({ accountData }) => {
     }
   });
 
+  document.body.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("relative")) {
+      setOpenAvatar(false);
+    }
+  });
+
   const handleLogOut = () => {
     axios
       .get(`${URL}/users/logout`, {
@@ -33,7 +39,7 @@ const UserNavBar = ({ accountData }) => {
 
   return (
     <div className="sticky top-0 left-0">
-      <Popover className="relative shadow-lg bg-white">
+      <Popover className="shadow-lg bg-white">
         <div className="max-w-7xl mx-auto px-8 lg:px-20 xl:px-40">
           <div className="admin-nav-container">
             <div className="w-auto">
@@ -44,7 +50,7 @@ const UserNavBar = ({ accountData }) => {
               </Link>
             </div>
 
-            <div className="relative">
+            <div onClick={(e) => e.stopPropagation()} className="relative">
               <div
                 onClick={() => setOpenAvatar(!openAvatar)}
                 className="avatar-container text-gray-600 hover:text-gray-800"

@@ -22,6 +22,12 @@ const AdminNavBar = (props) => {
     }
   });
 
+  document.body.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("relative")) {
+      setOpenAvatar(false);
+    }
+  });
+
   const handleLogOut = () => {
     axios
       .get(`${URL}/users/logout`, {
@@ -37,7 +43,7 @@ const AdminNavBar = (props) => {
   return (
     <>
       <ToastContainer />
-      <Popover className="relative shadow-lg bg-white">
+      <Popover className="shadow-lg bg-white">
         <div className="max-w-7xl mx-auto px-8">
           <div className="admin-nav-container">
             <div className="w-30 lg:w-0 lg:flex-1">
@@ -48,7 +54,7 @@ const AdminNavBar = (props) => {
               </Link>
             </div>
 
-            <div className="relative">
+            <div onClick={(e) => e.stopPropagation()} className="relative">
               <div
                 onClick={() => setOpenAvatar(!openAvatar)}
                 className="avatar-container text-black hover:text-gray-700"
