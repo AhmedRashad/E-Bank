@@ -24,3 +24,8 @@
         * Pend the accounts
 
 ## To use the application [Online Banking System](https://online-banking-system1.herokuapp.com)
+
+## Login in with admin account
+
+Email: [admin@gmail.com]
+Password: [123456]
